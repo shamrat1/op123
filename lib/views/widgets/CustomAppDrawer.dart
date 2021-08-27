@@ -14,6 +14,7 @@ class CustomAppDrawer extends StatefulWidget {
 class _CustomAppDrawerState extends State<CustomAppDrawer> {
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       width: MediaQuery.of(context).size.width * 0.60,
       color: Theme.of(context).backgroundColor,
@@ -39,7 +40,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.arrow_forward,
+                  Icons.home,
                   color: Colors.white,
                 ),
                 title: Text(
@@ -47,15 +48,13 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyHomePage(title: "NOne")));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
                 },
               ),
               ListTile(
                 leading: Icon(
-                  Icons.arrow_forward,
+                  Icons.login,
                   color: Colors.white,
                 ),
                 title: Text(
@@ -69,7 +68,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.arrow_forward,
+                  Icons.how_to_reg,
                   color: Colors.white,
                 ),
                 title: Text(

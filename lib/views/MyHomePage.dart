@@ -7,8 +7,7 @@ import 'package:op123/views/widgets/CustomAppDrawer.dart';
 import 'games/FlipCoin.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

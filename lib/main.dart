@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:op123/views/MyHomePage.dart';
 import 'package:op123/views/authentication/Signin.dart';
 import 'package:op123/views/authentication/Signup.dart';
+import 'package:op123/views/games/FlipCoin.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,8 +42,8 @@ class MyApp extends StatelessWidget {
         //       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
         // )
       ),
-      // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: SignUpPage(),
+      home: MyHomePage(),
+      // home: CoinFlip(),
     );
   }
 }
