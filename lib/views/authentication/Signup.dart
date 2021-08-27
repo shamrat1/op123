@@ -15,8 +15,12 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordConfirmation = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _mobileController = TextEditingController();
   EdgeInsets margin = EdgeInsets.symmetric(horizontal: 20);
-
+  var selectedClub = "Select Club";
+  void _handleClub(String clubId) {
+    // some
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +28,17 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: getStaticAppBar(context),
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          // height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           color: Theme.of(context).backgroundColor,
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width * 0.90,
                 padding: EdgeInsets.symmetric(vertical: 20),
+                margin: EdgeInsets.symmetric(vertical: 20),
                 // height: MediaQuery.of(context).size.height * 0.50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -65,9 +71,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: TextFormField(
                         controller: _nameController,
                         decoration: InputDecoration(
-                            labelText: "Name",
+                            labelText: "Username",
                             border: OutlineInputBorder(),
-                            hintText: "your name"),
+                            hintText: "Username"),
                       ),
                     ),
                     SizedBox(
@@ -76,6 +82,21 @@ class _SignUpPageState extends State<SignUpPage> {
                     Container(
                       margin: margin,
                       child: TextFormField(
+                        keyboardType: TextInputType.phone,
+                        controller: _mobileController,
+                        decoration: InputDecoration(
+                            labelText: "Mobile Number",
+                            border: OutlineInputBorder(),
+                            hintText: "your mobile number"),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: margin,
+                      child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: InputDecoration(
                             labelText: "Email",
@@ -111,6 +132,74 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: margin,
+                      child: TextFormField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                            labelText: "Sponser",
+                            border: OutlineInputBorder(),
+                            hintText: "Name of Sponser"),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    // Container(
+                    //   margin: margin,
+                    //   child: DropdownButton(
+                    //     items: [
+                    //       DropdownMenuItem(
+                    //         child: Text("op365"),
+                    //         onTap: () => _handleClub('1'),
+                    //       ),
+                    //       DropdownMenuItem(
+                    //         child: Text("other club"),
+                    //         onTap: () => _handleClub('2'),
+                    //       ),
+                    //       DropdownMenuItem(
+                    //         child: Text("Another club"),
+                    //         onTap: () => _handleClub('3'),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    Container(
+                      margin: margin,
+                      width: MediaQuery.of(context).size.width * 0.77,
+                      child: DropdownButton<String>(
+                        hint: Text(selectedClub),
+                        underline: Container(
+                          height: 2,
+                          width: MediaQuery.of(context).size.width * 0.77,
+                          color: Colors.black45,
+                        ),
+                        dropdownColor: Theme.of(context).backgroundColor,
+                        items: <String>[
+                          'Op365',
+                          'Some Club',
+                          'Club House 354',
+                          'DBoyzzz'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: new Text(
+                              value,
+                              style: getDefaultTextStyle(size: 18),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedClub = value ?? "Select Club";
+                          });
+                        },
+                      ),
+                    ),
+
                     SizedBox(
                       height: 20,
                     ),
