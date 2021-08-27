@@ -11,7 +11,7 @@ void showPlaceBetModal(BuildContext context) {
       context: context,
       builder: (context) {
         return Container(
-            height: MediaQuery.of(context).size.height * 0.60,
+            height: MediaQuery.of(context).size.height * 0.80,
             child: PlaceBetWidget());
       });
 }
@@ -107,11 +107,14 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
               ),
             ],
           ),
+          SizedBox(
+            height: 200,
+          ),
           InkWell(
             onTap: () => print("Tapped"),
             child: Container(
               height: 50,
-              width: 200,
+              // width: 200,
               margin: EdgeInsets.only(top: 20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -119,7 +122,7 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
               child: Center(
                 child: Text(
                   "Place Bet",
-                  style: getDefaultTextStyle(size: 20),
+                  style: getDefaultTextStyle(size: 20, weight: FontWeight.bold),
                 ),
               ),
             ),
