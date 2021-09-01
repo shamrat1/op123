@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:marquee/marquee.dart';
 import 'package:op123/app/helpers/SliverPersistantHeaderDelegateImplementation.dart';
+import 'package:op123/app/models/Match.dart';
+import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
 
 import 'games/FlipCoin.dart';
@@ -127,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage>
         ));
   }
 
-  Widget _getSingleMatch() {
+  Widget _getSingleMatch(Match match) {
     return Container(
       // height: 150,
       margin: EdgeInsets.all(8.0),
@@ -151,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "India V England",
+                            match.name ?? '',
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
@@ -160,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage>
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            "England Tour Of India, 2021 | 2021-02-05 10:00 AM",
+                            "${match.tournament!.name} | ${match.matchTime}",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
@@ -170,131 +173,78 @@ class _MyHomePageState extends State<MyHomePage>
                         ],
                       ),
                     ),
-                    _getSportIcon("cricket"),
+                    _getSportIcon(match.sportType ?? ''),
                   ],
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width - 16,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, left: 15),
-                          child: Text(
-                            "1st Over Run",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
+                for (var j = 0; j < match.betsForMatch!.length; j++)
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width - 16,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).accentColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10, left: 15),
+                            child: Text(
+                              match.betsForMatch![j].betOption?.name ?? '',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 3 * 20 + 20,
-                        child: GridView.count(
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          padding: EdgeInsets.all(0),
-                          mainAxisSpacing: 2,
-                          crossAxisSpacing: 2,
-                          crossAxisCount: 2,
-                          childAspectRatio:
-                              (MediaQuery.of(context).size.width * 0.40 / 20),
-                          children: [
-                            for (var i = 1; i < 7; i++)
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.40,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
-                                  child: Text(
-                                    "$i Run",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              )
-                          ],
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width - 16,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, left: 15),
-                          child: Text(
-                            "1st Innings Total Run",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
+                        Container(
+                          height:
+                              (match.betsForMatch![j].betDetails!.length / 2)
+                                          .ceil() *
+                                      20 +
+                                  20,
+                          child: GridView.count(
+                            physics: NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.all(0),
+                            mainAxisSpacing: 2,
+                            crossAxisSpacing: 2,
+                            crossAxisCount: 2,
+                            childAspectRatio:
+                                (MediaQuery.of(context).size.width * 0.40 / 20),
+                            children: [
+                              for (var k = 0;
+                                  k < match.betsForMatch![j].betDetails!.length;
+                                  k++)
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.40,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Center(
+                                    child: Text(
+                                      "${match.betsForMatch![j].betDetails![k].name} ${match.betsForMatch![j].betDetails![k].value} ",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                )
+                            ],
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 20 * 3,
-                        child: GridView.count(
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          padding: EdgeInsets.all(0),
-                          mainAxisSpacing: 2,
-                          crossAxisSpacing: 2,
-                          crossAxisCount: 2,
-                          childAspectRatio:
-                              (MediaQuery.of(context).size.width * 0.40 / 20),
-                          children: [
-                            for (var i = 1; i < 4; i++)
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.40,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
-                                  child: Text(
-                                    "${i * 100 + (20)} Run",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              )
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           )
@@ -343,20 +293,25 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  Widget _tabOne(int length) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(0.0),
-      physics: AlwaysScrollableScrollPhysics(),
-      child: Container(
-        // height: 400,
-        color: Colors.black,
-        child: Column(
-          children: [
-            for (var i = 0; i < length; i++) _getSingleMatch(),
-          ],
+  Widget _tabOne() {
+    return Consumer(builder: (context, watch, child) {
+      var matchesState = watch(matchesProvider);
+
+      return SingleChildScrollView(
+        padding: EdgeInsets.all(0.0),
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Container(
+          // height: 400,
+          color: Colors.black,
+          child: Column(
+            children: [
+              for (var i = 0; i < matchesState.length; i++)
+                _getSingleMatch(matchesState[i]),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   @override
@@ -424,7 +379,7 @@ class _MyHomePageState extends State<MyHomePage>
             child: TabBarView(
               controller: _tabController,
               children: [
-                _tabOne(4),
+                _tabOne(),
                 _getGames(),
               ],
             ),

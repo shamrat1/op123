@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/MyHomePage.dart';
-import 'package:op123/views/authentication/Signin.dart';
-import 'package:op123/views/authentication/Signup.dart';
 import 'package:op123/views/games/FlipCoin.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 Map<int, Color> customSwatch = {
@@ -23,8 +23,10 @@ Map<int, Color> customSwatch = {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    context.read(matchesProvider.notifier).getMatches();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
