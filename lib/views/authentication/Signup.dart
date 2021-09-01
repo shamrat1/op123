@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
+import 'package:op123/app/controllers/SignUpController.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
 import 'package:op123/views/widgets/StaticAppBar.dart';
 
@@ -11,16 +12,28 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController _usernameController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
+  TextEditingController _countryController = TextEditingController();
+  TextEditingController _sponserController = TextEditingController();
   TextEditingController _passwordConfirmation = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _mobileController = TextEditingController();
   EdgeInsets margin = EdgeInsets.symmetric(horizontal: 20);
+
   var selectedClub = "Select Club";
   void _handleClub(String clubId) {
     // some
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _countryController.text = "Bangladesh";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,11 +82,24 @@ class _SignUpPageState extends State<SignUpPage> {
                     Container(
                       margin: margin,
                       child: TextFormField(
-                        controller: _nameController,
+                        controller: _usernameController,
                         decoration: InputDecoration(
                             labelText: "Username",
                             border: OutlineInputBorder(),
                             hintText: "Username"),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: margin,
+                      child: TextFormField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                            labelText: "Name",
+                            border: OutlineInputBorder(),
+                            hintText: "Name"),
                       ),
                     ),
                     SizedBox(
@@ -133,12 +159,25 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: margin,
+                      child: TextFormField(
+                        controller: _countryController,
+                        decoration: InputDecoration(
+                          labelText: "Country",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: margin,
                       child: TextFormField(
-                        controller: _nameController,
+                        controller: _sponserController,
                         decoration: InputDecoration(
                             labelText: "Sponser",
                             border: OutlineInputBorder(),
@@ -204,7 +243,18 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 20,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        SignUpController(
+                                context: context,
+                                username: _usernameController.text,
+                                password: _passwordController.text,
+                                passwordConfirmation:
+                                    _passwordConfirmation.text,
+                                email: _emailController.text,
+                                name: _nameController.text,
+                                country: _countryController.text)
+                            .register();
+                      },
                       child: Text(
                         "Sign Up",
                         style: getDefaultTextStyle(

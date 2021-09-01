@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
+import 'package:op123/app/controllers/SignInController.dart';
 import 'package:op123/views/authentication/Signup.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
 import 'package:op123/views/widgets/StaticAppBar.dart';
@@ -13,7 +14,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  TextEditingController _emailController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   EdgeInsets margin = EdgeInsets.symmetric(horizontal: 20);
   @override
@@ -61,11 +62,11 @@ class _SignInPageState extends State<SignInPage> {
                     Container(
                       margin: margin,
                       child: TextFormField(
-                        controller: _emailController,
+                        controller: _usernameController,
                         decoration: InputDecoration(
-                            labelText: "Email",
+                            labelText: "Username",
                             border: OutlineInputBorder(),
-                            hintText: "your email"),
+                            hintText: "your username"),
                       ),
                     ),
                     SizedBox(
@@ -86,7 +87,13 @@ class _SignInPageState extends State<SignInPage> {
                       height: 20,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        SignInController(
+                          context: context,
+                          username: _usernameController.text,
+                          password: _passwordController.text,
+                        ).signin();
+                      },
                       child: Text(
                         "Sign In",
                         style: getDefaultTextStyle(

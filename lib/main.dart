@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/MyHomePage.dart';
 import 'package:op123/views/games/FlipCoin.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: OverlaySupport.global(child: MyApp())));
 }
 
 Map<int, Color> customSwatch = {
