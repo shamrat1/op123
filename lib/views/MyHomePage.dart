@@ -6,6 +6,7 @@ import 'package:op123/app/helpers/SliverPersistantHeaderDelegateImplementation.d
 import 'package:op123/app/models/Match.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
+import 'package:op123/views/widgets/PlaceBetWidget.dart';
 
 import 'games/FlipCoin.dart';
 
@@ -222,20 +223,36 @@ class _MyHomePageState extends State<MyHomePage>
                               for (var k = 0;
                                   k < match.betsForMatch![j].betDetails!.length;
                                   k++)
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.40,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Center(
-                                    child: Text(
-                                      "${match.betsForMatch![j].betDetails![k].name} ${match.betsForMatch![j].betDetails![k].value} ",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500),
+                                InkWell(
+                                  onTap: () {
+                                    _showPlaceBetDialog(PlaceBetObjectModel(
+                                        matchName: match.name!,
+                                        betDetailKey: match.betsForMatch![j]
+                                            .betDetails![k].name!,
+                                        betDetailValue: match.betsForMatch![j]
+                                            .betDetails![k].value!,
+                                        betForMatchId: match
+                                            .betsForMatch![j].id!
+                                            .toString(),
+                                        betOptionName: match
+                                            .betsForMatch![j].betOption!.name!,
+                                        matchId: match.id!.toString()));
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.40,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Center(
+                                      child: Text(
+                                        "${match.betsForMatch![j].betDetails![k].name} ${match.betsForMatch![j].betDetails![k].value} ",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500),
+                                      ),
                                     ),
                                   ),
                                 )
@@ -312,6 +329,16 @@ class _MyHomePageState extends State<MyHomePage>
         ),
       );
     });
+  }
+
+  void _showPlaceBetDialog(PlaceBetObjectModel data) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return PlaceBetWidget(
+            data: data,
+          );
+        });
   }
 
   @override

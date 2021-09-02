@@ -1,2 +1,3 @@
 var currencylogoText = "৳";
-String rootUrl = "http://localhost:8888/new-web/public/api/";
+// String rootUrl = "http://worldbet365.in/api/";
+String rootUrl = "http://localhost:8888/new-web/api/";

@@ -101,10 +101,20 @@ class Match {
       };
 }
 
+class PlaceBetObjectModel {
+  final String matchName;
+  final String matchId;
+  final String betOptionName;
+  final String betForMatchId;
+  final String betDetailKey;
+  final String betDetailValue;
 
-
-
-
-
-
-
+  const PlaceBetObjectModel({
+    required this.matchName,
+    required this.betDetailKey,
+    required this.betDetailValue,
+    required this.betForMatchId,
+    required this.betOptionName,
+    required this.matchId,
+  });
+}
