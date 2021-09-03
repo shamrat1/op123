@@ -14,73 +14,74 @@ class CustomAppDrawer extends StatefulWidget {
 class _CustomAppDrawerState extends State<CustomAppDrawer> {
   @override
   Widget build(BuildContext context) {
-    
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.60,
-      color: Theme.of(context).backgroundColor,
-      child: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 40,
-                child: SvgPicture.asset("assets/images/logo-light.svg"),
-              ),
-              Divider(
-                color: Colors.white,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.40,
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.home,
+    return SafeArea(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.60,
+        color: Theme.of(context).backgroundColor,
+        child: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 40,
+                  child: SvgPicture.asset("assets/images/logo-light.svg"),
+                ),
+                Divider(
                   color: Colors.white,
                 ),
-                title: Text(
-                  "Home",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.40,
                 ),
-                onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.login,
-                  color: Colors.white,
+                ListTile(
+                  leading: Icon(
+                    Icons.home,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    "Home",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
                 ),
-                title: Text(
-                  "Sign In",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ListTile(
+                  leading: Icon(
+                    Icons.login,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    "Sign In",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => SignInPage()));
+                  },
                 ),
-                onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignInPage()));
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.how_to_reg,
-                  color: Colors.white,
+                ListTile(
+                  leading: Icon(
+                    Icons.how_to_reg,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    "Sign Up",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => SignUpPage()));
+                  },
                 ),
-                title: Text(
-                  "Sign Up",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()));
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
