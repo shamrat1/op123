@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read(matchesProvider.notifier).getMatches();
+    context.read(authUserProvider.notifier).setUser();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

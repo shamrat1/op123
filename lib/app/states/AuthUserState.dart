@@ -14,14 +14,15 @@ class AuthUserState extends StateNotifier<User> {
 
   void add() async {
     var storage = FlutterSecureStorage();
-    await storage.write(key: userKey, value: jsonEncode(state));
+    print(state.toMap());
+    await storage.write(key: userKey, value: jsonEncode(state.toMap()));
   }
 
   void setUser() async {
     var storage = FlutterSecureStorage();
-    var user = jsonDecode(await storage.read(key: userKey) ?? "");
+    var user = await storage.read(key: userKey);
     if (user != "") {
-      state = User.fromMap(user);
+      state = User.fromMap(jsonDecode(user!));
     }
   }
 }

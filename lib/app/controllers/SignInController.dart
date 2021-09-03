@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart';
 import 'package:op123/app/models/GeneralResponse.dart';
 import 'package:op123/app/services/AuthenticationService.dart';
 import 'package:op123/app/states/AuthUserState.dart';
@@ -32,16 +33,7 @@ class SignInController {
 
       if (response.statusCode == 200) {
         try {
-          var generalResponse = generalResponseFromMap(response.body);
-          var providerContainer = ProviderContainer();
-          var authUserState = providerContainer.read(authUserProvider.notifier);
-          authUserState.change(generalResponse.user!);
-          authUserState.add();
-          showSimpleNotification(Text("Login Successful."),
-              background: Colors.green);
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => MyHomePage()),
-              (route) => false);
+          _handleAuthenticatedUser(response);
         } catch (e) {
           print(e);
         }
@@ -58,6 +50,18 @@ class SignInController {
             background: Colors.amber);
       }
     }
+  }
+
+  void _handleAuthenticatedUser(Response response) {
+    var generalResponse = generalResponseFromMap(response.body);
+    var providerContainer = ProviderContainer();
+    var authUserState = providerContainer.read(authUserProvider.notifier);
+    authUserState.change(generalResponse.user!);
+    authUserState.add();
+    showSimpleNotification(Text("Login Successful."), background: Colors.green);
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+        (route) => false);
   }
 
   bool _validate() {
