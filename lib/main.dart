@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_context/one_context.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/MyHomePage.dart';
 import 'package:op123/views/games/FlipCoin.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(ProviderScope(child: OverlaySupport.global(child: MyApp())));
@@ -29,25 +31,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read(matchesProvider.notifier).getMatches();
     context.read(authUserProvider.notifier).setUser();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: "Tajawal",
-        accentColor: Color(0xff9f7c37),
-        backgroundColor: Color(0xff2e2e2e),
-        primaryColor: Colors.white,
-        focusColor: Colors.white,
-        iconTheme: IconThemeData(color: Color(0xff9f7c37)),
-        primarySwatch: MaterialColor(0xFFFFFFFF, customSwatch),
-        // inputDecorationTheme: InputDecorationTheme(
-        //   focusColor: Colors.white,
-        //   focusedBorder:
-        //       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-        // )
-      ),
-      home: MyHomePage(),
-      // home: CoinFlip(),
-    );
+    return Sizer(builder: (context, origentation, deviceType) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: OneContext().navigator.key,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          fontFamily: "Tajawal",
+          accentColor: Color(0xff9f7c37),
+          backgroundColor: Color(0xff2e2e2e),
+          primaryColor: Colors.white,
+          focusColor: Colors.white,
+          iconTheme: IconThemeData(color: Color(0xff9f7c37)),
+          primarySwatch: MaterialColor(0xFFFFFFFF, customSwatch),
+          // inputDecorationTheme: InputDecorationTheme(
+          //   focusColor: Colors.white,
+          //   focusedBorder:
+          //       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+          // )
+        ),
+        home: MyHomePage(),
+        // home: CoinFlip(),
+      );
+    });
   }
 }

@@ -2,34 +2,29 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:op123/app/Enums/Games.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
 import 'package:op123/app/constants/globals.dart';
+import 'package:op123/app/controllers/GameController.dart';
 import 'package:op123/app/models/Match.dart';
 import 'package:sizer/sizer.dart';
 
-void showPlaceBetModal(BuildContext context) {
-  showModalBottomSheet(
-      isDismissible: false,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) {
-        return Container();
-        // return Container(
-        //     height: MediaQuery.of(context).size.height * 0.80,
-        //     child: PlaceBetWidget());
-      });
-}
-
-class PlaceBetWidget extends StatefulWidget {
-  final PlaceBetObjectModel data;
-  const PlaceBetWidget({Key? key, required this.data}) : super(key: key);
+class StartGameDialog extends StatefulWidget {
+  final String name;
+  final double rate;
+  final Games gameType;
+  const StartGameDialog(
+      {Key? key,
+      required this.name,
+      required this.rate,
+      required this.gameType})
+      : super(key: key);
 
   @override
-  _PlaceBetWidgetState createState() => _PlaceBetWidgetState();
+  _StartGameDialogState createState() => _StartGameDialogState();
 }
 
-class _PlaceBetWidgetState extends State<PlaceBetWidget> {
+class _StartGameDialogState extends State<StartGameDialog> {
   TextEditingController _amountController = TextEditingController();
   double possibleReturn = 0.0;
 
@@ -52,7 +47,7 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Place a Bet",
+                    "OnPlay365 Games",
                     style: getDefaultTextStyle(
                         size: 18.sp, weight: FontWeight.bold),
                   ),
@@ -69,18 +64,14 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
                 color: Colors.white,
               ),
               Text(
-                widget.data.matchName,
+                widget.name,
                 style:
                     getDefaultTextStyle(size: 16.sp, weight: FontWeight.w700),
               ),
               Text(
-                widget.data.betOptionName,
+                "Rate ${widget.rate}",
                 style:
                     getDefaultTextStyle(size: 15.sp, weight: FontWeight.w500),
-              ),
-              Text(
-                "${widget.data.betDetailKey} ${widget.data.betDetailValue}",
-                style: getDefaultTextStyle(size: 14.sp),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -95,8 +86,7 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
                   onChanged: (value) {
                     if (int.tryParse(value) is int) {
                       setState(() {
-                        possibleReturn = int.parse(value) *
-                            double.tryParse(widget.data.betDetailValue)!;
+                        possibleReturn = int.parse(value) * widget.rate;
                       });
                     } else {
                       setState(() {
@@ -126,7 +116,11 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
               ),
               Spacer(),
               InkWell(
-                onTap: () => print("Tapped"),
+                onTap: () => GameController(
+                        type: widget.gameType,
+                        rate: widget.rate,
+                        inputAmount: _amountController.text)
+                    .initiateGame(),
                 child: Container(
                   height: 50,
                   // width: 200,
@@ -136,9 +130,9 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
                       color: Theme.of(context).backgroundColor),
                   child: Center(
                     child: Text(
-                      "Place Bet",
+                      "Start Game",
                       style: getDefaultTextStyle(
-                          size: 16.sp, weight: FontWeight.bold),
+                          size: 15.sp, weight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -148,5 +142,12 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _amountController.dispose();
   }
 }

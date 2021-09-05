@@ -1,22 +1,41 @@
 import 'dart:async';
-import 'dart:ui';
+import 'dart:math';
 
+import 'package:confetti/confetti.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/views/widgets/PlaceBetWidget.dart';
+import 'package:sizer/sizer.dart';
 
 class CoinFlip extends StatefulWidget {
-  const CoinFlip({Key? key}) : super(key: key);
+  const CoinFlip({Key? key, required this.win}) : super(key: key);
+  final bool win;
 
   @override
   _CoinFlipState createState() => _CoinFlipState();
 }
 
 class _CoinFlipState extends State<CoinFlip> {
-  bool _isClicked = false;
-  bool _isLoading = false;
+  bool _isLoading = true;
+  late ConfettiController _controllerBottomCenter;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllerBottomCenter =
+        ConfettiController(duration: const Duration(seconds: 10));
+    Timer(Duration(seconds: 7), () {
+      setState(() {
+        _isLoading = false;
+        _controllerBottomCenter.play();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controllerBottomCenter.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,47 +43,51 @@ class _CoinFlipState extends State<CoinFlip> {
       appBar: AppBar(
         title: Text("Coin Flip"),
       ),
-      body: Container(
-        color: Colors.grey,
-        child: Center(
-          child: InkWell(
-            onTap: () {
-              showPlaceBetModal(context);
-              // setState(() {
-              //   _isLoading = true;
-              //   _isClicked = !_isClicked;
-              // });
-              // Timer.periodic(Duration(seconds: 3), (timer) {
-              //   setState(() {
-              //     _isLoading = false;
-              //   });
-              // });
-            },
-            child: Column(
-              children: [
-                Container(
-                  width: 200,
-                  // color: Colors.grey,
-                  height: 200,
-                  child: FlareActor(
-                    "assets/images/coin_flip_blob.flr",
-                    animation: '3D Coin Flip',
+      body: Stack(
+        children: [
+          Container(
+            color: Colors.grey,
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(height: 20.h,),
+                  Container(
+                    width: 200,
+                    height: 200,
+                    child: AnimatedSwitcher(
+                      duration: Duration(microseconds: 800),
+                      child: _isLoading
+                          ? Container(
+                              width: 200,
+                              // color: Colors.grey,
+                              height: 200,
+                              child: FlareActor(
+                                "assets/images/coin_flip_blob.flr",
+                                animation: '3D Coin Flip',
+                              ),
+                            )
+                          : (widget.win
+                              ? Image.asset("assets/images/head.png")
+                              : Image.asset("assets/images/tail.png")),
+                    ),
                   ),
-                ),
-                Container(
-                  width: 200,
-                  height: 200,
-                  child: AnimatedSwitcher(
-                    duration: Duration(microseconds: 800),
-                    child: _isClicked
-                        ? Image.asset("assets/images/head.png")
-                        : Image.asset("assets/images/tail.png"),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ConfettiWidget(
+              confettiController: _controllerBottomCenter,
+              blastDirection: -pi / 2,
+              emissionFrequency: 0.01,
+              numberOfParticles: 20,
+              maxBlastForce: 100,
+              minBlastForce: 80,
+              gravity: 0.3,
+            ),
+          ),
+        ],
       ),
     );
   }

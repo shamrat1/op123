@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:marquee/marquee.dart';
+import 'package:op123/app/Enums/Games.dart';
 import 'package:op123/app/helpers/SliverPersistantHeaderDelegateImplementation.dart';
 import 'package:op123/app/models/Match.dart';
 import 'package:op123/app/states/StateManager.dart';
+import 'package:op123/views/games/StartGame.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
 import 'package:op123/views/widgets/PlaceBetWidget.dart';
 
@@ -278,11 +280,7 @@ class _MyHomePageState extends State<MyHomePage>
         child: Column(
           children: [
             InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return CoinFlip();
-                }));
-              },
+              onTap: () => _showStartGameDialog("Coin Flip", 1.8,Games.COIN_FLIP),
               child: Container(
                 height: 40,
                 margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
@@ -338,6 +336,14 @@ class _MyHomePageState extends State<MyHomePage>
           return PlaceBetWidget(
             data: data,
           );
+        });
+  }
+
+  void _showStartGameDialog(String name, double rate, Games type) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return StartGameDialog(name: name, rate: rate,gameType: type);
         });
   }
 
