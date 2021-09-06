@@ -41,7 +41,7 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
         alignment: Alignment.center,
         child: Container(
           width: 90.w,
-          height: 50.h,
+          // height: 50.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Theme.of(context).accentColor),

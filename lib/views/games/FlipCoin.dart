@@ -17,16 +17,21 @@ class CoinFlip extends StatefulWidget {
 class _CoinFlipState extends State<CoinFlip> {
   bool _isLoading = true;
   late ConfettiController _controllerBottomCenter;
+  String resultText = "Loading...";
 
   @override
   void initState() {
     super.initState();
     _controllerBottomCenter =
         ConfettiController(duration: const Duration(seconds: 10));
+
     Timer(Duration(seconds: 7), () {
       setState(() {
         _isLoading = false;
-        _controllerBottomCenter.play();
+        if (widget.win) {
+          _controllerBottomCenter.play();
+        }
+        resultText = widget.win ? "Yahooo! You Win." : "ohh! You Lose.";
       });
     });
   }
@@ -46,11 +51,13 @@ class _CoinFlipState extends State<CoinFlip> {
       body: Stack(
         children: [
           Container(
-            color: Colors.grey,
+            color: Theme.of(context).backgroundColor,
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Container(
                     width: 200,
                     height: 200,
@@ -71,6 +78,16 @@ class _CoinFlipState extends State<CoinFlip> {
                               : Image.asset("assets/images/tail.png")),
                     ),
                   ),
+                  AnimatedDefaultTextStyle(
+                    child: Text(resultText),
+                    style: TextStyle(
+                        color: _isLoading
+                            ? Colors.grey
+                            : (widget.win ? Colors.green : Colors.red),
+                        fontSize: _isLoading ? 13.sp : 30.sp),
+                    duration: Duration(seconds: 2),
+                    curve: Curves.bounceOut,
+                  )
                 ],
               ),
             ),

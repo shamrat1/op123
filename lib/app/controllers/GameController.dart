@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:one_context/one_context.dart';
 import 'package:op123/app/Enums/Games.dart';
@@ -18,10 +20,13 @@ class GameController {
   void initiateGame() {
     if (_validate()) {
       print("Here");
+      Random r = new Random();
+      double falseProbability = .7;
+      bool booleanResult = r.nextDouble() > falseProbability;
       OneContext().pop();
       OneContext().push(
         MaterialPageRoute(
-          builder: (context) => CoinFlip(win: true),
+          builder: (context) => CoinFlip(win: booleanResult),
         ),
       );
     }
