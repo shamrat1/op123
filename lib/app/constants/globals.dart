@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 var currencylogoText = "৳";
-String rootUrl = "http://mywebdeveloper.zomanoo.com/public/api/";
+String rootUrl = "https://onplay365.uk/api/";
 // String rootUrl = "http://localhost:8888/new-web/api/";
 
 String userKey = "authenticatedUser";

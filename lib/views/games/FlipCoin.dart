@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:op123/app/constants/TextDefaultStyle.dart';
 import 'package:sizer/sizer.dart';
 
 class CoinFlip extends StatefulWidget {
@@ -87,6 +88,23 @@ class _CoinFlipState extends State<CoinFlip> {
                         fontSize: _isLoading ? 13.sp : 30.sp),
                     duration: Duration(seconds: 2),
                     curve: Curves.bounceOut,
+                  ),
+                  Spacer(),
+                  if (!_isLoading)
+                    Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 5.h, vertical: 2.w),
+                      color: Theme.of(context).backgroundColor,
+                      child: TextButton(
+                        child: Text(
+                          "Play Again",
+                          style: getDefaultTextStyle(size: 14.sp),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 20.h,
                   )
                 ],
               ),

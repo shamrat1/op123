@@ -1,14 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:marquee/marquee.dart';
 import 'package:op123/app/Enums/Games.dart';
+import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/helpers/SliverPersistantHeaderDelegateImplementation.dart';
+import 'package:op123/app/models/BetDetail.dart';
+import 'package:op123/app/models/BetsForMatch.dart';
 import 'package:op123/app/models/Match.dart';
+import 'package:op123/app/models/User.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/games/StartGame.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
 import 'package:op123/views/widgets/PlaceBetWidget.dart';
+import 'package:op123/views/widgets/Sports.dart';
 
 import 'games/FlipCoin.dart';
 
@@ -26,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void initState() {
+    _initialSetup();
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
@@ -34,6 +43,16 @@ class _MyHomePageState extends State<MyHomePage>
         // print("tabs are clicked ${_tabController.index}");
       });
     });
+  }
+
+  void _initialSetup() async {
+    var storage = FlutterSecureStorage();
+    var token = await storage.read(key: tokenKey);
+    var user = await storage.read(key: userKey);
+    context.read(authTokenProvider.notifier).change(token!);
+    context
+        .read(authUserProvider.notifier)
+        .change(User.fromMap(jsonDecode(user!)));
   }
 
   Widget _getSportCategories(int i) {
@@ -99,177 +118,8 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  Container _getSportIcon(String sport) {
-    var asset = '';
-    switch (sport) {
-      case 'all':
-        asset = "assets/images/all_sports_2.png";
-        break;
-      case 'football':
-        asset = "assets/images/football.png";
-        break;
-      case 'cricket':
-        asset = "assets/images/cricket.png";
-        break;
-      case 'basketball':
-        asset = "assets/images/basketball.png";
-        break;
-      case 'volleyball':
-        asset = "assets/images/volleyball.png";
-        break;
-      case 'badminton':
-        asset = "assets/images/badminton.png";
-        break;
-      default:
-        break;
-    }
-
-    return Container(
-        width: 60,
-        height: 70,
-        child: Image.asset(
-          asset,
-          fit: BoxFit.contain,
-        ));
-  }
-
   Widget _getSingleMatch(Match match) {
-    return Container(
-      // height: 150,
-      margin: EdgeInsets.all(8.0),
-      // padding: EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.70,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            match.name ?? '',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.left,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            "${match.tournament!.name} | ${match.matchTime}",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                        ],
-                      ),
-                    ),
-                    _getSportIcon(match.sportType ?? ''),
-                  ],
-                ),
-                for (var j = 0; j < match.betsForMatch!.length; j++)
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width - 16,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).accentColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 10, left: 15),
-                            child: Text(
-                              match.betsForMatch![j].betOption?.name ?? '',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height:
-                              (match.betsForMatch![j].betDetails!.length / 2)
-                                          .ceil() *
-                                      20 +
-                                  20,
-                          child: GridView.count(
-                            physics: NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            padding: EdgeInsets.all(0),
-                            mainAxisSpacing: 2,
-                            crossAxisSpacing: 2,
-                            crossAxisCount: 2,
-                            childAspectRatio:
-                                (MediaQuery.of(context).size.width * 0.40 / 20),
-                            children: [
-                              for (var k = 0;
-                                  k < match.betsForMatch![j].betDetails!.length;
-                                  k++)
-                                InkWell(
-                                  onTap: () {
-                                    _showPlaceBetDialog(PlaceBetObjectModel(
-                                        matchName: match.name!,
-                                        betDetailKey: match.betsForMatch![j]
-                                            .betDetails![k].name!,
-                                        betDetailValue: match.betsForMatch![j]
-                                            .betDetails![k].value!,
-                                        betForMatchId: match
-                                            .betsForMatch![j].id!
-                                            .toString(),
-                                        betOptionName: match
-                                            .betsForMatch![j].betOption!.name!,
-                                        matchId: match.id!.toString()));
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.40,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Center(
-                                      child: Text(
-                                        "${match.betsForMatch![j].betDetails![k].name} ${match.betsForMatch![j].betDetails![k].value} ",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+    return SportView(match: match);
   }
 
   Widget _getGames() {
@@ -280,7 +130,8 @@ class _MyHomePageState extends State<MyHomePage>
         child: Column(
           children: [
             InkWell(
-              onTap: () => _showStartGameDialog("Coin Flip", 1.8,Games.COIN_FLIP),
+              onTap: () =>
+                  _showStartGameDialog("Coin Flip", 1.8, Games.COIN_FLIP),
               child: Container(
                 height: 40,
                 margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
@@ -312,38 +163,34 @@ class _MyHomePageState extends State<MyHomePage>
     return Consumer(builder: (context, watch, child) {
       var matchesState = watch(matchesProvider);
 
-      return SingleChildScrollView(
-        padding: EdgeInsets.all(0.0),
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Container(
-          // height: 400,
-          color: Colors.black,
-          child: Column(
-            children: [
-              for (var i = 0; i < matchesState.length; i++)
-                _getSingleMatch(matchesState[i]),
-            ],
+      return RefreshIndicator(
+        backgroundColor: Theme.of(context).accentColor,
+        onRefresh: () {
+          return context.read(matchesProvider.notifier).getMatches();
+        },
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(0.0),
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Container(
+            // height: 400,
+            color: Colors.black,
+            child: Column(
+              children: [
+                for (var i = 0; i < matchesState.length; i++)
+                  _getSingleMatch(matchesState[i]),
+              ],
+            ),
           ),
         ),
       );
     });
   }
 
-  void _showPlaceBetDialog(PlaceBetObjectModel data) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return PlaceBetWidget(
-            data: data,
-          );
-        });
-  }
-
   void _showStartGameDialog(String name, double rate, Games type) {
     showDialog(
         context: context,
         builder: (context) {
-          return StartGameDialog(name: name, rate: rate,gameType: type);
+          return StartGameDialog(name: name, rate: rate, gameType: type);
         });
   }
 

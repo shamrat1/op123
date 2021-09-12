@@ -4,22 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
 import 'package:op123/app/constants/globals.dart';
+import 'package:op123/app/controllers/PlaceBetController.dart';
 import 'package:op123/app/models/Match.dart';
 import 'package:sizer/sizer.dart';
-
-void showPlaceBetModal(BuildContext context) {
-  showModalBottomSheet(
-      isDismissible: false,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) {
-        return Container();
-        // return Container(
-        //     height: MediaQuery.of(context).size.height * 0.80,
-        //     child: PlaceBetWidget());
-      });
-}
 
 class PlaceBetWidget extends StatefulWidget {
   final PlaceBetObjectModel data;
@@ -41,7 +28,7 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
         alignment: Alignment.center,
         child: Container(
           width: 90.w,
-          // height: 50.h,
+          height: 50.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Theme.of(context).accentColor),
@@ -72,6 +59,7 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
                 widget.data.matchName,
                 style:
                     getDefaultTextStyle(size: 16.sp, weight: FontWeight.w700),
+                textAlign: TextAlign.center,
               ),
               Text(
                 widget.data.betOptionName,
@@ -126,7 +114,12 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
               ),
               Spacer(),
               InkWell(
-                onTap: () => print("Tapped"),
+                onTap: () => PlacedBetController(
+                        event: PlacedBetEvent.Register,
+                        context: context,
+                        amount: _amountController.text,
+                        modelObject: widget.data)
+                    .registerBet(),
                 child: Container(
                   height: 50,
                   // width: 200,
@@ -148,5 +141,11 @@ class _PlaceBetWidgetState extends State<PlaceBetWidget> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _amountController.dispose();
   }
 }

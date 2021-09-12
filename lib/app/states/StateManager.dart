@@ -8,3 +8,12 @@ var matchesProvider =
     StateNotifierProvider<MatchState, List<Match>>((ref) => MatchState([]));
 var authUserProvider =
     StateNotifierProvider<AuthUserState, User>((ref) => AuthUserState(User()));
+
+var authTokenProvider =
+    StateNotifierProvider<TokenState, String>((ref) => TokenState(""));
+
+class TokenState extends StateNotifier<String> {
+  TokenState(String state) : super(state);
+
+  void change(String token) => state = token;
+}

@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
+import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/models/GeneralResponse.dart';
 import 'package:op123/app/services/AuthenticationService.dart';
 import 'package:op123/app/states/AuthUserState.dart';
@@ -30,7 +32,7 @@ class SignInController {
         "password": password,
       };
       var response = await _authenticationService.signIn(data);
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         try {
           _handleAuthenticatedUser(response);
@@ -54,8 +56,16 @@ class SignInController {
 
   void _handleAuthenticatedUser(Response response) {
     var generalResponse = generalResponseFromMap(response.body);
-    var providerContainer = ProviderContainer();
-    var authUserState = providerContainer.read(authUserProvider.notifier);
+    print(generalResponse.user?.token);
+    var authUserState = context.read(authUserProvider.notifier);
+    if (generalResponse.user != null) {
+      context
+          .read(authTokenProvider.notifier)
+          .change(generalResponse.user!.token!);
+      var storage = FlutterSecureStorage();
+      storage.write(key: tokenKey, value: generalResponse.user!.token!);
+    }
+
     authUserState.change(generalResponse.user!);
     authUserState.add();
     showSimpleNotification(Text("Login Successful."), background: Colors.green);

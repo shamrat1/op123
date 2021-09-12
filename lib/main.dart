@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_context/one_context.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/MyHomePage.dart';
-import 'package:op123/views/games/FlipCoin.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read(matchesProvider.notifier).getMatches();
-    context.read(authUserProvider.notifier).setUser();
+    // context.read(authUserProvider.notifier).setUser();
     return Sizer(builder: (context, origentation, deviceType) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,7 +50,6 @@ class MyApp extends StatelessWidget {
           // )
         ),
         home: MyHomePage(),
-        // home: CoinFlip(),
       );
     });
   }
