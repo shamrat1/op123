@@ -8,7 +8,7 @@ import 'package:op123/app/services/RemoteService.dart';
 class GameService {
   Future<List<Match>> startCoinGame(Map<String, dynamic> data) async {
     var url = rootUrl + "game/coin-toss/start";
-    var headers = RemoteService.getAuthenticatedHeader();
+    var headers = await RemoteService.getAuthenticatedHeader();
     var response = await http.post(Uri.parse(url),
         headers: headers, body: json.encode(data));
     if (response.statusCode == 200) {
@@ -19,7 +19,7 @@ class GameService {
 
   void placeBet(Map<String, dynamic> data) async {
     var url = rootUrl + "/placeBet";
-    var headers = RemoteService.getAuthenticatedHeader();
+    var headers = await RemoteService.getAuthenticatedHeader();
     var response = await http.post(Uri.parse(url),
         headers: headers, body: json.encode(data));
     if (response.statusCode == 200) {}

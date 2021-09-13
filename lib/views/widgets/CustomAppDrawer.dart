@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:op123/app/constants/TextDefaultStyle.dart';
+import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/models/User.dart';
+import 'package:op123/app/states/CreditState.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/MyHomePage.dart';
 import 'package:op123/views/authentication/Signin.dart';
@@ -108,67 +111,87 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
   }
 
   Widget _setAuthorizedView(User user) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 10.h,
-        ),
-        Container(
-          height: 40,
-          child: SvgPicture.asset("assets/images/logo-light.svg"),
-        ),
-        Divider(
-          color: Colors.white,
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.40,
-        ),
+    return Consumer(
+      builder: (context, watch, child) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 10.h,
+            ),
+            Container(
+              height: 40,
+              child: SvgPicture.asset("assets/images/logo-light.svg"),
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
 
-        ListTile(
-          leading: Icon(
-            Icons.person,
-            color: Colors.white,
-          ),
-          title: Text(
-            "Hello, ${user.name}",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ),
-        // ListTile(
-        //   leading: Icon(
-        //     Icons.login,
-        //     color: Colors.white,
-        //   ),
-        //   title: Text(
-        //     "Sign In",
-        //     style: TextStyle(color: Colors.white, fontSize: 20),
-        //   ),
-        //   onTap: () {
-        //     Navigator.pushReplacement(
-        //         context,
-        //         MaterialPageRoute(
-        //             builder: (context) => SignInPage()));
-        //   },
-        // ),
-        // ListTile(
-        //   leading: Icon(
-        //     Icons.how_to_reg,
-        //     color: Colors.white,
-        //   ),
-        //   title: Text(
-        //     "Sign Up",
-        //     style: TextStyle(color: Colors.white, fontSize: 20),
-        //   ),
-        //   onTap: () {
-        //     Navigator.pushReplacement(
-        //         context,
-        //         MaterialPageRoute(
-        //             builder: (context) => SignUpPage()));
-        //   },
-        // ),
-      ],
+            ListTile(
+              leading: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Hello, ${user.name}",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            ListTile(
+              onLongPress: () =>
+                  context.read(creditProvider.notifier).fetchCredit(),
+              leading: Icon(
+                Icons.monetization_on_outlined,
+                color: Theme.of(context).accentColor,
+              ),
+              title: Text(
+                "Coins ${context.read(creditProvider)} $currencylogoText",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              subtitle: Text(
+                "Longpress to sync with server.",
+                style: getDefaultTextStyle(size: 8.sp),
+              ),
+            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.login,
+            //     color: Colors.white,
+            //   ),
+            //   title: Text(
+            //     "Sign In",
+            //     style: TextStyle(color: Colors.white, fontSize: 20),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pushReplacement(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (context) => SignInPage()));
+            //   },
+            // ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.how_to_reg,
+            //     color: Colors.white,
+            //   ),
+            //   title: Text(
+            //     "Sign Up",
+            //     style: TextStyle(color: Colors.white, fontSize: 20),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pushReplacement(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (context) => SignUpPage()));
+            //   },
+            // ),
+          ],
+        );
+      },
     );
   }
 }

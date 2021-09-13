@@ -12,6 +12,7 @@ import 'package:op123/app/models/BetDetail.dart';
 import 'package:op123/app/models/BetsForMatch.dart';
 import 'package:op123/app/models/Match.dart';
 import 'package:op123/app/models/User.dart';
+import 'package:op123/app/states/CreditState.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/games/StartGame.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
@@ -50,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage>
     var token = await storage.read(key: tokenKey);
     var user = await storage.read(key: userKey);
     context.read(authTokenProvider.notifier).change(token!);
+    context.read(creditProvider.notifier).fetchCredit();
     context
         .read(authUserProvider.notifier)
         .change(User.fromMap(jsonDecode(user!)));

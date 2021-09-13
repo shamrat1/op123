@@ -9,7 +9,7 @@ class GameService {
   
   Future<http.Response> placeBet(Map<String, dynamic> data) async {
     var url = rootUrl + "/placeBet";
-    var headers = RemoteService.getAuthenticatedHeader();
+    var headers = await RemoteService.getAuthenticatedHeader();
     var response = await http.post(Uri.parse(url),
         headers: headers, body: json.encode(data));
     return response;
