@@ -11,6 +11,7 @@ class AuthUserState extends StateNotifier<User> {
   }
 
   void change(User user) => state = user;
+  // void reset() => state = User();
 
   void add() async {
     var storage = FlutterSecureStorage();

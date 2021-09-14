@@ -34,6 +34,13 @@ class RemoteService {
     return response;
   }
 
+  Future<http.Response> getBetHistory() async {
+    var url = rootUrl + "bet/history";
+    var headers = await getAuthenticatedHeader();
+    var response = await http.get(Uri.parse(url), headers: headers);
+    return response;
+  }
+
   static Future<Map<String, String>> getAuthenticatedHeader() async {
     var token = await FlutterSecureStorage().read(key: tokenKey);
     if (token != null) {
