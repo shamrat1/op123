@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
+import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/models/BetHistoryResponse.dart';
 import 'package:op123/app/services/RemoteService.dart';
 import 'package:op123/views/widgets/StaticAppBar.dart';
@@ -34,6 +35,7 @@ class _BetHistoryState extends State<BetHistory> {
     });
     var response = await RemoteService().getBetHistory();
     if (response.statusCode == 200) {
+      print(response.body);
       // var betHistoryResponse = betHistoryResponseFromMap(response.body);
       var betHistoryResponse =
           BetHistoryResponse.fromMap(jsonDecode(response.body));
@@ -57,8 +59,65 @@ class _BetHistoryState extends State<BetHistory> {
 
   Widget _setSingleTile(Bet bet) {
     print(bets.length);
-    return ListTile(
-      title: Text("Bet Name : ${bet.betName} & Value: ${bet.betValue}"),
+    return Container(
+      width: 90.w,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.black38,
+      ),
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 1.h,
+          ),
+          Text(
+            bet.match!.name!,
+            style: getDefaultTextStyle(size: 14.sp),
+          ),
+          SizedBox(
+            height: 0.5.h,
+          ),
+          Text(
+            "${bet.betName!} => ${bet.betValue!.toStringAsFixed(2)}",
+            style: getDefaultTextStyle(size: 13.sp),
+          ),
+          SizedBox(
+            height: 0.5.h,
+          ),
+          Text(
+            "Status => WIN / LOSS",
+            style: getDefaultTextStyle(size: 12.sp),
+          ),
+          SizedBox(
+            height: 0.5.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Amount: ${bet.amount} $currencylogoText",
+                style: getDefaultTextStyle(size: 12.sp),
+              ),
+              Text(
+                "Possible Return: ${(bet.amount! * bet.betValue!).toStringAsFixed(2)} $currencylogoText",
+                style: getDefaultTextStyle(size: 12.sp),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 0.5.h,
+          ),
+          Divider(
+            color: Colors.white,
+          ),
+          Text(
+            "Placed At: ${bet.createdAt}",
+            style: TextStyle(color: Colors.grey, fontSize: 9.sp),
+          ),
+        ],
+      ),
     );
   }
 
@@ -86,7 +145,7 @@ class _BetHistoryState extends State<BetHistory> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     for (var i = 0; i < bets.length; i++)
                       _setSingleTile(bets[i]),

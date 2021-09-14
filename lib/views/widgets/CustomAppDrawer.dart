@@ -189,7 +189,8 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
               ),
             ),
             ListTile(
-              onTap: () => print("Transaction"),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage())),
               leading: Icon(
                 Icons.account_balance,
                 color: Theme.of(context).accentColor,
