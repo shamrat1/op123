@@ -36,19 +36,23 @@ class MyApp extends StatelessWidget {
         navigatorKey: OneContext().navigator.key,
         title: 'Flutter Demo',
         theme: ThemeData(
-          fontFamily: "Tajawal",
-          accentColor: Color(0xff9f7c37),
-          backgroundColor: Color(0xff2e2e2e),
-          primaryColor: Colors.white,
-          focusColor: Colors.white,
-          iconTheme: IconThemeData(color: Color(0xff9f7c37)),
-          primarySwatch: MaterialColor(0xFFFFFFFF, customSwatch),
-          // inputDecorationTheme: InputDecorationTheme(
-          //   focusColor: Colors.white,
-          //   focusedBorder:
-          //       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-          // )
-        ),
+            fontFamily: "Tajawal",
+            accentColor: Color(0xff9f7c37),
+            backgroundColor: Color(0xff2e2e2e),
+            primaryColor: Colors.white,
+            focusColor: Colors.white,
+            iconTheme: IconThemeData(color: Color(0xff9f7c37)),
+            primarySwatch: MaterialColor(0xFFFFFFFF, customSwatch),
+            buttonTheme: ButtonThemeData(
+              buttonColor: Color(0xff9f7c37),
+              textTheme: ButtonTextTheme.primary,
+            )
+            // inputDecorationTheme: InputDecorationTheme(
+            //   focusColor: Colors.white,
+            //   focusedBorder:
+            //       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+            // )
+            ),
         home: MyHomePage(),
       );
     });

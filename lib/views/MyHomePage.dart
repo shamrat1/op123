@@ -14,6 +14,7 @@ import 'package:op123/app/models/Match.dart';
 import 'package:op123/app/models/User.dart';
 import 'package:op123/app/states/CreditState.dart';
 import 'package:op123/app/states/StateManager.dart';
+import 'package:op123/views/games/BoardGame.dart';
 import 'package:op123/views/games/StartGame.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
 import 'package:op123/views/widgets/PlaceBetWidget.dart';
@@ -159,6 +160,30 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
               ),
             ),
+            InkWell(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BoardGame())),
+              child: Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                width: MediaQuery.of(context).size.width - 16,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, left: 15),
+                  child: Text(
+                    "Board Game ( 3 Run )",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
