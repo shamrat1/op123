@@ -108,6 +108,7 @@ class PlaceBetObjectModel {
   final String betForMatchId;
   final String betDetailKey;
   final String betDetailValue;
+  final String betDetailsId;
 
   const PlaceBetObjectModel({
     required this.matchName,
@@ -116,5 +117,6 @@ class PlaceBetObjectModel {
     required this.betForMatchId,
     required this.betOptionName,
     required this.matchId,
+    required this.betDetailsId,
   });
 }

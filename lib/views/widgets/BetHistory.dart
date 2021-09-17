@@ -132,24 +132,27 @@ class _BetHistoryState extends State<BetHistory> {
       ),
       body: Stack(
         children: [
-          Container(
-            height: 100.h,
-            width: 100.w,
-            color: Colors.black,
+          SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).backgroundColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    for (var i = 0; i < bets.length; i++)
-                      _setSingleTile(bets[i]),
-                  ],
+              height: 100.h,
+              width: 100.w,
+              color: Colors.black,
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).backgroundColor,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      for (var i = 0; i < bets.length; i++)
+                        _setSingleTile(bets[i]),
+                    ],
+                  ),
                 ),
               ),
             ),

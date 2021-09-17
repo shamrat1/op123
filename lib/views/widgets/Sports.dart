@@ -133,6 +133,7 @@ class _SportViewState extends State<SportView> {
                     betDetailValue: betDetail.value!,
                     betForMatchId: betsForMatch.id!.toString(),
                     betOptionName: betsForMatch.betOption!.name!,
+                    betDetailsId: betDetail.id.toString(),
                     matchId: widget.match.id!.toString()))
             .showPlaceBetModal();
       },

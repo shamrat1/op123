@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/models/Match.dart';
+import 'package:op123/app/services/BetService.dart';
+import 'package:op123/app/states/CreditState.dart';
+import 'package:op123/views/widgets/BetHistory.dart';
 import 'package:op123/views/widgets/PlaceBetWidget.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:validators/validators.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum PlacedBetEvent { Show, Register }
 
@@ -23,10 +27,36 @@ class PlacedBetController {
 
   int userCredit = 300;
 
-  void registerBet() {
+  void registerBet() async {
     if (_validate()) {
-      print("${modelObject?.betDetailKey} | ${modelObject?.betDetailValue}");
-      Navigator.pop(context);
+      var data = {
+        "bets-details-id": modelObject!.betDetailsId,
+        "match_id": modelObject!.matchId,
+        "amount": amount,
+      };
+      var response = await BetService().placeBet(data);
+      if (response.statusCode == 200) {
+        print(response.body);
+
+        var creditProviderState = context.read(creditProvider);
+        context
+            .read(creditProvider.notifier)
+            .change(creditProviderState - double.parse(amount!));
+
+        showCustomSimpleNotification(
+            "Successfully Placed Bet. Good Luck.", Colors.green);
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BetHistory()));
+      } else if (response.statusCode == 419) {
+        showCustomSimpleNotification(response.body, Colors.red);
+        // Navigator.pop(context);
+      } else {
+        showCustomSimpleNotification(
+            "Unknown Error While Placing Bet. Try Again", Colors.red);
+        Navigator.pop(context);
+        toast(response.body);
+      }
     }
   }
 
