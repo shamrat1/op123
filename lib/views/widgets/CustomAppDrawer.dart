@@ -11,6 +11,7 @@ import 'package:op123/views/MyHomePage.dart';
 import 'package:op123/views/authentication/Signin.dart';
 import 'package:op123/views/authentication/Signup.dart';
 import 'package:op123/views/widgets/BetHistory.dart';
+import 'package:op123/views/widgets/Transaction.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomAppDrawer extends StatefulWidget {
@@ -190,7 +191,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
             ),
             ListTile(
               onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyHomePage())),
+                  MaterialPageRoute(builder: (context) => TransactionsPage())),
               leading: Icon(
                 Icons.account_balance,
                 color: Theme.of(context).accentColor,

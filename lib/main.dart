@@ -46,12 +46,7 @@ class MyApp extends StatelessWidget {
             buttonTheme: ButtonThemeData(
               buttonColor: Color(0xff9f7c37),
               textTheme: ButtonTextTheme.primary,
-            )
-            // inputDecorationTheme: InputDecorationTheme(
-            //   focusColor: Colors.white,
-            //   focusedBorder:
-            //       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-            // )
+            ),
             ),
         home: MyHomePage(),
       );

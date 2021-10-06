@@ -42,7 +42,7 @@ class RemoteService {
   }
 
   static Future<Map<String, String>> getAuthenticatedHeader() async {
-    var token = await FlutterSecureStorage().read(key: tokenKey);
+    var token = await FlutterSecureStorage().read(key: tokenKey) ?? null;
     if (token != null) {
       return {
         "Authorization": "Bearer $token",

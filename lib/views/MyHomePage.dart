@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:marquee/marquee.dart';
 import 'package:op123/app/Enums/Games.dart';
+import 'package:op123/app/constants/TextDefaultStyle.dart';
 import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/helpers/SliverPersistantHeaderDelegateImplementation.dart';
 import 'package:op123/app/models/BetDetail.dart';
@@ -19,7 +20,7 @@ import 'package:op123/views/games/StartGame.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
 import 'package:op123/views/widgets/PlaceBetWidget.dart';
 import 'package:op123/views/widgets/Sports.dart';
-
+import 'package:sizer/sizer.dart';
 import 'games/FlipCoin.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -239,9 +240,22 @@ class _MyHomePageState extends State<MyHomePage>
                 pinned: true,
                 backgroundColor: Theme.of(context).backgroundColor,
                 title: Container(
-                    height: 40,
-                    width: 200,
-                    child: SvgPicture.asset("assets/images/logo-light.svg")),
+                  height: 40,
+                  width: 150,
+                  child: SvgPicture.asset("assets/images/logo-light.svg"),
+                ),
+                actions: [
+                  Row(
+                    children: [
+                      Icon(Icons.monetization_on_outlined,
+                          color: Theme.of(context).accentColor),
+                      Text(
+                        "${context.read(creditProvider).toString()} $currencylogoText",
+                        style: getDefaultTextStyle(size: 12.sp),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               SliverToBoxAdapter(
                 child: Container(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
+import 'package:op123/app/constants/globals.dart';
+import 'package:op123/app/states/CreditState.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 AppBar getStaticAppBar(BuildContext context, {String? title}) {
   return AppBar(
@@ -17,5 +20,17 @@ AppBar getStaticAppBar(BuildContext context, {String? title}) {
             width: 200,
             child: SvgPicture.asset("assets/images/logo-light.svg"),
           ),
+    actions: [
+      Row(
+        children: [
+          Icon(Icons.monetization_on_outlined,
+              color: Theme.of(context).accentColor),
+          Text(
+            "${context.read(creditProvider).toString()} $currencylogoText",
+            style: getDefaultTextStyle(size: 12.sp),
+          ),
+        ],
+      ),
+    ],
   );
 }
