@@ -9,19 +9,21 @@ import 'package:op123/app/Enums/Games.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
 import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/helpers/SliverPersistantHeaderDelegateImplementation.dart';
-import 'package:op123/app/models/BetDetail.dart';
-import 'package:op123/app/models/BetsForMatch.dart';
 import 'package:op123/app/models/Match.dart';
 import 'package:op123/app/models/User.dart';
 import 'package:op123/app/states/CreditState.dart';
+import 'package:op123/app/states/SettingState.dart';
 import 'package:op123/app/states/StateManager.dart';
 import 'package:op123/views/games/BoardGame.dart';
 import 'package:op123/views/games/StartGame.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
+import 'package:op123/views/widgets/MatchesLoadingScreen.dart';
 import 'package:op123/views/widgets/PlaceBetWidget.dart';
 import 'package:op123/views/widgets/Sports.dart';
 import 'package:sizer/sizer.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 import 'games/FlipCoin.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -37,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void initState() {
-    _initialSetup();
+    // _initialSetup();
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
@@ -52,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage>
     var storage = FlutterSecureStorage();
     var token = await storage.read(key: tokenKey);
     var user = await storage.read(key: userKey);
+    context.read(settingResponseProvider);
     if (token != null) {
       context.read(authTokenProvider.notifier).change(token);
       context.read(creditProvider.notifier).fetchCredit();
@@ -106,15 +109,15 @@ class _MyHomePageState extends State<MyHomePage>
         print(slug);
       },
       child: Container(
-        width: 50,
-        height: 50,
+        width: 30,
+        height: 300,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               asset,
-              width: 60,
-              height: 60,
+              width: 30,
+              height: 30,
             ),
             SizedBox(
               height: 10,
@@ -162,8 +165,7 @@ class _MyHomePageState extends State<MyHomePage>
               ),
             ),
             InkWell(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BoardGame())),
+              onTap: () => _showStartGameDialog("Run 2", 1.3, Games.RUN_2),
               child: Container(
                 height: 40,
                 margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
@@ -174,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage>
                 child: Padding(
                   padding: EdgeInsets.only(top: 10, left: 15),
                   child: Text(
-                    "Board Game ( 3 Run )",
+                    "Run Game ( 2 Run )",
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
@@ -184,7 +186,76 @@ class _MyHomePageState extends State<MyHomePage>
                   ),
                 ),
               ),
-            )
+            ),
+            InkWell(
+              onTap: () => _showStartGameDialog("Run 3", 1.3, Games.RUN_3),
+              child: Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                width: MediaQuery.of(context).size.width - 16,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, left: 15),
+                  child: Text(
+                    "Run Game ( 3 Run )",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => _showStartGameDialog("Run 4", 1.9, Games.RUN_4),
+              child: Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                width: MediaQuery.of(context).size.width - 16,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, left: 15),
+                  child: Text(
+                    "Run Game ( 4 Run )",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => _showStartGameDialog("Run 6", 2.5, Games.RUN_6),
+              child: Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                width: MediaQuery.of(context).size.width - 16,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, left: 15),
+                  child: Text(
+                    "Run Game ( 6 Run )",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -198,21 +269,46 @@ class _MyHomePageState extends State<MyHomePage>
       return RefreshIndicator(
         backgroundColor: Theme.of(context).accentColor,
         onRefresh: () {
-          return context.read(matchesProvider.notifier).getMatches();
+          return context.refresh(matchesProvider);
         },
         child: SingleChildScrollView(
           padding: EdgeInsets.all(0.0),
           physics: AlwaysScrollableScrollPhysics(),
-          child: Container(
-            // height: 400,
-            color: Colors.black,
-            child: Column(
-              children: [
-                for (var i = 0; i < matchesState.length; i++)
-                  _getSingleMatch(matchesState[i]),
-              ],
-            ),
-          ),
+          child: matchesState.when(
+              data: (data) {
+                return Container(
+                  // height: 400,
+                  color: Colors.black,
+                  child: Column(
+                    children: [
+                      for (var i = 0; i < data.length; i++)
+                        _getSingleMatch(data[i]),
+                    ],
+                  ),
+                );
+              },
+              loading: () => MatchesLoadingScreen(),
+              error: (error, trace) {
+                // showCustomSimpleNotification(
+                //     "Something Went Wrong. ${error.toString()}", Colors.red);
+                return Container(
+                  height: 400,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Error!",
+                        style: getDefaultTextStyle(size: 15),
+                      ),
+                      Text(
+                        "Some thing went wrong. Try Again later.",
+                        style: getDefaultTextStyle(size: 13),
+                      ),
+                    ],
+                  ),
+                );
+              }),
         ),
       );
     });
@@ -335,13 +431,16 @@ class MarqueeTextSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-      child: Marquee(
-        text: "This is a long very long Message. Which is dedicated to Users",
-        style: TextStyle(color: Colors.white, fontSize: 15),
-      ),
-    );
+    return Consumer(builder: (context, watch, child) {
+      return Container(
+        color: Theme.of(context).backgroundColor,
+        child: Marquee(
+          text: watch(settingResponseProvider)?.siteSetting?.notice ??
+              "Loading...",
+          style: TextStyle(color: Colors.white, fontSize: 15),
+        ),
+      );
+    });
   }
 
   @override

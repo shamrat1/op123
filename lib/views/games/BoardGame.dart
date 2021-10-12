@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:op123/app/Enums/Games.dart';
 import 'package:op123/app/constants/RunOneGame.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/states/GameState.dart';
 import 'package:op123/views/widgets/StaticAppBar.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
@@ -13,7 +13,18 @@ import 'package:flutter_spinning_wheel/flutter_spinning_wheel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BoardGame extends StatefulWidget {
-  const BoardGame({Key? key}) : super(key: key);
+  final int totalSpinsAllowed;
+  final String title;
+  final int targetScore;
+  final Games type;
+
+  const BoardGame({
+    Key? key,
+    required this.totalSpinsAllowed,
+    required this.title,
+    required this.targetScore,
+    required this.type,
+  }) : super(key: key);
 
   @override
   _BoardGameState createState() => _BoardGameState();
@@ -30,7 +41,6 @@ class GameOption {
 class _BoardGameState extends State<BoardGame> {
   final StreamController _dividerController = StreamController<int>();
   final _wheelNotifier = StreamController<double>();
-  var _totalSpinAllowed = 4;
   var _spinsTaken = 0;
   var _wicketDown = false;
   var _score = 0;
@@ -55,7 +65,7 @@ class _BoardGameState extends State<BoardGame> {
       _score += element.score;
     });
     return Scaffold(
-      appBar: getStaticAppBar(context, title: "Board Game"),
+      appBar: getStaticAppBar(context, title: widget.title),
       body: Container(
         height: 100.h,
         width: 100.w,
@@ -82,7 +92,7 @@ class _BoardGameState extends State<BoardGame> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Total Spins Allowed : $_totalSpinAllowed",
+                              "Total Spins Allowed : ${widget.totalSpinsAllowed}",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -152,7 +162,7 @@ class _BoardGameState extends State<BoardGame> {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      "Target Score : 5",
+                      "Target Score : ${widget.targetScore}",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -199,10 +209,11 @@ class _BoardGameState extends State<BoardGame> {
                           : Container();
                     }),
                 Spacer(),
-                if (_totalSpinAllowed > _spinsTaken && _wicketDown == false)
+                if (widget.totalSpinsAllowed > _spinsTaken &&
+                    _wicketDown == false)
                   InkWell(
                     onTap: () {
-                      if (_spinsTaken < _totalSpinAllowed) {
+                      if (_spinsTaken < widget.totalSpinsAllowed) {
                         if (!_wicketDown) {
                           setState(() {
                             _spinsTaken++;
@@ -226,7 +237,7 @@ class _BoardGameState extends State<BoardGame> {
                           EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                       margin: EdgeInsets.only(bottom: 20, top: 10),
                       decoration: BoxDecoration(
-                          color: _spinsTaken < _totalSpinAllowed
+                          color: _spinsTaken < widget.totalSpinsAllowed
                               ? Theme.of(context).accentColor
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5),
@@ -248,7 +259,8 @@ class _BoardGameState extends State<BoardGame> {
                       ),
                     ),
                   ),
-                if (_totalSpinAllowed == _spinsTaken || _wicketDown == true)
+                if (widget.totalSpinsAllowed == _spinsTaken ||
+                    _wicketDown == true)
                   InkWell(
                     onTap: () {
                       Navigator.of(context).pop();
@@ -258,7 +270,7 @@ class _BoardGameState extends State<BoardGame> {
                           EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                       margin: EdgeInsets.only(bottom: 20, top: 10),
                       decoration: BoxDecoration(
-                          color: _spinsTaken < _totalSpinAllowed
+                          color: _spinsTaken < widget.totalSpinsAllowed
                               ? Theme.of(context).accentColor
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5),

@@ -41,6 +41,12 @@ class RemoteService {
     return response;
   }
 
+  Future<http.Response> getSettings() async {
+    var url = rootUrl + "settings/xxxyyyzzz";
+    return await http
+        .get(Uri.parse(url), headers: {"accept": "application/json"});
+  }
+
   static Future<Map<String, String>> getAuthenticatedHeader() async {
     var token = await FlutterSecureStorage().read(key: tokenKey) ?? null;
     if (token != null) {
