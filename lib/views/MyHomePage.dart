@@ -134,132 +134,213 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   Widget _getGames() {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Container(
-        // color: Colors.black,
-        child: Column(
-          children: [
-            InkWell(
-              onTap: () =>
-                  _showStartGameDialog("Coin Flip", 1.8, Games.COIN_FLIP),
-              child: Container(
-                height: 40,
-                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                width: MediaQuery.of(context).size.width - 16,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, left: 15),
-                  child: Text(
-                    "Coin Flip",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
+    return GridView.count(
+      crossAxisCount: 2,
+      children: [
+        InkWell(
+          onTap: () => _showStartGameDialog("Coin Flip", Games.COIN_FLIP),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              child: Image.asset("assets/images/head.png"),
             ),
-            InkWell(
-              onTap: () => _showStartGameDialog("Run 2", 1.3, Games.RUN_2),
-              child: Container(
-                height: 40,
-                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                width: MediaQuery.of(context).size.width - 16,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, left: 15),
-                  child: Text(
-                    "Run Game ( 2 Run )",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () => _showStartGameDialog("Run 3", 1.3, Games.RUN_3),
-              child: Container(
-                height: 40,
-                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                width: MediaQuery.of(context).size.width - 16,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, left: 15),
-                  child: Text(
-                    "Run Game ( 3 Run )",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () => _showStartGameDialog("Run 4", 1.9, Games.RUN_4),
-              child: Container(
-                height: 40,
-                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                width: MediaQuery.of(context).size.width - 16,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, left: 15),
-                  child: Text(
-                    "Run Game ( 4 Run )",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () => _showStartGameDialog("Run 6", 2.5, Games.RUN_6),
-              child: Container(
-                height: 40,
-                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                width: MediaQuery.of(context).size.width - 16,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, left: 15),
-                  child: Text(
-                    "Run Game ( 6 Run )",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        InkWell(
+          onTap: () => _showStartGameDialog("Run 2", Games.RUN_2),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              child: Image.asset("assets/images/opg2-01.png"),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => _showStartGameDialog("Run 3", Games.RUN_3),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              child: Image.asset("assets/images/opg3-01.png"),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => _showStartGameDialog("Run 4", Games.RUN_4),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              child: Image.asset("assets/images/opg4-01.png"),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => _showStartGameDialog("Run 6", Games.RUN_6),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              child: Image.asset("assets/images/opg6-01.png"),
+            ),
+          ),
+        ),
+      ],
     );
+
+    // return SingleChildScrollView(
+    //   physics: BouncingScrollPhysics(),
+    //   child: Container(
+    //     // color: Colors.black,
+    //     child: Column(
+    //       children: [
+    //         InkWell(
+    //           onTap: () =>
+    //               _showStartGameDialog("Coin Flip", 1.8, Games.COIN_FLIP),
+    //           child: Container(
+    //             height: 40,
+    //             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+    //             width: MediaQuery.of(context).size.width - 16,
+    //             decoration: BoxDecoration(
+    //                 color: Theme.of(context).accentColor,
+    //                 borderRadius: BorderRadius.circular(10)),
+    //             child: Padding(
+    //               padding: EdgeInsets.only(top: 10, left: 15),
+    //               child: Text(
+    //                 "Coin Flip",
+    //                 style: TextStyle(
+    //                     fontSize: 20,
+    //                     color: Colors.white,
+    //                     fontWeight: FontWeight.w700),
+    //                 textAlign: TextAlign.center,
+    //                 overflow: TextOverflow.ellipsis,
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         InkWell(
+    //           onTap: () => _showStartGameDialog("Run 2", 1.3, Games.RUN_2),
+    //           child: Container(
+    //             height: 40,
+    //             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+    //             width: MediaQuery.of(context).size.width - 16,
+    //             decoration: BoxDecoration(
+    //                 color: Theme.of(context).accentColor,
+    //                 borderRadius: BorderRadius.circular(10)),
+    //             child: Padding(
+    //               padding: EdgeInsets.only(top: 10, left: 15),
+    //               child: Text(
+    //                 "Run Game ( 2 Run )",
+    //                 style: TextStyle(
+    //                     fontSize: 20,
+    //                     color: Colors.white,
+    //                     fontWeight: FontWeight.w700),
+    //                 textAlign: TextAlign.center,
+    //                 overflow: TextOverflow.ellipsis,
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         InkWell(
+    //           onTap: () => _showStartGameDialog("Run 3", 1.3, Games.RUN_3),
+    //           child: Container(
+    //             height: 40,
+    //             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+    //             width: MediaQuery.of(context).size.width - 16,
+    //             decoration: BoxDecoration(
+    //                 color: Theme.of(context).accentColor,
+    //                 borderRadius: BorderRadius.circular(10)),
+    //             child: Padding(
+    //               padding: EdgeInsets.only(top: 10, left: 15),
+    //               child: Text(
+    //                 "Run Game ( 3 Run )",
+    //                 style: TextStyle(
+    //                     fontSize: 20,
+    //                     color: Colors.white,
+    //                     fontWeight: FontWeight.w700),
+    //                 textAlign: TextAlign.center,
+    //                 overflow: TextOverflow.ellipsis,
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         InkWell(
+    //           onTap: () => _showStartGameDialog("Run 4", 1.9, Games.RUN_4),
+    //           child: Container(
+    //             height: 40,
+    //             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+    //             width: MediaQuery.of(context).size.width - 16,
+    //             decoration: BoxDecoration(
+    //                 color: Theme.of(context).accentColor,
+    //                 borderRadius: BorderRadius.circular(10)),
+    //             child: Padding(
+    //               padding: EdgeInsets.only(top: 10, left: 15),
+    //               child: Text(
+    //                 "Run Game ( 4 Run )",
+    //                 style: TextStyle(
+    //                     fontSize: 20,
+    //                     color: Colors.white,
+    //                     fontWeight: FontWeight.w700),
+    //                 textAlign: TextAlign.center,
+    //                 overflow: TextOverflow.ellipsis,
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //         InkWell(
+    //           onTap: () => _showStartGameDialog("Run 6", 2.5, Games.RUN_6),
+    //           child: Container(
+    //             height: 40,
+    //             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+    //             width: MediaQuery.of(context).size.width - 16,
+    //             decoration: BoxDecoration(
+    //                 color: Theme.of(context).accentColor,
+    //                 borderRadius: BorderRadius.circular(10)),
+    //             child: Padding(
+    //               padding: EdgeInsets.only(top: 10, left: 15),
+    //               child: Text(
+    //                 "Run Game ( 6 Run )",
+    //                 style: TextStyle(
+    //                     fontSize: 20,
+    //                     color: Colors.white,
+    //                     fontWeight: FontWeight.w700),
+    //                 textAlign: TextAlign.center,
+    //                 overflow: TextOverflow.ellipsis,
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _tabOne() {
@@ -314,11 +395,14 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
-  void _showStartGameDialog(String name, double rate, Games type) {
+  void _showStartGameDialog(String name, Games type) {
+    var rate = 0.0;
+    context.read(settingResponseProvider.notifier).fetch();
+
     showDialog(
         context: context,
         builder: (context) {
-          return StartGameDialog(name: name, rate: rate, gameType: type);
+          return StartGameDialog(name: name, gameType: type);
         });
   }
 

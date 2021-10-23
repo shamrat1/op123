@@ -3,7 +3,8 @@ import 'package:http/http.dart';
 import 'package:op123/app/models/SettingResponse.dart';
 import 'package:op123/app/services/RemoteService.dart';
 
-final settingResponseProvider = StateNotifierProvider<SettingState,SettingResponse?>((ref) {
+final settingResponseProvider =
+    StateNotifierProvider<SettingState, SettingResponse?>((ref) {
   return SettingState(null);
 });
 
@@ -18,7 +19,6 @@ class SettingState extends StateNotifier<SettingResponse?> {
     Response response = await RemoteService().getSettings();
     if (response.statusCode == 200) {
       state = settingResponseFromMap(response.body);
-      print(state?.toMap());
     } else {
       throw Exception("Settings Can't be Loaded");
     }
