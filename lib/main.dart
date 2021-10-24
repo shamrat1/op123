@@ -62,7 +62,6 @@ class _MyAppState extends State<MyApp> {
           .read(authUserProvider.notifier)
           .change(User.fromMap(jsonDecode(user)));
     }
-    // print()
   }
 
   @override
