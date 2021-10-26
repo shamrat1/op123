@@ -2,7 +2,6 @@
 //
 //     final gameHistoryResponse = gameHistoryResponseFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GameHistoryResponse gameHistoryResponseFromMap(String str) => GameHistoryResponse.fromMap(json.decode(str));

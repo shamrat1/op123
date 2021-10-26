@@ -22,6 +22,7 @@ class CreditState extends StateNotifier<double> {
       if (amount != null) {
         print("credit :-> $amount");
         state = double.parse(amount);
+        state = state;
       }
     } else {
       toast(

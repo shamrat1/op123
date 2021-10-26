@@ -279,11 +279,24 @@ class _StartGameDialogState extends State<StartGameDialog> {
                     height: 20,
                   ),
                   InkWell(
-                    onTap: () => GameController(
-                            type: widget.gameType,
-                            rate: 1.5,
-                            inputAmount: _amountController.text)
-                        .initiateGame(),
+                    onTap: () {
+                      if (widget.gameType != Games.COIN_FLIP) {
+                        if (selectedRateObj == null) {
+                          return showCustomSimpleNotification(
+                              "Select a Rate first.", Colors.red);
+                        }
+                      }
+                      if(settingProvider != null)
+                      GameController(
+                              type: widget.gameType,
+                              rate: widget.gameType == Games.COIN_FLIP
+                                  ? selectedRate
+                                  : selectedRateObj!.value,
+                              rateObj: selectedRateObj,
+                              settings: settingProvider,
+                              inputAmount: _amountController.text)
+                          .initiateGame();
+                    },
                     child: Container(
                       height: 50,
                       // width: 200,

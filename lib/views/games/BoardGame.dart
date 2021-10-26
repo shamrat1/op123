@@ -15,14 +15,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class BoardGame extends StatefulWidget {
   final int totalSpinsAllowed;
   final String title;
-  final int targetScore;
+  final int targetScoreLow;
+  final int targetScoreHigh;
   final Games type;
 
   const BoardGame({
     Key? key,
     required this.totalSpinsAllowed,
     required this.title,
-    required this.targetScore,
+    required this.targetScoreLow,
+    required this.targetScoreHigh,
     required this.type,
   }) : super(key: key);
 
@@ -162,7 +164,7 @@ class _BoardGameState extends State<BoardGame> {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      "Target Score : ${widget.targetScore}",
+                      "Target Score : ${widget.targetScoreLow} - ${widget.targetScoreHigh}",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

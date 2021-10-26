@@ -20,6 +20,7 @@ class _CoinFlipState extends State<CoinFlip> {
   late ConfettiController _controllerBottomCenter;
   String resultText = "Loading...";
 
+  
   @override
   void initState() {
     super.initState();

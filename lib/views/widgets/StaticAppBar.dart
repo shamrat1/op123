@@ -21,16 +21,18 @@ AppBar getStaticAppBar(BuildContext context, {String? title}) {
             child: SvgPicture.asset("assets/images/logo-light.svg"),
           ),
     actions: [
-      Row(
-        children: [
-          Icon(Icons.monetization_on_outlined,
-              color: Theme.of(context).accentColor),
-          Text(
-            "${context.read(creditProvider).toString()} $currencylogoText",
-            style: getDefaultTextStyle(size: 12.sp),
-          ),
-        ],
-      ),
+      Consumer(builder: (context, watch, child) {
+        return Row(
+          children: [
+            Icon(Icons.monetization_on_outlined,
+                color: Theme.of(context).accentColor),
+            Text(
+              "${watch(creditProvider).toString()} $currencylogoText",
+              style: getDefaultTextStyle(size: 12.sp),
+            ),
+          ],
+        );
+      }),
     ],
   );
 }
