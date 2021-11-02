@@ -47,10 +47,44 @@ class _BoardGameState extends State<BoardGame> {
   var _wicketDown = false;
   var _score = 0;
   List<GameOption> data = [];
+  dynamic gameObjProvider;
 
+  var _wheelImageURL = "";
+  var _dividers = 0;
   @override
   void initState() {
     super.initState();
+    _setGameRequiredVars();
+  }
+
+  void _setGameRequiredVars() {
+    switch (widget.type) {
+      case Games.RUN_2:
+        _wheelImageURL = 'assets/images/wheel-2.png';
+        _dividers = 6;
+        gameObjProvider = RunOneGame();
+        return;
+      case Games.RUN_3:
+        _wheelImageURL = 'assets/images/wheel-3.png';
+        gameObjProvider = RunThreeGame();
+        _dividers = 7;
+        return;
+      case Games.RUN_4:
+        _wheelImageURL = 'assets/images/wheel-4.png';
+        gameObjProvider = RunFourGame();
+
+        _dividers = 8;
+        return;
+      case Games.RUN_6:
+        _wheelImageURL = 'assets/images/wheel-6.png';
+        _dividers = 9;
+        gameObjProvider = RunSixGame();
+
+        return;
+      case Games.COIN_FLIP:
+        // TODO: Handle this case.
+        break;
+    }
   }
 
   @override
@@ -180,12 +214,12 @@ class _BoardGameState extends State<BoardGame> {
                   alignment: Alignment.center,
                   children: [
                     SpinningWheel(
-                      Image.asset('assets/images/wheel-1.png'),
+                      Image.asset(_wheelImageURL),
                       width: MediaQuery.of(context).size.width * 0.60,
                       height: MediaQuery.of(context).size.width * 0.60,
                       initialSpinAngle: _generateRandomAngle(),
                       spinResistance: 0.1,
-                      dividers: 6,
+                      dividers: _dividers,
                       secondaryImage:
                           Image.asset('assets/images/wheel-center-300.png'),
                       secondaryImageHeight: 90,
@@ -195,11 +229,11 @@ class _BoardGameState extends State<BoardGame> {
                       onEnd: _onWheelStops,
                       shouldStartOrStop: _wheelNotifier.stream,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.60,
-                      height: MediaQuery.of(context).size.width * 0.60,
-                      color: Colors.transparent,
-                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width * 0.60,
+                    //   height: MediaQuery.of(context).size.width * 0.60,
+                    //   color: Colors.transparent,
+                    // ),
                   ],
                 ),
                 SizedBox(height: 30),
@@ -207,7 +241,8 @@ class _BoardGameState extends State<BoardGame> {
                     stream: _dividerController.stream,
                     builder: (context, snapshot) {
                       return snapshot.hasData
-                          ? RouletteScore(int.parse(snapshot.data.toString()))
+                          ? RouletteScore(
+                              int.parse(snapshot.data.toString()), widget.type)
                           : Container();
                     }),
                 Spacer(),
@@ -303,9 +338,13 @@ class _BoardGameState extends State<BoardGame> {
   }
 
   void _onWheelStops(dynamic value) {
-    print(RunOneGame().labels[value]);
+    print("-----------------+++++++++++++++++++++-------------------");
+    print(gameObjProvider.runtimeType);
+    print(gameObjProvider.labels[value]);
+    print("-----------------+++++++++++++++++++++-------------------");
+
     var option;
-    switch (RunOneGame().labels[value]) {
+    switch (gameObjProvider.labels[value]) {
       case GameOptionType.dot_ball:
         option = GameOption(
             turn: _spinsTaken, score: 0, type: GameOptionType.dot_ball);
@@ -350,14 +389,33 @@ class _BoardGameState extends State<BoardGame> {
 
 class RouletteScore extends StatelessWidget {
   final int selected;
-  final RunOneGame _runOneGame = RunOneGame();
+  dynamic gameObjProvider;
+  final Games _selectedGame;
 
-  RouletteScore(this.selected);
+  RouletteScore(this.selected, this._selectedGame) {
+    switch (_selectedGame) {
+      case Games.RUN_2:
+        gameObjProvider = RunOneGame();
+        return;
+      case Games.RUN_3:
+        gameObjProvider = RunThreeGame();
+        return;
+      case Games.RUN_4:
+        gameObjProvider = RunFourGame();
+        return;
+      case Games.RUN_6:
+        gameObjProvider = RunSixGame();
+        return;
+      case Games.COIN_FLIP:
+        // TODO: Handle this case.
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      '${gameOptionTypes[_runOneGame.labels[selected]]}',
+      '${gameOptionTypes[gameObjProvider.labels[selected]]}',
       style: getDefaultTextStyle(size: 18),
     );
   }

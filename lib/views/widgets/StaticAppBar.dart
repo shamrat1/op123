@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 AppBar getStaticAppBar(BuildContext context, {String? title}) {
   return AppBar(
+    iconTheme: IconThemeData(color: Theme.of(context).accentColor),
     centerTitle: true,
     backgroundColor: Theme.of(context).backgroundColor,
     title: title != null

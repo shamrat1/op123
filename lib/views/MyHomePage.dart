@@ -430,6 +430,7 @@ class _MyHomePageState extends State<MyHomePage>
             return [
               SliverAppBar(
                 pinned: true,
+                iconTheme: IconThemeData(color: Theme.of(context).accentColor),
                 backgroundColor: Theme.of(context).backgroundColor,
                 title: Container(
                   height: 40,
@@ -437,15 +438,24 @@ class _MyHomePageState extends State<MyHomePage>
                   child: SvgPicture.asset("assets/images/logo-light.svg"),
                 ),
                 actions: [
-                  Row(
-                    children: [
-                      Icon(Icons.monetization_on_outlined,
-                          color: Theme.of(context).accentColor),
-                      Text(
-                        "${context.read(creditProvider).toString()} $currencylogoText",
-                        style: getDefaultTextStyle(size: 12.sp),
-                      ),
-                    ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(Icons.monetization_on_outlined,
+                            color: Theme.of(context).accentColor),
+                        Text(
+                          "${context.read(creditProvider).toString()} $currencylogoText",
+                          style: getDefaultTextStyle(size: 12.sp),
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

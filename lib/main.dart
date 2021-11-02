@@ -41,7 +41,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
   @override
   void initState() {
     super.initState();
@@ -102,8 +101,9 @@ class RootScreen extends StatelessWidget {
         seconds: 5,
         navigateAfterSeconds: new MyHomePage(),
         title: new Text(
-          'Your Sports Partner',
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          'Build on Trust & Reliability',
+          style: new TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white),
         ),
         image: Image.asset("assets/images/logo-light.png"),
         backgroundColor: Colors.black,
