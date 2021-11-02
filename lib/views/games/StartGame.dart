@@ -286,16 +286,16 @@ class _StartGameDialogState extends State<StartGameDialog> {
                               "Select a Rate first.", Colors.red);
                         }
                       }
-                      if(settingProvider != null)
-                      GameController(
-                              type: widget.gameType,
-                              rate: widget.gameType == Games.COIN_FLIP
-                                  ? selectedRate
-                                  : selectedRateObj!.value,
-                              rateObj: selectedRateObj,
-                              settings: settingProvider,
-                              inputAmount: _amountController.text)
-                          .initiateGame();
+                      if (settingProvider != null)
+                        GameController(
+                                type: widget.gameType,
+                                rate: widget.gameType == Games.COIN_FLIP
+                                    ? selectedRate
+                                    : selectedRateObj!.value,
+                                rateObj: selectedRateObj,
+                                settings: settingProvider,
+                                inputAmount: _amountController.text)
+                            .initiateGame();
                     },
                     child: Container(
                       height: 50,

@@ -8,6 +8,7 @@ import 'package:op123/app/models/Match.dart';
 import 'package:op123/app/services/RemoteService.dart';
 
 class GameService {
+  
   Future<List<Match>> startCoinGame(Map<String, dynamic> data) async {
     var url = rootUrl + "game/coin-toss/start";
     var headers = await RemoteService.getAuthenticatedHeader();

@@ -8,6 +8,7 @@ import 'package:marquee/marquee.dart';
 import 'package:op123/app/Enums/Games.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
 import 'package:op123/app/constants/globals.dart';
+import 'package:op123/app/controllers/GameController.dart';
 import 'package:op123/app/helpers/SliverPersistantHeaderDelegateImplementation.dart';
 import 'package:op123/app/models/Match.dart';
 import 'package:op123/app/models/User.dart';
@@ -39,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void initState() {
-    // _initialSetup();
+    _initialSetup();
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
@@ -138,7 +139,18 @@ class _MyHomePageState extends State<MyHomePage>
       crossAxisCount: 2,
       children: [
         InkWell(
-          onTap: () => _showStartGameDialog("Coin Flip", Games.COIN_FLIP),
+          onTap: () {
+            _showStartGameDialog("Coin Flip", Games.COIN_FLIP);
+            // GameController(
+            //         type: widget.gameType,
+            //         rate: widget.gameType == Games.COIN_FLIP
+            //             ? selectedRate
+            //             : selectedRateObj!.value,
+            //         rateObj: selectedRateObj,
+            //         settings: settingProvider,
+            //         inputAmount: _amountController.text)
+            //     .initiateGame();
+          },
           child: Container(
             height: 40,
             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),

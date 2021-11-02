@@ -8,8 +8,8 @@ class AuthenticationService {
     var url = rootUrl + "login";
     print(json.encode(data));
     var headers = _getUnAuthenticatedHeader();
-    var response = await http.post(Uri.parse(url),
-        headers: headers, body: data);
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
 
     return response;
   }
@@ -23,6 +23,14 @@ class AuthenticationService {
   }
 
   Map<String, String> _getUnAuthenticatedHeader() {
-    return {"content": "application/json", "accepts": "application/json"};
+    return {
+      "content": "application/json",
+      "accepts": "application/json",
+      'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+      "Access-Control-Allow-Headers":
+          "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    };
   }
 }

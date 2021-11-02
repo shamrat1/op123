@@ -41,6 +41,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   @override
   void initState() {
     super.initState();
@@ -53,10 +54,12 @@ class _MyAppState extends State<MyApp> {
     var token = await storage.read(key: tokenKey);
     var user = await storage.read(key: userKey);
     context.read(settingResponseProvider);
+
     if (token != null) {
       context.read(authTokenProvider.notifier).change(token);
       context.read(creditProvider.notifier).fetchCredit();
     }
+
     if (user != null) {
       context
           .read(authUserProvider.notifier)
