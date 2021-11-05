@@ -8,8 +8,8 @@ import 'package:op123/app/constants/TextDefaultStyle.dart';
 import 'package:sizer/sizer.dart';
 
 class CoinFlip extends StatefulWidget {
-  const CoinFlip({Key? key, required this.win}) : super(key: key);
-  final bool win;
+  CoinFlip({Key? key, this.win}) : super(key: key);
+  late bool? win;
 
   @override
   _CoinFlipState createState() => _CoinFlipState();
@@ -30,10 +30,10 @@ class _CoinFlipState extends State<CoinFlip> {
     Timer(Duration(seconds: 7), () {
       setState(() {
         _isLoading = false;
-        if (widget.win) {
+        if (widget.win!) {
           _controllerBottomCenter.play();
         }
-        resultText = widget.win ? "Yahooo! You Win." : "ohh! You Lose.";
+        resultText = widget.win! ? "Yahooo! You Win." : "ohh! You Lose.";
       });
     });
   }
@@ -75,7 +75,7 @@ class _CoinFlipState extends State<CoinFlip> {
                                 animation: '3D Coin Flip',
                               ),
                             )
-                          : (widget.win
+                          : (widget.win!
                               ? Image.asset("assets/images/head.png")
                               : Image.asset("assets/images/tail.png")),
                     ),
@@ -85,7 +85,7 @@ class _CoinFlipState extends State<CoinFlip> {
                     style: TextStyle(
                         color: _isLoading
                             ? Colors.grey
-                            : (widget.win ? Colors.green : Colors.red),
+                            : (widget.win! ? Colors.green : Colors.red),
                         fontSize: _isLoading ? 13.sp : 30.sp),
                     duration: Duration(seconds: 2),
                     curve: Curves.bounceOut,

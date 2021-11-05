@@ -369,13 +369,32 @@ class _MyHomePageState extends State<MyHomePage>
           physics: AlwaysScrollableScrollPhysics(),
           child: matchesState.when(
               data: (data) {
+                getMatches(String sportType) {
+                  return data
+                      .where((element) => element.sportType == sportType)
+                      .toList();
+                }
+
                 return Container(
                   // height: 400,
                   color: Colors.black,
                   child: Column(
                     children: [
-                      for (var i = 0; i < data.length; i++)
-                        _getSingleMatch(data[i]),
+                      _getSportHeader("Cricket"),
+                      for (var i = 0; i < getMatches("cricket").length; i++)
+                        _getSingleMatch(getMatches("cricket")[i]),
+                      _getSportHeader("Football"),
+                      for (var i = 0; i < getMatches("football").length; i++)
+                        _getSingleMatch(getMatches("football")[i]),
+                      _getSportHeader("Basketball"),
+                      for (var i = 0; i < getMatches("basketball").length; i++)
+                        _getSingleMatch(getMatches("basketball")[i]),
+                      _getSportHeader("Tennis"),
+                      for (var i = 0; i < getMatches("tennis").length; i++)
+                        _getSingleMatch(getMatches("tennis")[i]),
+                      _getSportHeader("Volleyball"),
+                      for (var i = 0; i < getMatches("volleyball").length; i++)
+                        _getSingleMatch(getMatches("volleyball")[i]),
                     ],
                   ),
                 );
@@ -407,15 +426,84 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
-  void _showStartGameDialog(String name, Games type) {
-    var rate = 0.0;
-    context.read(settingResponseProvider.notifier).fetch();
+  Container _getSportHeader(String sport) {
+    return Container(
+      height: 50,
+      margin: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Theme.of(context).accentColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(
+          sport,
+          style: getDefaultTextStyle(size: 20),
+        ),
+      ),
+    );
+  }
 
-    showDialog(
-        context: context,
-        builder: (context) {
-          return StartGameDialog(name: name, gameType: type);
-        });
+  void _showStartGameDialog(String name, Games type) {
+    context.read(settingResponseProvider.notifier).fetch();
+    // showDialog(
+    // context: context,
+    // builder: (context) {
+    //   return StartGameDialog(name: name, gameType: type);
+    // });
+    switch (type) {
+      case Games.COIN_FLIP:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CoinFlip(),
+          ),
+        );
+        return;
+      case Games.RUN_2:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BoardGame(
+              title: "Board Game (2 Run)",
+              totalSpinsAllowed: 1,
+              type: type,
+            ),
+          ),
+        );
+        return;
+      case Games.RUN_3:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BoardGame(
+              title: "Board Game (3 Run)",
+              totalSpinsAllowed: 1,
+              type: type,
+            ),
+          ),
+        );
+        return;
+      case Games.RUN_4:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BoardGame(
+              title: "Board Game (4 Run)",
+              totalSpinsAllowed: 1,
+              type: type,
+              
+            ),
+          ),
+        );
+        return;
+      case Games.RUN_6:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BoardGame(
+              title: "Board Game (6 Run)",
+              totalSpinsAllowed: 1,
+              type: type,
+            ),
+          ),
+        );
+        return;
+    }
   }
 
   @override

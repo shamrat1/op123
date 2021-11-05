@@ -98,7 +98,7 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-        seconds: 5,
+        seconds: 2,
         navigateAfterSeconds: new MyHomePage(),
         title: new Text(
           'Build on Trust & Reliability',

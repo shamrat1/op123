@@ -29,7 +29,7 @@ class GameController {
     required this.settings,
   });
 
-  void initiateGame() async {
+  Future<bool> initiateGame() async {
     if (_validate()) {
       var gameHistory = await GameService().initialGameRegister({
         "amount": inputAmount.toString(),
@@ -49,51 +49,42 @@ class GameController {
           ),
         );
       } else if (type == Games.RUN_2) {
-        var run2Setting = settings
-            .firstWhere((element) => element.key == "game-run-2-tries-1");
-        OneContext().push(MaterialPageRoute(
+        // OneContext().pop();
+        // return true;
+        OneContext().pushReplacement(MaterialPageRoute(
             builder: (context) => BoardGame(
                   title: "Board Game (2 Run)",
-                  targetScoreLow: int.parse(rateObj!.key.toString().split("-")[0]),
-                  targetScoreHigh: int.parse(rateObj!.key.toString().split("-")[1]),
-                  totalSpinsAllowed: int.parse(run2Setting.value!),
+                  totalSpinsAllowed: 1,
                   type: type,
+                  paymentCleared: true,
                 )));
       } else if (type == Games.RUN_3) {
-        var run3Setting = settings
-            .firstWhere((element) => element.key == "game-run-3-tries-1");
         OneContext().push(MaterialPageRoute(
             builder: (context) => BoardGame(
                   title: "Board Game (3 Run)",
-                              targetScoreLow: int.parse(rateObj!.key.toString().split("-")[0]),
-                  targetScoreHigh: int.parse(rateObj!.key.toString().split("-")[1]),
-                  totalSpinsAllowed: int.parse(run3Setting.value!),
+                  totalSpinsAllowed: 1,
                   type: type,
+                  paymentCleared: true,
                 )));
       } else if (type == Games.RUN_4) {
-        var run4Setting = settings
-            .firstWhere((element) => element.key == "game-run-3-tries-1");
         OneContext().push(MaterialPageRoute(
             builder: (context) => BoardGame(
                   title: "Board Game (4 Run)",
-                              targetScoreLow: int.parse(rateObj!.key.toString().split("-")[0]),
-                  targetScoreHigh: int.parse(rateObj!.key.toString().split("-")[1]),
-                  totalSpinsAllowed: int.parse(run4Setting.value!),
+                  totalSpinsAllowed: 1,
                   type: type,
+                  paymentCleared: true,
                 )));
       } else if (type == Games.RUN_6) {
-        var run6Setting = settings
-            .firstWhere((element) => element.key == "game-run-3-tries-1");
         OneContext().push(MaterialPageRoute(
             builder: (context) => BoardGame(
                   title: "Board Game (6 Run)",
-                              targetScoreLow: int.parse(rateObj!.key.toString().split("-")[0]),
-                  targetScoreHigh: int.parse(rateObj!.key.toString().split("-")[1]),
-                  totalSpinsAllowed: int.parse(run6Setting.value!),
+                  totalSpinsAllowed: 1,
+                  paymentCleared: true,
                   type: type,
                 )));
       }
     }
+    return false;
   }
 
   bool _validate() {
