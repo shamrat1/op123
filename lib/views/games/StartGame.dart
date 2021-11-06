@@ -92,10 +92,8 @@ class _StartGameDialogState extends State<StartGameDialog> {
         }
 
         return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 20.h,
-            ),
             Container(
               width: 90.w,
               // height: 50.h,
