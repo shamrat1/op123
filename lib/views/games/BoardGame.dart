@@ -6,6 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:op123/app/Enums/Games.dart';
 import 'package:op123/app/constants/RunOneGame.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
+import 'package:op123/app/constants/globals.dart';
+import 'package:op123/app/controllers/GameController.dart';
+import 'package:op123/app/models/GameHistoryResponse.dart';
+import 'package:op123/app/states/CreditState.dart';
+import 'package:op123/views/MyHomePage.dart';
 import 'package:op123/views/games/StartGame.dart';
 import 'package:op123/views/widgets/StaticAppBar.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -20,6 +25,7 @@ class BoardGame extends StatefulWidget {
   final int? targetScoreHigh;
   final Games type;
   final bool paymentCleared;
+  final GameHistory? history;
 
   const BoardGame({
     Key? key,
@@ -29,6 +35,7 @@ class BoardGame extends StatefulWidget {
     this.targetScoreHigh,
     this.paymentCleared = false,
     required this.type,
+    this.history,
   }) : super(key: key);
 
   @override
@@ -49,6 +56,8 @@ class _BoardGameState extends State<BoardGame> {
   var _spinsTaken = 0;
   var _wicketDown = false;
   var _score = 0;
+  var _loading = false;
+  GameHistory? result;
   List<GameOption> data = [];
   dynamic gameObjProvider;
 
@@ -103,285 +112,375 @@ class _BoardGameState extends State<BoardGame> {
     data.forEach((element) {
       _score += element.score;
     });
-    return Scaffold(
-      appBar: getStaticAppBar(context, title: widget.title),
-      body: Container(
-        height: 100.h,
-        width: 100.w,
-        color: Colors.black,
-        child: Container(
-          margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Theme.of(context).backgroundColor,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.30,
-                  // color: Colors.white,
-                  child: ListView(
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: getStaticAppBar(context, title: widget.title),
+          body: SingleChildScrollView(
+            child: Container(
+              height: 100.h - 70,
+              width: 100.w,
+              color: Colors.black,
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).backgroundColor,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Total Spins Allowed : ${widget.totalSpinsAllowed}",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "Spins Used : $_spinsTaken",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.35,
-                        child: ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: EdgeInsets.all(5),
-                              height: 40,
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).accentColor,
-                                borderRadius: BorderRadius.circular(5),
+                        height: MediaQuery.of(context).size.height * 0.30,
+                        // color: Colors.white,
+                        child: ListView(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total Spins Allowed : ${widget.totalSpinsAllowed}",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    "Spins Used : $_spinsTaken",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
-                              child: Center(
+                            ),
+                            if (widget.history != null)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "#${data[index].turn} ",
-                                      style: getDefaultTextStyle(size: 16),
+                                      "Option : ${widget.history?.rate}",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.center,
                                     ),
                                     Text(
-                                      "Option: ${gameOptionTypes[data[index].type].toString()} ",
-                                      style: getDefaultTextStyle(size: 16),
+                                      "Value : ${widget.history?.value}",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.center,
                                     ),
                                     Text(
-                                      "Point: ${data[index].score.toString()} ",
-                                      style: getDefaultTextStyle(size: 16),
+                                      "Amount : ${widget.history?.amount} $currencylogoText",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
                               ),
-                            );
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.35,
+                              child: ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.all(5),
+                                    height: 40,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).accentColor,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "#${data[index].turn} ",
+                                            style:
+                                                getDefaultTextStyle(size: 16),
+                                          ),
+                                          Text(
+                                            "Option: ${gameOptionTypes[data[index].type].toString()} ",
+                                            style:
+                                                getDefaultTextStyle(size: 16),
+                                          ),
+                                          Text(
+                                            "Point: ${data[index].score.toString()} ",
+                                            style:
+                                                getDefaultTextStyle(size: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Text(
+                      //       "Total Score : $_score",
+                      //       style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 18,
+                      //           fontWeight: FontWeight.w600),
+                      //       textAlign: TextAlign.center,
+                      //     ),
+                      //     Text(
+                      //       "Target Score : ${widget.targetScoreLow} - ${widget.targetScoreHigh}",
+                      //       style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 18,
+                      //           fontWeight: FontWeight.w600),
+                      //       textAlign: TextAlign.center,
+                      //     ),
+                      //   ],
+                      // ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SpinningWheel(
+                            Image.asset(_wheelImageURL),
+                            width: MediaQuery.of(context).size.width * 0.60,
+                            height: MediaQuery.of(context).size.width * 0.60,
+                            initialSpinAngle: _generateRandomAngle(),
+                            spinResistance: 0.1,
+                            dividers: _dividers,
+                            secondaryImage: Image.asset(
+                                'assets/images/wheel-center-300.png'),
+                            secondaryImageHeight: 90,
+                            secondaryImageWidth: 90,
+                            canInteractWhileSpinning: false,
+                            onUpdate: _dividerController.add,
+                            onEnd: _onWheelStops,
+                            shouldStartOrStop: _wheelNotifier.stream,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.60,
+                            height: MediaQuery.of(context).size.width * 0.60,
+                            color: Colors.transparent,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                      StreamBuilder(
+                          stream: _dividerController.stream,
+                          builder: (context, snapshot) {
+                            return snapshot.hasData
+                                ? RouletteScore(
+                                    int.parse(snapshot.data.toString()),
+                                    widget.type)
+                                : Container();
+                          }),
+                      Spacer(),
+                      if (widget.paymentCleared == false)
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return StartGameDialog(
+                                      name: widget.title,
+                                      gameType: widget.type);
+                                });
                           },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 10),
+                            margin: EdgeInsets.only(bottom: 20, top: 10),
+                            decoration: BoxDecoration(
+                                color: _spinsTaken < widget.totalSpinsAllowed
+                                    ? Theme.of(context).accentColor
+                                    : Colors.grey,
+                                borderRadius: BorderRadius.circular(5),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.amber.shade700,
+                                    blurRadius: 3,
+                                    offset: Offset(1, 1),
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.amber.shade300,
+                                    blurRadius: 3,
+                                    offset: Offset(-1, -1),
+                                  ),
+                                ]),
+                            child: Text(
+                              "Start Game",
+                              style: getDefaultTextStyle(size: 19),
+                            ),
+                          ),
+                        ),
+                      if (widget.paymentCleared == true &&
+                          widget.totalSpinsAllowed > _spinsTaken)
+                        InkWell(
+                          onTap: () {
+                            // if(_spinsTaken == widget.totalSpinsAllowed){
+
+                            // }
+                            if (_spinsTaken < widget.totalSpinsAllowed) {
+                              if (!_wicketDown) {
+                                setState(() {
+                                  _spinsTaken++;
+                                });
+                                _wheelNotifier.sink
+                                    .add(_generateRandomVelocity());
+                              } else {
+                                showSimpleNotification(
+                                    Text(
+                                        "Your Wicket is down. Better Luck next time."),
+                                    background: Colors.red);
+                              }
+                            } else {
+                              showSimpleNotification(
+                                  Text(
+                                      "Total Spins Are used. Start a new game to play."),
+                                  background: Colors.red);
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 10),
+                            margin: EdgeInsets.only(bottom: 20, top: 10),
+                            decoration: BoxDecoration(
+                                color: _spinsTaken < widget.totalSpinsAllowed
+                                    ? Theme.of(context).accentColor
+                                    : Colors.grey,
+                                borderRadius: BorderRadius.circular(5),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.amber.shade700,
+                                    blurRadius: 3,
+                                    offset: Offset(1, 1),
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.amber.shade300,
+                                    blurRadius: 3,
+                                    offset: Offset(-1, -1),
+                                  ),
+                                ]),
+                            child: Text(
+                              "SPIN",
+                              style: getDefaultTextStyle(size: 19),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        if (result != null)
+          Material(
+            child: Container(
+              width: 100.w,
+              height: 100.h,
+              color: Colors.black54.withOpacity(.78),
+              child: Center(
+                child: FittedBox(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${result?.status! ?? "NOne"}",
+                        style: getDefaultTextStyle(
+                            size: 28, weight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: 60.w,
+                        child: Text(
+                          result?.status! == "win"
+                              ? "Yahooo! You've won. An amount of ${(double.parse(result!.amount!) * double.parse(result!.value!)).toStringAsFixed(1)} has been deposited to your account."
+                              : "Oh You Lost. Better Luck Next Time.",
+                          style: getDefaultTextStyle(size: 18),
+                          textAlign: TextAlign.center,
+                          maxLines: 3,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (ctx) => MyHomePage()),
+                              (route) => false);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 10),
+                          margin: EdgeInsets.only(bottom: 20, top: 10),
+                          decoration: BoxDecoration(
+                              color: _spinsTaken < widget.totalSpinsAllowed
+                                  ? Theme.of(context).accentColor
+                                  : Colors.grey,
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.amber.shade700,
+                                  blurRadius: 3,
+                                  offset: Offset(1, 1),
+                                ),
+                                BoxShadow(
+                                  color: Colors.amber.shade300,
+                                  blurRadius: 3,
+                                  offset: Offset(-1, -1),
+                                ),
+                              ]),
+                          child: Text(
+                            "Return To Home",
+                            style: getDefaultTextStyle(size: 19),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Text(
-                //       "Total Score : $_score",
-                //       style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 18,
-                //           fontWeight: FontWeight.w600),
-                //       textAlign: TextAlign.center,
-                //     ),
-                //     Text(
-                //       "Target Score : ${widget.targetScoreLow} - ${widget.targetScoreHigh}",
-                //       style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 18,
-                //           fontWeight: FontWeight.w600),
-                //       textAlign: TextAlign.center,
-                //     ),
-                //   ],
-                // ),
-                SizedBox(
-                  height: 20,
-                ),
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SpinningWheel(
-                      Image.asset(_wheelImageURL),
-                      width: MediaQuery.of(context).size.width * 0.60,
-                      height: MediaQuery.of(context).size.width * 0.60,
-                      initialSpinAngle: _generateRandomAngle(),
-                      spinResistance: 0.1,
-                      dividers: _dividers,
-                      secondaryImage:
-                          Image.asset('assets/images/wheel-center-300.png'),
-                      secondaryImageHeight: 90,
-                      secondaryImageWidth: 90,
-                      canInteractWhileSpinning: false,
-                      onUpdate: _dividerController.add,
-                      onEnd: _onWheelStops,
-                      shouldStartOrStop: _wheelNotifier.stream,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.60,
-                      height: MediaQuery.of(context).size.width * 0.60,
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30),
-                StreamBuilder(
-                    stream: _dividerController.stream,
-                    builder: (context, snapshot) {
-                      return snapshot.hasData
-                          ? RouletteScore(
-                              int.parse(snapshot.data.toString()), widget.type)
-                          : Container();
-                    }),
-                Spacer(),
-                if (widget.paymentCleared == false)
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return StartGameDialog(
-                                name: widget.title, gameType: widget.type);
-                          });
-                    },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      margin: EdgeInsets.only(bottom: 20, top: 10),
-                      decoration: BoxDecoration(
-                          color: _spinsTaken < widget.totalSpinsAllowed
-                              ? Theme.of(context).accentColor
-                              : Colors.grey,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.amber.shade700,
-                              blurRadius: 3,
-                              offset: Offset(1, 1),
-                            ),
-                            BoxShadow(
-                              color: Colors.amber.shade300,
-                              blurRadius: 3,
-                              offset: Offset(-1, -1),
-                            ),
-                          ]),
-                      child: Text(
-                        "Start Game",
-                        style: getDefaultTextStyle(size: 19),
-                      ),
-                    ),
-                  ),
-                if (widget.paymentCleared == true &&
-                    widget.totalSpinsAllowed > _spinsTaken &&
-                    _wicketDown == false)
-                  InkWell(
-                    onTap: () {
-                      if (_spinsTaken < widget.totalSpinsAllowed) {
-                        if (!_wicketDown) {
-                          setState(() {
-                            _spinsTaken++;
-                          });
-                          _wheelNotifier.sink.add(_generateRandomVelocity());
-                        } else {
-                          showSimpleNotification(
-                              Text(
-                                  "Your Wicket is down. Better Luck next time."),
-                              background: Colors.red);
-                        }
-                      } else {
-                        showSimpleNotification(
-                            Text(
-                                "Total Spins Are used. Start a new game to play."),
-                            background: Colors.red);
-                      }
-                    },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      margin: EdgeInsets.only(bottom: 20, top: 10),
-                      decoration: BoxDecoration(
-                          color: _spinsTaken < widget.totalSpinsAllowed
-                              ? Theme.of(context).accentColor
-                              : Colors.grey,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.amber.shade700,
-                              blurRadius: 3,
-                              offset: Offset(1, 1),
-                            ),
-                            BoxShadow(
-                              color: Colors.amber.shade300,
-                              blurRadius: 3,
-                              offset: Offset(-1, -1),
-                            ),
-                          ]),
-                      child: Text(
-                        "SPIN",
-                        style: getDefaultTextStyle(size: 19),
-                      ),
-                    ),
-                  ),
-                if (widget.totalSpinsAllowed == _spinsTaken ||
-                    _wicketDown == true)
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      margin: EdgeInsets.only(bottom: 20, top: 10),
-                      decoration: BoxDecoration(
-                          color: _spinsTaken < widget.totalSpinsAllowed
-                              ? Theme.of(context).accentColor
-                              : Colors.grey,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.amber.shade700,
-                              blurRadius: 3,
-                              offset: Offset(1, 1),
-                            ),
-                            BoxShadow(
-                              color: Colors.amber.shade300,
-                              blurRadius: 3,
-                              offset: Offset(-1, -1),
-                            ),
-                          ]),
-                      child: Text(
-                        "Play Again.",
-                        style: getDefaultTextStyle(size: 19),
-                      ),
-                    ),
-                  )
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
+          )
+      ],
     );
   }
 
-  void _onWheelStops(dynamic value) {
+  void _onWheelStops(dynamic value) async {
     print("-----------------+++++++++++++++++++++-------------------");
     print(gameObjProvider.runtimeType);
     print(gameObjProvider.labels[value]);
+    print(gameOptionTypes[gameObjProvider.labels[value]]);
     print("-----------------+++++++++++++++++++++-------------------");
 
     var option;
@@ -421,7 +520,45 @@ class _BoardGameState extends State<BoardGame> {
     setState(() {
       data.add(option);
     });
+
     _dividerController.add(value);
+
+    if (_spinsTaken == widget.totalSpinsAllowed) {
+      setState(() {
+        _loading = true;
+      });
+      print(
+          "${widget.history?.rate == gameObjProvider.labels[value]} | ${widget.history?.rate} | ${gameOptionTypes[gameObjProvider.labels[value]]}");
+      // var placedIn = widget.
+      var history = widget.history;
+      if (history != null) {
+        if (widget.history?.rate ==
+            gameOptionTypes[gameObjProvider.labels[value]]) {
+          // show confetti
+        }
+        var gameResponse = await GameController(
+          type: widget.type,
+          rate: 0.0,
+          inputAmount: history.amount!,
+          settings: [],
+        ).publishResult(
+            history,
+            widget.history?.rate ==
+                gameOptionTypes[gameObjProvider.labels[value]]);
+        print(gameResponse.gameHistory!.toMap());
+        if (gameResponse.credits != null) {
+          context
+              .read(creditProvider.notifier)
+              .change(double.parse(gameResponse.credits!));
+        }
+        setState(() {
+          result = gameResponse.gameHistory;
+          print(result?.amount);
+          print(result?.value);
+          _loading = false;
+        });
+      }
+    }
   }
 
   double _generateRandomVelocity() => (Random().nextDouble() * 6000) + 2000;

@@ -145,7 +145,8 @@ class _StartGameDialogState extends State<StartGameDialog> {
                               setState(() {
                                 selectedRateObj = rates[i];
                               });
-                              print("cliked");
+                              print(rates[i].key);
+                              print(rates[i].value);
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(

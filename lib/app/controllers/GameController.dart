@@ -5,6 +5,7 @@ import 'package:one_context/one_context.dart';
 import 'package:op123/app/Enums/Games.dart';
 import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/models/CoinGame.dart';
+import 'package:op123/app/models/GameHistoryResponse.dart';
 import 'package:op123/app/models/SettingResponse.dart';
 import 'package:op123/app/services/GameService.dart';
 import 'package:op123/app/services/RemoteService.dart';
@@ -13,6 +14,7 @@ import 'package:op123/views/games/BoardGame.dart';
 import 'package:op123/views/games/FlipCoin.dart';
 import 'package:op123/views/games/StartGame.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class GameController {
   final Games type;
@@ -31,7 +33,7 @@ class GameController {
 
   Future<bool> initiateGame() async {
     if (_validate()) {
-      var gameHistory = await GameService().initialGameRegister({
+      var gameResponse = await GameService().initialGameRegister({
         "amount": inputAmount.toString(),
         "rate": type == Games.COIN_FLIP ? null : rateObj?.key.toString(),
         "value": rate.toString(),
@@ -57,6 +59,7 @@ class GameController {
                   totalSpinsAllowed: 1,
                   type: type,
                   paymentCleared: true,
+                  history: gameResponse.gameHistory,
                 )));
       } else if (type == Games.RUN_3) {
         OneContext().push(MaterialPageRoute(
@@ -65,6 +68,7 @@ class GameController {
                   totalSpinsAllowed: 1,
                   type: type,
                   paymentCleared: true,
+                  history: gameResponse.gameHistory,
                 )));
       } else if (type == Games.RUN_4) {
         OneContext().push(MaterialPageRoute(
@@ -73,6 +77,7 @@ class GameController {
                   totalSpinsAllowed: 1,
                   type: type,
                   paymentCleared: true,
+                  history: gameResponse.gameHistory,
                 )));
       } else if (type == Games.RUN_6) {
         OneContext().push(MaterialPageRoute(
@@ -81,10 +86,18 @@ class GameController {
                   totalSpinsAllowed: 1,
                   paymentCleared: true,
                   type: type,
+                  history: gameResponse.gameHistory,
                 )));
       }
     }
     return false;
+  }
+
+  Future<GameHistoryResponse> publishResult(GameHistory history,
+      [bool win = false]) async {
+    // OneContext().read
+    return await GameService()
+        .registerGameResult(history, {"result": win ? "win" : "loss"});
   }
 
   bool _validate() {

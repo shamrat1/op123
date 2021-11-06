@@ -11,7 +11,7 @@ enum GameOptionType {
 }
 Map<GameOptionType, String> gameOptionTypes = {
   GameOptionType.dot_ball: "Dot Ball",
-  GameOptionType.wide_ball: "WIDE",
+  GameOptionType.wide_ball: "Wide",
   GameOptionType.no_ball: "No Ball",
   GameOptionType.run_1: "1 Run",
   GameOptionType.run_2: "2 Run",
