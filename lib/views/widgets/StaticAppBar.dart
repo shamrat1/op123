@@ -22,18 +22,29 @@ AppBar getStaticAppBar(BuildContext context, {String? title}) {
             child: SvgPicture.asset("assets/images/logo-light.svg"),
           ),
     actions: [
-      Consumer(builder: (context, watch, child) {
-        return Row(
+      InkWell(
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                  "You've ${context.read(creditProvider)} coins in the wallet currently.")));
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.monetization_on_outlined,
-                color: Theme.of(context).accentColor),
+            Icon(
+              Icons.monetization_on_outlined,
+              color: Theme.of(context).accentColor,
+            ),
+            SizedBox(
+              width: 5,
+            ),
             Text(
-              "${watch(creditProvider).toString()} $currencylogoText",
+              "Coins",
               style: getDefaultTextStyle(size: 12.sp),
             ),
           ],
-        );
-      }),
+        ),
+      ),
     ],
   );
 }

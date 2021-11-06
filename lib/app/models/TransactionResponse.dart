@@ -60,10 +60,10 @@ class Transactions {
   final int? from;
   final int? lastPage;
   final String? lastPageUrl;
-  final dynamic? nextPageUrl;
+  final String? nextPageUrl;
   final String? path;
   final int? perPage;
-  final dynamic? prevPageUrl;
+  final String? prevPageUrl;
   final int? to;
   final int? total;
 
@@ -125,11 +125,11 @@ class Transaction {
   final int? userId;
   final String? amount;
   final String? mobile;
-  final dynamic? backendMobile;
-  final dynamic? txnId;
+  final String? backendMobile;
+  final String? txnId;
   final String? type;
-  final dynamic? paymentMethod;
-  final dynamic? paymentType;
+  final String? paymentMethod;
+  final String? paymentType;
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;

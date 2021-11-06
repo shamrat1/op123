@@ -487,7 +487,6 @@ class _MyHomePageState extends State<MyHomePage>
               title: "Board Game (4 Run)",
               totalSpinsAllowed: 1,
               type: type,
-              
             ),
           ),
         );
@@ -526,22 +525,45 @@ class _MyHomePageState extends State<MyHomePage>
                   child: SvgPicture.asset("assets/images/logo-light.svg"),
                 ),
                 actions: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
+                  // SizedBox(
+                  //   width: MediaQuery.of(context).size.width * 0.25,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.end,
+                  //     children: [
+                  //       Icon(Icons.monetization_on_outlined,
+                  //           color: Theme.of(context).accentColor),
+                  //       Text(
+                  //         "${context.read(creditProvider).toString()} $currencylogoText",
+                  //         style: getDefaultTextStyle(size: 12.sp),
+                  //         overflow: TextOverflow.clip,
+                  //         maxLines: 1,
+                  //       ),
+                  //       SizedBox(
+                  //         width: MediaQuery.of(context).size.width * 0.02,
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  InkWell(
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              "You've ${context.read(creditProvider)} coins in the wallet currently.")));
+                    },
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.monetization_on_outlined,
-                            color: Theme.of(context).accentColor),
-                        Text(
-                          "${context.read(creditProvider).toString()} $currencylogoText",
-                          style: getDefaultTextStyle(size: 12.sp),
-                          overflow: TextOverflow.clip,
-                          maxLines: 1,
+                        Icon(
+                          Icons.monetization_on_outlined,
+                          color: Theme.of(context).accentColor,
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.02,
-                        )
+                          width: 5,
+                        ),
+                        Text(
+                          "Coins",
+                          style: getDefaultTextStyle(size: 12.sp),
+                        ),
                       ],
                     ),
                   ),
