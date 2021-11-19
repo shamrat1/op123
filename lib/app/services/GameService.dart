@@ -42,6 +42,7 @@ class GameService {
         headers: await RemoteService.getAuthenticatedHeader(), body: data);
 
     if (response.statusCode == 200) {
+      print(response.body);
       return gameHistoryResponseFromMap(response.body);
     } else {
       showCustomSimpleNotification(response.body, Colors.red);

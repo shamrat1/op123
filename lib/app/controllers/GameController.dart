@@ -35,7 +35,7 @@ class GameController {
     if (_validate()) {
       var gameResponse = await GameService().initialGameRegister({
         "amount": inputAmount.toString(),
-        "rate": type == Games.COIN_FLIP ? null : rateObj?.key.toString(),
+        "rate": type == Games.COIN_FLIP ? "" : rateObj?.key.toString(),
         "value": rate.toString(),
         "game_type": type.toString()
       });
@@ -44,10 +44,14 @@ class GameController {
         Random r = new Random();
         double falseProbability = .7;
         bool booleanResult = r.nextDouble() > falseProbability;
+        var gameResult = await GameService().registerGameResult(gameResponse.gameHistory!,  {"result": booleanResult ? "win" : "loss"});
         OneContext().pop();
         OneContext().push(
           MaterialPageRoute(
-            builder: (context) => CoinFlip(win: booleanResult),
+            builder: (context) => CoinFlip(
+                result: booleanResult ? GameResult.WIN : GameResult.LOSE,
+              history: gameResult.gameHistory,
+            ),
           ),
         );
       } else if (type == Games.RUN_2) {

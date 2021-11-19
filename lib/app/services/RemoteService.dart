@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:one_context/one_context.dart';
 import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/models/Match.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:riverpod/riverpod.dart';
 
 class RemoteService {
@@ -60,7 +61,7 @@ class RemoteService {
         "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
       };
     }
-
+    toast("Login to play");
     throw Exception("No Authorization Token Found");
   }
 }

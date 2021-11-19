@@ -41,6 +41,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
     super.initState();
@@ -98,19 +99,19 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-        seconds: 2,
-        navigateAfterSeconds: new MyHomePage(),
-        title: new Text(
-          'Build on Trust & Reliability',
-          style: new TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white),
-        ),
-        image: Image.asset("assets/images/logo-light.png"),
-        backgroundColor: Colors.black,
-        styleTextUnderTheLoader: new TextStyle(),
-        photoSize: 100.0,
-        onClick: () => print("Flutter Egypt"),
-        loaderColor: Colors.red,
-      );
+      seconds: 2,
+      navigateAfterSeconds: new MyHomePage(),
+      title: new Text(
+        'Build on Trust & Reliability',
+        style: new TextStyle(
+            fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white),
+      ),
+      image: Image.asset("assets/images/logo-light.png"),
+      backgroundColor: Colors.black,
+      styleTextUnderTheLoader: new TextStyle(),
+      photoSize: 100.0,
+      onClick: () => print("Flutter Egypt"),
+      loaderColor: Colors.red,
+    );
   }
 }
