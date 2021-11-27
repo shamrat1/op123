@@ -16,7 +16,10 @@ import 'package:sizer/sizer.dart';
 class StartGameDialog extends StatefulWidget {
   final String name;
   final Games gameType;
-  const StartGameDialog({Key? key, required this.name, required this.gameType})
+  final GameRates? selectedRate;
+
+  const StartGameDialog(
+      {Key? key, required this.name, required this.gameType, this.selectedRate})
       : super(key: key);
 
   @override
@@ -134,49 +137,49 @@ class _StartGameDialogState extends State<StartGameDialog> {
                       style: getDefaultTextStyle(
                           size: 15.sp, weight: FontWeight.w500),
                     ),
-                  if (widget.gameType != Games.COIN_FLIP)
-                    Column(
-                      children: [
-                        for (var i = 0; i < rates.length; i++)
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                selectedRateObj = rates[i];
-                              });
-                              print(rates[i].key);
-                              print(rates[i].value);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 8),
-                              width: MediaQuery.of(context).size.width * 0.60,
-                              margin: EdgeInsets.symmetric(vertical: 3),
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).backgroundColor,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Rate: ${rates[i].key} => ${rates[i].value}",
-                                    style: getDefaultTextStyle(
-                                        size: 15.sp, weight: FontWeight.w500),
-                                  ),
-                                  if (rates[i].value == selectedRateObj?.value)
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                  if (rates[i].value == selectedRateObj?.value)
-                                    Icon(
-                                      Icons.check_circle,
-                                      color: Theme.of(context).accentColor,
-                                    )
-                                ],
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
+                  // if (widget.gameType != Games.COIN_FLIP)
+                  //   Column(
+                  //     children: [
+                  //       for (var i = 0; i < rates.length; i++)
+                  //         InkWell(
+                  //           onTap: () {
+                  //             setState(() {
+                  //               selectedRateObj = rates[i];
+                  //             });
+                  //             print(rates[i].key);
+                  //             print(rates[i].value);
+                  //           },
+                  //           child: Container(
+                  //             padding: EdgeInsets.symmetric(
+                  //                 vertical: 5, horizontal: 8),
+                  //             width: MediaQuery.of(context).size.width * 0.60,
+                  //             margin: EdgeInsets.symmetric(vertical: 3),
+                  //             decoration: BoxDecoration(
+                  //                 color: Theme.of(context).backgroundColor,
+                  //                 borderRadius: BorderRadius.circular(5)),
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               children: [
+                  //                 Text(
+                  //                   "Rate: ${rates[i].key} => ${rates[i].value}",
+                  //                   style: getDefaultTextStyle(
+                  //                       size: 15.sp, weight: FontWeight.w500),
+                  //                 ),
+                  //                 if (rates[i].value == selectedRateObj?.value)
+                  //                   SizedBox(
+                  //                     width: 5,
+                  //                   ),
+                  //                 if (rates[i].value == selectedRateObj?.value)
+                  //                   Icon(
+                  //                     Icons.check_circle,
+                  //                     color: Theme.of(context).accentColor,
+                  //                   )
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ),
+                  //     ],
+                  //   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: TextFormField(
@@ -291,7 +294,9 @@ class _StartGameDialogState extends State<StartGameDialog> {
                                 rate: widget.gameType == Games.COIN_FLIP
                                     ? selectedRate
                                     : selectedRateObj!.value,
-                                rateObj: selectedRateObj,
+                                rateObj: selectedRateObj != null
+                                    ? selectedRateObj
+                                    : widget.selectedRate,
                                 settings: settingProvider,
                                 inputAmount: _amountController.text)
                             .initiateGame();

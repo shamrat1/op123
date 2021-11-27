@@ -210,6 +210,22 @@ class _MyHomePageState extends State<MyHomePage>
           ),
         ),
         InkWell(
+          onTap: () =>
+              _showStartGameDialog("Game For An Over", Games.RUN_6_OVER),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              child: Image.asset("assets/images/opg6-01.png"),
+            ),
+          ),
+        ),
+        InkWell(
           onTap: () => _showStartGameDialog("Run 6", Games.RUN_6),
           child: Container(
             height: 40,
@@ -464,6 +480,17 @@ class _MyHomePageState extends State<MyHomePage>
             builder: (context) => BoardGame(
               title: "Board Game (2 Run)",
               totalSpinsAllowed: 1,
+              type: type,
+            ),
+          ),
+        );
+        return;
+      case Games.RUN_6_OVER:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BoardGame(
+              title: "Game For An Over",
+              totalSpinsAllowed: 6,
               type: type,
             ),
           ),
