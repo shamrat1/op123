@@ -55,6 +55,8 @@ class _StartGameDialogState extends State<StartGameDialog> {
 
       case Games.RUN_6:
         return "game-run-6-rate";
+      case Games.RUN_6_OVER:
+        return "game-run-6-rate";
 
       default:
         Navigator.of(context).pop();
@@ -192,12 +194,14 @@ class _StartGameDialogState extends State<StartGameDialog> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         if (int.tryParse(value) is int) {
+                          var rateValue = selectedRateObj != null
+                              ? selectedRateObj?.value
+                              : widget.selectedRate?.value;
                           setState(() {
                             if (widget.gameType == Games.COIN_FLIP) {
                               possibleReturn = int.parse(value) * selectedRate;
                             } else {
-                              possibleReturn =
-                                  int.parse(value) * selectedRateObj!.value;
+                              possibleReturn = int.parse(value) * rateValue!;
                             }
                           });
                         } else {
@@ -283,7 +287,8 @@ class _StartGameDialogState extends State<StartGameDialog> {
                   InkWell(
                     onTap: () {
                       if (widget.gameType != Games.COIN_FLIP) {
-                        if (selectedRateObj == null) {
+                        if (selectedRateObj == null &&
+                            widget.selectedRate == null) {
                           return showCustomSimpleNotification(
                               "Select a Rate first.", Colors.red);
                         }
@@ -293,7 +298,9 @@ class _StartGameDialogState extends State<StartGameDialog> {
                                 type: widget.gameType,
                                 rate: widget.gameType == Games.COIN_FLIP
                                     ? selectedRate
-                                    : selectedRateObj!.value,
+                                    : (selectedRateObj != null
+                                        ? selectedRateObj!.value
+                                        : widget.selectedRate!.value),
                                 rateObj: selectedRateObj != null
                                     ? selectedRateObj
                                     : widget.selectedRate,
@@ -334,7 +341,6 @@ class _StartGameDialogState extends State<StartGameDialog> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _amountController.dispose();
   }

@@ -27,17 +27,19 @@ class BoardGame extends StatefulWidget {
   final Games type;
   final bool paymentCleared;
   final GameHistory? history;
+  final GameRates? selectedRateObject;
 
-  const BoardGame({
-    Key? key,
-    required this.totalSpinsAllowed,
-    required this.title,
-    this.targetScoreLow,
-    this.targetScoreHigh,
-    this.paymentCleared = false,
-    required this.type,
-    this.history,
-  }) : super(key: key);
+  const BoardGame(
+      {Key? key,
+      required this.totalSpinsAllowed,
+      required this.title,
+      this.targetScoreLow,
+      this.targetScoreHigh,
+      this.paymentCleared = false,
+      required this.type,
+      this.history,
+      this.selectedRateObject})
+      : super(key: key);
 
   @override
   _BoardGameState createState() => _BoardGameState();
@@ -48,7 +50,11 @@ class GameOption {
   final int score;
   final GameOptionType type;
 
-  GameOption({required this.turn, required this.score, required this.type});
+  GameOption({
+    required this.turn,
+    required this.score,
+    required this.type,
+  });
 }
 
 class _BoardGameState extends State<BoardGame> {
@@ -98,6 +104,10 @@ class _BoardGameState extends State<BoardGame> {
   void initState() {
     super.initState();
     _setGameRequiredVars();
+    if (widget.selectedRateObject != null)
+      setState(() {
+        selectedRateObj = widget.selectedRateObject;
+      });
   }
 
   void _setGameRequiredVars() {
@@ -145,8 +155,9 @@ class _BoardGameState extends State<BoardGame> {
 
   Widget _getSpinsView() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.35,
+      height: MediaQuery.of(context).size.height * 0.4,
       child: ListView.builder(
+        reverse: true,
         itemCount: data.length,
         itemBuilder: (context, index) {
           return Container(
@@ -183,25 +194,30 @@ class _BoardGameState extends State<BoardGame> {
   }
 
   Widget _getOptionsSelectionView(List<GameRates> rates) {
-    return Column(
-      children: [
-        for (var i = 0; i < rates.length; i++)
-          InkWell(
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.4,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            // childAspectRatio: 1,
+            mainAxisSpacing: 8,
+            mainAxisExtent: 40,
+            crossAxisSpacing: 8),
+        itemCount: rates.length,
+        itemBuilder: (context, i) {
+          return InkWell(
             onTap: () {
-              print(rates[i].value);
-              print(selectedRateObj?.value);
-              print(rates[i].value == selectedRateObj?.value);
-              // if (widget.paymentCleared == false) {
-              setState(() {
-                selectedRateObj = rates[i];
-              });
-              // }
+              if (widget.paymentCleared == false) {
+                setState(() {
+                  selectedRateObj = rates[i];
+                });
+              }
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-              width: MediaQuery.of(context).size.width * 0.60,
-              margin: EdgeInsets.symmetric(vertical: 3),
-              height: 40,
+              // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+              // width: MediaQuery.of(context).size.width * 0.60,
+              // margin: EdgeInsets.symmetric(vertical: 3),
+              // height: 40,
               decoration: BoxDecoration(
                 color: Theme.of(context).accentColor,
                 borderRadius: BorderRadius.circular(5),
@@ -212,7 +228,7 @@ class _BoardGameState extends State<BoardGame> {
                   Text(
                     "Rate: ${rates[i].key} => ${rates[i].value}",
                     style: getDefaultTextStyle(
-                        size: 15.sp, weight: FontWeight.w500),
+                        size: 11.sp, weight: FontWeight.w500),
                   ),
                   if (rates[i].value == selectedRateObj?.value)
                     SizedBox(
@@ -226,9 +242,56 @@ class _BoardGameState extends State<BoardGame> {
                 ],
               ),
             ),
-          ),
-      ],
+          );
+        },
+      ),
     );
+    // return Column(
+    //   children: [
+    //     for (var i = 0; i < rates.length; i++)
+    //       InkWell(
+    //         onTap: () {
+    //           print(rates[i].value);
+    //           print(selectedRateObj?.value);
+    //           print(rates[i].value == selectedRateObj?.value);
+    //           // if (widget.paymentCleared == false) {
+    //           setState(() {
+    //             selectedRateObj = rates[i];
+    //           });
+    //           // }
+    //         },
+    //         child: Container(
+    //           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+    //           width: MediaQuery.of(context).size.width * 0.60,
+    //           margin: EdgeInsets.symmetric(vertical: 3),
+    //           height: 40,
+    //           decoration: BoxDecoration(
+    //             color: Theme.of(context).accentColor,
+    //             borderRadius: BorderRadius.circular(5),
+    //           ),
+    //           child: Row(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             children: [
+    //               Text(
+    //                 "Rate: ${rates[i].key} => ${rates[i].value}",
+    //                 style: getDefaultTextStyle(
+    //                     size: 15.sp, weight: FontWeight.w500),
+    //               ),
+    //               if (rates[i].value == selectedRateObj?.value)
+    //                 SizedBox(
+    //                   width: 5,
+    //                 ),
+    //               if (rates[i].value == selectedRateObj?.value)
+    //                 Icon(
+    //                   Icons.check_circle,
+    //                   color: Theme.of(context).backgroundColor,
+    //                 )
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //   ],
+    // );
   }
 
   @override
@@ -344,7 +407,9 @@ class _BoardGameState extends State<BoardGame> {
                                   ),
                                 ),
                               widget.type == Games.RUN_6_OVER
-                                  ? _getSpinsView()
+                                  ? (widget.paymentCleared
+                                      ? _getSpinsView()
+                                      : _getOptionsSelectionView(rates))
                                   : _getOptionsSelectionView(rates),
                             ],
                           ),
@@ -420,6 +485,7 @@ class _BoardGameState extends State<BoardGame> {
                                     return StartGameDialog(
                                       name: widget.title,
                                       gameType: widget.type,
+                                      selectedRate: selectedRateObj,
                                     );
                                   });
                             },
@@ -697,8 +763,10 @@ class RouletteScore extends StatelessWidget {
       case Games.RUN_6:
         gameObjProvider = RunSixGame();
         return;
+      case Games.RUN_6_OVER:
+        gameObjProvider = RunSixGame();
+        return;
       case Games.COIN_FLIP:
-        // TODO: Handle this case.
         break;
     }
   }
