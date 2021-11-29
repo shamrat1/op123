@@ -44,12 +44,14 @@ class GameController {
         Random r = new Random();
         double falseProbability = .7;
         bool booleanResult = r.nextDouble() > falseProbability;
-        var gameResult = await GameService().registerGameResult(gameResponse.gameHistory!,  {"result": booleanResult ? "win" : "loss"});
+        var gameResult = await GameService().registerGameResult(
+            gameResponse.gameHistory!,
+            {"result": booleanResult ? "win" : "loss"});
         OneContext().pop();
         OneContext().push(
           MaterialPageRoute(
             builder: (context) => CoinFlip(
-                result: booleanResult ? GameResult.WIN : GameResult.LOSE,
+              result: booleanResult ? GameResult.WIN : GameResult.LOSE,
               history: gameResult.gameHistory,
             ),
           ),
@@ -64,6 +66,7 @@ class GameController {
                   type: type,
                   paymentCleared: true,
                   history: gameResponse.gameHistory,
+                  selectedRateObject: rateObj,
                 )));
       } else if (type == Games.RUN_3) {
         OneContext().push(MaterialPageRoute(
@@ -73,6 +76,7 @@ class GameController {
                   type: type,
                   paymentCleared: true,
                   history: gameResponse.gameHistory,
+                  selectedRateObject: rateObj,
                 )));
       } else if (type == Games.RUN_4) {
         OneContext().push(MaterialPageRoute(
@@ -82,6 +86,7 @@ class GameController {
                   type: type,
                   paymentCleared: true,
                   history: gameResponse.gameHistory,
+                  selectedRateObject: rateObj,
                 )));
       } else if (type == Games.RUN_6) {
         OneContext().push(MaterialPageRoute(
@@ -91,6 +96,17 @@ class GameController {
                   paymentCleared: true,
                   type: type,
                   history: gameResponse.gameHistory,
+                  selectedRateObject: rateObj,
+                )));
+      } else if (type == Games.RUN_6_OVER) {
+        OneContext().push(MaterialPageRoute(
+            builder: (context) => BoardGame(
+                  title: "Board Game (6 Run)",
+                  totalSpinsAllowed: 6,
+                  paymentCleared: true,
+                  type: type,
+                  history: gameResponse.gameHistory,
+                  selectedRateObject: rateObj,
                 )));
       }
     }
