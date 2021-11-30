@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -35,6 +36,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
+  bool _updateAvailable = false;
+  String _updateNote = "";
+
   late TabController _tabController;
   int _selectedTab = 0;
 
@@ -42,12 +46,26 @@ class _MyHomePageState extends State<MyHomePage>
   void initState() {
     _initialSetup();
     super.initState();
+    _initialRemoteConfig();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
         _selectedTab = _tabController.index;
-        // print("tabs are clicked ${_tabController.index}");
       });
+    });
+  }
+
+  void _initialRemoteConfig() async {
+    final RemoteConfig remoteConfig = RemoteConfig.instance;
+    remoteConfig.setConfigSettings(
+      RemoteConfigSettings(
+          minimumFetchInterval: const Duration(seconds: 10),
+          fetchTimeout: const Duration(seconds: 5)),
+    );
+    await remoteConfig.fetchAndActivate();
+    setState(() {
+      _updateAvailable = remoteConfig.getBool("new_update");
+      _updateNote = remoteConfig.getString("update_note");
     });
   }
 
@@ -536,119 +554,151 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: CustomAppDrawer(),
-      body: Container(
-        color: Theme.of(context).backgroundColor,
-        child: NestedScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          headerSliverBuilder: (context, isScrolled) {
-            return [
-              SliverAppBar(
-                pinned: true,
-                iconTheme: IconThemeData(color: Theme.of(context).accentColor),
-                backgroundColor: Theme.of(context).backgroundColor,
-                title: Container(
-                  height: 40,
-                  width: 150,
-                  child: SvgPicture.asset("assets/images/logo-light.svg"),
-                ),
-                actions: [
-                  // SizedBox(
-                  //   width: MediaQuery.of(context).size.width * 0.25,
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.end,
-                  //     children: [
-                  //       Icon(Icons.monetization_on_outlined,
-                  //           color: Theme.of(context).accentColor),
-                  //       Text(
-                  //         "${context.read(creditProvider).toString()} $currencylogoText",
-                  //         style: getDefaultTextStyle(size: 12.sp),
-                  //         overflow: TextOverflow.clip,
-                  //         maxLines: 1,
-                  //       ),
-                  //       SizedBox(
-                  //         width: MediaQuery.of(context).size.width * 0.02,
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-                  InkWell(
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              "You've ${context.read(creditProvider)} coins in the wallet currently.")));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.monetization_on_outlined,
-                          color: Theme.of(context).accentColor,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "Coins",
-                          style: getDefaultTextStyle(size: 12.sp),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SliverToBoxAdapter(
-                child: Container(
-                  height: 100,
-                  color: Theme.of(context).backgroundColor,
-                  child: Center(
-                    child: GridView.count(
-                      scrollDirection: Axis.horizontal,
-                      crossAxisCount: 1,
-                      children: [
-                        for (var i = 0; i < 6; i++) _getSportCategories(i),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: MarqueeTextSliverHeaderDelegate(),
-              ),
-              SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverPersistantHeaderDelegateImplementation(
+      body: Stack(
+        children: [
+          Container(
+            color: Theme.of(context).backgroundColor,
+            child: NestedScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              headerSliverBuilder: (context, isScrolled) {
+                return [
+                  SliverAppBar(
+                    pinned: true,
+                    iconTheme:
+                        IconThemeData(color: Theme.of(context).accentColor),
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    title: Container(
                       height: 40,
-                      child: TabBar(
-                        // indicatorColor: Colors.transparent,
-                        indicatorWeight: 3.0,
-                        controller: _tabController,
-                        tabs: [
-                          Tab(
-                            icon: _setTabBarTile(
-                                "Live", _tabController.index == 0),
-                          ),
-                          // Tab(
-                          //   icon: _setTabBarTile("Upcoming", _selectedTab == 1),
-                          // ),
-                          Tab(
-                            icon: _setTabBarTile("Games", _selectedTab == 1),
-                          ),
-                        ],
-                      )))
-            ];
-          },
-          body: Container(
-            // height: 400,
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _tabOne(),
-                _getGames(),
-              ],
+                      width: 150,
+                      child: SvgPicture.asset("assets/images/logo-light.svg"),
+                    ),
+                    actions: [
+                      // SizedBox(
+                      //   width: MediaQuery.of(context).size.width * 0.25,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.end,
+                      //     children: [
+                      //       Icon(Icons.monetization_on_outlined,
+                      //           color: Theme.of(context).accentColor),
+                      //       Text(
+                      //         "${context.read(creditProvider).toString()} $currencylogoText",
+                      //         style: getDefaultTextStyle(size: 12.sp),
+                      //         overflow: TextOverflow.clip,
+                      //         maxLines: 1,
+                      //       ),
+                      //       SizedBox(
+                      //         width: MediaQuery.of(context).size.width * 0.02,
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      InkWell(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                  "You've ${context.read(creditProvider)} coins in the wallet currently.")));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.monetization_on_outlined,
+                              color: Theme.of(context).accentColor,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "Coins",
+                              style: getDefaultTextStyle(size: 12.sp),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 100,
+                      color: Theme.of(context).backgroundColor,
+                      child: Center(
+                        child: GridView.count(
+                          scrollDirection: Axis.horizontal,
+                          crossAxisCount: 1,
+                          children: [
+                            for (var i = 0; i < 6; i++) _getSportCategories(i),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: MarqueeTextSliverHeaderDelegate(),
+                  ),
+                  SliverPersistentHeader(
+                      pinned: true,
+                      delegate: SliverPersistantHeaderDelegateImplementation(
+                          height: 40,
+                          child: TabBar(
+                            // indicatorColor: Colors.transparent,
+                            indicatorWeight: 3.0,
+                            controller: _tabController,
+                            tabs: [
+                              Tab(
+                                icon: _setTabBarTile(
+                                    "Live", _tabController.index == 0),
+                              ),
+                              // Tab(
+                              //   icon: _setTabBarTile("Upcoming", _selectedTab == 1),
+                              // ),
+                              Tab(
+                                icon:
+                                    _setTabBarTile("Games", _selectedTab == 1),
+                              ),
+                            ],
+                          )))
+                ];
+              },
+              body: Container(
+                // height: 400,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _tabOne(),
+                    _getGames(),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
+          Container(
+            width: 100.w,
+            height: 100.h,
+            color: Colors.black45,
+            child: Center(
+              child: Container(
+                height: 60.h,
+                width: 90.w,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "Update Available",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Divider(),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

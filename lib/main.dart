@@ -15,8 +15,11 @@ import 'package:splashscreen/splashscreen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app/constants/globals.dart';
 import 'app/models/User.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Add this
+  await Firebase.initializeApp();
   runApp(ProviderScope(child: OverlaySupport.global(child: MyApp())));
 }
 
@@ -41,7 +44,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
