@@ -219,14 +219,15 @@ class _BoardGameState extends State<BoardGame> {
               // margin: EdgeInsets.symmetric(vertical: 3),
               // height: 40,
               decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
+                // color: Theme.of(context).accentColor,
+                color: Colors.grey,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Rate: ${rates[i].key} => ${rates[i].value}",
+                    "${rates[i].key} ${rates[i].value}",
                     style: getDefaultTextStyle(
                         size: 11.sp, weight: FontWeight.w500),
                   ),

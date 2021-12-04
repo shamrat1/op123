@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -20,7 +21,21 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Add this
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(messageHandler);
   runApp(ProviderScope(child: OverlaySupport.global(child: MyApp())));
+}
+
+Future<void> messageHandler(RemoteMessage message) async {
+  print(message.notification?.title);
+  // final providerContainer = ProviderContainer();
+  // final storage = new FlutterSecureStorage();
+
+  // providerContainer.read(messageListProvider.notifier).add(NotificationMessage(
+  //         title: message.notification!.title!,
+  //         body: message.notification!.body!,
+  //         id: DateTime.now().toString()));
+  //     var string = json.encode(providerContainer.read(messageListProvider));
+  //     await storage.write(key: "notifications", value: string);
 }
 
 Map<int, Color> customSwatch = {

@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/shamrat/Documents/flutter/op123/build/firebase_remote_config/intermediates/res/merged/release/drawable/notification_tile_bg.xml",
+        "source": "/Users/shamrat/.gradle/caches/transforms-2/files-2.1/23dce2c664a62757c7c9eebc0507a723/core-1.2.0/res/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "/Users/shamrat/Documents/flutter/op123/build/firebase_remote_config/intermediates/res/merged/release/drawable/notification_bg_low.xml",
+        "source": "/Users/shamrat/.gradle/caches/transforms-2/files-2.1/23dce2c664a62757c7c9eebc0507a723/core-1.2.0/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/Users/shamrat/Documents/flutter/op123/build/firebase_remote_config/intermediates/res/merged/release/drawable/notification_icon_background.xml",
+        "source": "/Users/shamrat/.gradle/caches/transforms-2/files-2.1/23dce2c664a62757c7c9eebc0507a723/core-1.2.0/res/drawable/notification_icon_background.xml"
+    },
+    {
+        "merged": "/Users/shamrat/Documents/flutter/op123/build/firebase_remote_config/intermediates/res/merged/release/drawable/notification_bg.xml",
+        "source": "/Users/shamrat/.gradle/caches/transforms-2/files-2.1/23dce2c664a62757c7c9eebc0507a723/core-1.2.0/res/drawable/notification_bg.xml"
+    }
+]

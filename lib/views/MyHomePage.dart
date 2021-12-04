@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +28,7 @@ import 'package:sizer/sizer.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'games/FlipCoin.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -38,15 +41,66 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   bool _updateAvailable = false;
   String _updateNote = "";
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   late TabController _tabController;
   int _selectedTab = 0;
 
+  
+  void _initFirebaseMessingConfigs() async {
+    NotificationSettings settings = await _firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
   @override
   void initState() {
     _initialSetup();
+    _initFirebaseMessingConfigs();
     super.initState();
     _initialRemoteConfig();
+    _firebaseMessaging.getToken();
+    FirebaseMessaging.onMessage.listen((event) async {
+      print(event.notification?.title);
+
+      // context.read(messageListProvider.notifier).add(
+      //       NotificationMessage(
+      //         title: event.notification!.title!,
+      //         body: event.notification!.body!,
+      //         id: DateTime.now().toString(),
+      //       ),
+      //     );
+      // var string = json.encode(context.read(messageListProvider));
+      // await FlutterSecureStorage().write(key: "notifications", value: string);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((event) async {
+      print(event.notification?.title);
+      // context.read(messageListProvider.notifier).add(
+      //   NotificationMessage(
+      //     title: event.notification!.title!,
+      //     body: event.notification!.body!,
+      //     id: DateTime.now().toString(),
+      //   ),
+      // );
+      // var string = json.encode(context.read(messageListProvider));
+      // await FlutterSecureStorage().write(key: "notifications", value: string);
+    });
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
@@ -672,32 +726,77 @@ class _MyHomePageState extends State<MyHomePage>
               ),
             ),
           ),
-          Container(
-            width: 100.w,
-            height: 100.h,
-            color: Colors.black45,
-            child: Center(
+          if (_updateAvailable)
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
               child: Container(
-                height: 60.h,
-                width: 90.w,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        "Update Available",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                width: 100.w,
+                height: 100.h,
+                color: Colors.black26,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).backgroundColor,
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    Divider(),
-                  ],
+                    height: 60.h,
+                    width: 90.w,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 1.7.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "New Update Available",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          color: Theme.of(context).accentColor,
+                        ),
+                        Expanded(
+                          child: Text(
+                            _updateNote,
+                            style: getDefaultTextStyle(size: 12.sp),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: InkWell(
+                              onTap: () {
+                                // launch("https://onplay365.in");
+                                setState(() {
+                                  _updateAvailable = false;
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 26),
+                                height: 49,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).accentColor,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Center(
+                                  child: Text(
+                                    "Update",
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: Colors.white),
+                                  ),
+                                ),
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );

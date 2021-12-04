@@ -4,6 +4,7 @@ import 'package:op123/app/constants/globals.dart';
 import 'package:op123/app/models/TransactionResponse.dart';
 import 'package:op123/app/services/TransactionService.dart';
 import 'package:op123/views/widgets/CustomAppDrawer.dart';
+import 'package:op123/views/widgets/NewTransactionForm.dart';
 import 'package:op123/views/widgets/StaticAppBar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
@@ -65,7 +66,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                        onPressed: () => print("Deposit"),
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => NewTransactionForm())),
                         style:
                             ElevatedButton.styleFrom(primary: Colors.blue[300]),
                         child: Container(
@@ -80,7 +84,12 @@ class _TransactionsPageState extends State<TransactionsPage> {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.amber),
-                        onPressed: () => print("Withdraw"),
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => NewTransactionForm(
+                                      type: TransactionType.WITHDRAW,
+                                    ))),
                         child: Container(
                           width: 35.w,
                           child: Center(

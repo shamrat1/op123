@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:op123/app/constants/globals.dart';
+import 'package:op123/app/models/GeneralResponse.dart';
 import 'package:op123/app/models/TransactionResponse.dart';
 import 'package:op123/app/services/RemoteService.dart';
 import 'package:http/http.dart' as http;
@@ -16,20 +17,20 @@ class TransactionService {
     return transactionsResponseFromMap(response.body);
   }
 
-  void deposit(Map<String, dynamic> data) async {
+  Future<http.Response> deposit(Map<String, dynamic> data) async {
     var url = rootUrl + "/deposit";
     var headers = await RemoteService.getAuthenticatedHeader();
     var response = await http.post(Uri.parse(url),
         headers: headers, body: json.encode(data));
-    if (response.statusCode == 200) {}
+    return response;
   }
 
-  void withdraw(Map<String, dynamic> data) async {
+  Future<http.Response> withdraw(Map<String, dynamic> data) async {
     var url = rootUrl + "/withdraw";
     var headers = await RemoteService.getAuthenticatedHeader();
     var response = await http.post(Uri.parse(url),
         headers: headers, body: json.encode(data));
-    if (response.statusCode == 200) {}
+    return response;
   }
 
   void coinTransfer(Map<String, dynamic> data) async {
