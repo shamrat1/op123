@@ -17,9 +17,10 @@ class StartGameDialog extends StatefulWidget {
   final String name;
   final Games gameType;
   final GameRates? selectedRate;
+  final String? selectedCoinSide;
 
   const StartGameDialog(
-      {Key? key, required this.name, required this.gameType, this.selectedRate})
+      {Key? key, required this.name, required this.gameType, this.selectedRate, this.selectedCoinSide})
       : super(key: key);
 
   @override
@@ -230,57 +231,57 @@ class _StartGameDialogState extends State<StartGameDialog> {
                       ),
                     ],
                   ),
-                  if (widget.gameType == Games.COIN_FLIP)
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      // height: 10.h,
-                      // color: Colors.white,
-                      child: Column(
-                        children: [
-                          Text(
-                            "Choose Coin Side",
-                            style: getDefaultTextStyle(size: 18.sp),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              TextButton(
-                                  onPressed: () => _setCoinSide("head"),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: coinSide == "head"
-                                          ? Theme.of(context).backgroundColor
-                                          : Colors.grey,
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 5),
-                                    child: Text(
-                                      "Head",
-                                      style: getDefaultTextStyle(size: 13.sp),
-                                    ),
-                                  )),
-                              TextButton(
-                                  onPressed: () => _setCoinSide("tail"),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: coinSide == "tail"
-                                          ? Theme.of(context).backgroundColor
-                                          : Colors.grey,
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 5),
-                                    child: Text(
-                                      "Tail",
-                                      style: getDefaultTextStyle(size: 13.sp),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  // if (widget.gameType == Games.COIN_FLIP)
+                  //   Container(
+                  //     padding: EdgeInsets.all(10),
+                  //     // height: 10.h,
+                  //     // color: Colors.white,
+                  //     child: Column(
+                  //       children: [
+                  //         Text(
+                  //           "Choose Coin Side",
+                  //           style: getDefaultTextStyle(size: 18.sp),
+                  //         ),
+                  //         Row(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //           children: [
+                  //             TextButton(
+                  //                 onPressed: () => _setCoinSide("head"),
+                  //                 child: Container(
+                  //                   decoration: BoxDecoration(
+                  //                     borderRadius: BorderRadius.circular(5),
+                  //                     color: coinSide == "head"
+                  //                         ? Theme.of(context).backgroundColor
+                  //                         : Colors.grey,
+                  //                   ),
+                  //                   padding: EdgeInsets.symmetric(
+                  //                       horizontal: 16, vertical: 5),
+                  //                   child: Text(
+                  //                     "Head",
+                  //                     style: getDefaultTextStyle(size: 13.sp),
+                  //                   ),
+                  //                 )),
+                  //             TextButton(
+                  //                 onPressed: () => _setCoinSide("tail"),
+                  //                 child: Container(
+                  //                   decoration: BoxDecoration(
+                  //                     borderRadius: BorderRadius.circular(5),
+                  //                     color: coinSide == "tail"
+                  //                         ? Theme.of(context).backgroundColor
+                  //                         : Colors.grey,
+                  //                   ),
+                  //                   padding: EdgeInsets.symmetric(
+                  //                       horizontal: 16, vertical: 5),
+                  //                   child: Text(
+                  //                     "Tail",
+                  //                     style: getDefaultTextStyle(size: 13.sp),
+                  //                   ),
+                  //                 )),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
                   SizedBox(
                     height: 20,
                   ),

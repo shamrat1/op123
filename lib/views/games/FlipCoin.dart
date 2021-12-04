@@ -33,6 +33,13 @@ class _CoinFlipState extends State<CoinFlip> {
   late ConfettiController _controllerBottomCenter;
   String resultText = "Start playing to win.";
   bool? win;
+  String coinSide = "";
+
+  void _setCoinSide(String side) {
+    setState(() {
+      coinSide = side;
+    });
+  }
 
   @override
   void initState() {
@@ -80,7 +87,60 @@ class _CoinFlipState extends State<CoinFlip> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 20.h,
+                    height: 5.h,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    // height: 10.h,
+                    // color: Colors.white,
+                    child: Column(
+                      children: [
+                        Text(
+                          "Choose Coin Side",
+                          style: getDefaultTextStyle(size: 18.sp),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                                onPressed: () => _setCoinSide("head"),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: coinSide == "head"
+                                        ? Theme.of(context).accentColor
+                                        : Colors.grey,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 5),
+                                  child: Text(
+                                    "Head",
+                                    style: getDefaultTextStyle(size: 13.sp),
+                                  ),
+                                )),
+                            TextButton(
+                                onPressed: () => _setCoinSide("tail"),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: coinSide == "tail"
+                                        ? Theme.of(context).accentColor
+                                        : Colors.grey,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 5),
+                                  child: Text(
+                                    "Tail",
+                                    style: getDefaultTextStyle(size: 13.sp),
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Container(
                     width: 200,

@@ -726,77 +726,77 @@ class _MyHomePageState extends State<MyHomePage>
               ),
             ),
           ),
-          if (_updateAvailable)
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-              child: Container(
-                width: 100.w,
-                height: 100.h,
-                color: Colors.black26,
-                child: Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    height: 60.h,
-                    width: 90.w,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 1.7.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "New Update Available",
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Divider(
-                          color: Theme.of(context).accentColor,
-                        ),
-                        Expanded(
-                          child: Text(
-                            _updateNote,
-                            style: getDefaultTextStyle(size: 12.sp),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: InkWell(
-                              onTap: () {
-                                // launch("https://onplay365.in");
-                                setState(() {
-                                  _updateAvailable = false;
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 26),
-                                height: 49,
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).accentColor,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
-                                  child: Text(
-                                    "Update",
-                                    style: TextStyle(
-                                        fontSize: 14.sp, color: Colors.white),
-                                  ),
-                                ),
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
+          // if (_updateAvailable)
+          //   BackdropFilter(
+          //     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          //     child: Container(
+          //       width: 100.w,
+          //       height: 100.h,
+          //       color: Colors.black26,
+          //       child: Center(
+          //         child: Container(
+          //           decoration: BoxDecoration(
+          //             color: Theme.of(context).backgroundColor,
+          //             borderRadius: BorderRadius.circular(15),
+          //           ),
+          //           height: 60.h,
+          //           width: 90.w,
+          //           child: Column(
+          //             children: [
+          //               SizedBox(
+          //                 height: 1.7.h,
+          //               ),
+          //               Padding(
+          //                 padding: EdgeInsets.all(8),
+          //                 child: Text(
+          //                   "New Update Available",
+          //                   style: TextStyle(
+          //                     fontSize: 16.sp,
+          //                     color: Colors.white,
+          //                     fontWeight: FontWeight.bold,
+          //                   ),
+          //                 ),
+          //               ),
+          //               Divider(
+          //                 color: Theme.of(context).accentColor,
+          //               ),
+          //               Expanded(
+          //                 child: Text(
+          //                   _updateNote,
+          //                   style: getDefaultTextStyle(size: 12.sp),
+          //                   overflow: TextOverflow.ellipsis,
+          //                 ),
+          //               ),
+          //               Padding(
+          //                 padding: const EdgeInsets.all(16.0),
+          //                 child: InkWell(
+          //                     onTap: () {
+          //                       // launch("https://onplay365.in");
+          //                       setState(() {
+          //                         _updateAvailable = false;
+          //                       });
+          //                     },
+          //                     child: Container(
+          //                       padding: EdgeInsets.symmetric(horizontal: 26),
+          //                       height: 49,
+          //                       decoration: BoxDecoration(
+          //                           color: Theme.of(context).accentColor,
+          //                           borderRadius: BorderRadius.circular(5)),
+          //                       child: Center(
+          //                         child: Text(
+          //                           "Update",
+          //                           style: TextStyle(
+          //                               fontSize: 14.sp, color: Colors.white),
+          //                         ),
+          //                       ),
+          //                     )),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   )
         ],
       ),
     );

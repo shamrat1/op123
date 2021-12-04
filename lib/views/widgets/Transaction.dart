@@ -30,12 +30,14 @@ class _TransactionsPageState extends State<TransactionsPage> {
   _getTransactions() async {
     if (mounted)
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
       });
     var response = await TransactionService().allTransactions(_transactionType);
 
     if (mounted)
       setState(() {
+        _isLoading = false;
+        _transactions = [];
         _transactions.addAll(response.transactions!.transaction!);
       });
   }
@@ -57,89 +59,94 @@ class _TransactionsPageState extends State<TransactionsPage> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (ctx) => NewTransactionForm())),
-                        style:
-                            ElevatedButton.styleFrom(primary: Colors.blue[300]),
-                        child: Container(
-                          width: 35.w,
-                          child: Center(
-                            child: Text(
-                              "New Deposit",
-                              style: getDefaultTextStyle(size: 12.sp),
-                            ),
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.amber),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (ctx) => NewTransactionForm(
-                                      type: TransactionType.WITHDRAW,
-                                    ))),
-                        child: Container(
-                          width: 35.w,
-                          child: Center(
-                            child: Text(
-                              "New Withdraw",
-                              style: getDefaultTextStyle(size: 12.sp),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                for (var item in _transactions)
-                  ListTile(
-                    title: Text(
-                      "Type " + item.type!,
-                      style: getDefaultTextStyle(
-                          size: 20, weight: FontWeight.bold),
-                    ),
-                    subtitle: Row(
+            child: _isLoading ? Center(
+              child: CircularProgressIndicator(),
+            ) : RefreshIndicator(
+              onRefresh: () => _getTransactions(),
+              child: ListView(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Amount: ${item.amount} $currencylogoText",
-                          style: getDefaultTextStyle(
-                            size: 16,
-                            weight: FontWeight.w400,
+                        ElevatedButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => NewTransactionForm())),
+                          style:
+                              ElevatedButton.styleFrom(primary: Colors.blue[300]),
+                          child: Container(
+                            width: 35.w,
+                            child: Center(
+                              child: Text(
+                                "New Deposit",
+                                style: getDefaultTextStyle(size: 12.sp),
+                              ),
+                            ),
                           ),
                         ),
-                        Text(
-                          "${item.status!.toUpperCase()}",
-                          style: getDefaultTextStyle(
-                            size: 16,
-                            weight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          DateFormat("hh:mm a dd/M/yyyy")
-                              .format(item.createdAt!)
-                              .toString(),
-                          style: getDefaultTextStyle(
-                            size: 16,
-                            weight: FontWeight.w300,
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(primary: Colors.amber),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => NewTransactionForm(
+                                        type: TransactionType.WITHDRAW,
+                                      ))),
+                          child: Container(
+                            width: 35.w,
+                            child: Center(
+                              child: Text(
+                                "New Withdraw",
+                                style: getDefaultTextStyle(size: 12.sp),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-              ],
+                  for (var item in _transactions)
+                    ListTile(
+                      title: Text(
+                        "Type " + item.type!,
+                        style: getDefaultTextStyle(
+                            size: 20, weight: FontWeight.bold),
+                      ),
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Amount: ${item.amount} $currencylogoText",
+                            style: getDefaultTextStyle(
+                              size: 16,
+                              weight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            "${item.status!.toUpperCase()}",
+                            style: getDefaultTextStyle(
+                              size: 16,
+                              weight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            DateFormat("hh:mm a dd/M/yyyy")
+                                .format(item.createdAt!)
+                                .toString(),
+                            style: getDefaultTextStyle(
+                              size: 16,
+                              weight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),

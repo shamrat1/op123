@@ -41,6 +41,12 @@ class GameController {
       });
 
       if (type == Games.COIN_FLIP) {
+        print({
+          "amount": inputAmount.toString(),
+          "rate": type == Games.COIN_FLIP ? "" : rateObj?.key.toString(),
+          "value": rate.toString(),
+          "game_type": type.toString()
+        });
         Random r = new Random();
         double falseProbability = .7;
         bool booleanResult = r.nextDouble() > falseProbability;

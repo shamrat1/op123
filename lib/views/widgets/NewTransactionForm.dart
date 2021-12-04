@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:op123/app/constants/TextDefaultStyle.dart';
+import 'package:op123/app/constants/globals.dart';
+import 'package:op123/app/services/TransactionService.dart';
+import 'package:op123/app/states/SettingState.dart';
 import 'package:op123/views/widgets/StaticAppBar.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum TransactionType { WITHDRAW, DEPOSIT }
 
@@ -23,6 +27,16 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _paymentTypeController =
       TextEditingController(text: "Bkash");
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    var settings = context.read(settingResponseProvider)?.siteSetting;
+    if(settings != null){
+      _backendMobileController.text = settings.backendNumber!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +85,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                       controller: _backendMobileController,
                       enabled: false,
                       decoration: InputDecoration(
-                          labelText: 'Receiver Number',
+                          labelText: 'Backend Number',
                           hintText: '012345678901',
                           border: OutlineInputBorder()),
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -91,14 +105,13 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     ),
                   ),
-                if (widget.type == TransactionType.DEPOSIT)
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10),
                     child: TextFormField(
                       obscureText: true,
                       keyboardType: TextInputType.number,
                       controller: _passwordController,
-                      enabled: false,
+                      enabled: true,
                       decoration: InputDecoration(
                           labelText: 'Current Password',
                           border: OutlineInputBorder()),
@@ -110,7 +123,59 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             Positioned(
               bottom: 20,
               child: InkWell(
-                onTap: () {},
+                onTap: () async {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  if(widget.type == TransactionType.DEPOSIT){
+                    var depositData = {
+                      "amount" : _amountController.text,
+                      "mobile" : _mobileController.text,
+                      "backend_mobile" : _backendMobileController.text,
+                      "password" : _passwordController.text,
+                    };
+                    print(depositData);
+                    var response = await TransactionService().deposit(depositData);
+
+                    if(response.statusCode == 200){
+                      // success
+                      showCustomSimpleNotification("Deposit Request added successfully.", Colors.green);
+                      Navigator.pop(context);
+                    }else if(response.statusCode == 401){
+                      // failed validation failed
+                      showCustomSimpleNotification("Make sure you've entered correct amount, contact Number & password.", Colors.yellow);
+                    }else{
+                      // something else wrong
+                      showCustomSimpleNotification("Something went wrong. Contact Admin.", Colors.red);
+                    }
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  }else{
+                    var withdrawData = {
+                      "amount" : _amountController.text,
+                      "mobile" : _mobileController.text,
+                      "payment_type" : _paymentTypeController.text,
+                      "password" : _passwordController.text,
+                    };
+                    var response = await TransactionService().withdraw(withdrawData);
+
+                    if(response.statusCode == 200){
+                      // success
+                      showCustomSimpleNotification("Withdraw Request added successfully.", Colors.green);
+                      Navigator.pop(context);
+                    }else if(response.statusCode == 401){
+                      // failed validation failed
+                      showCustomSimpleNotification("Make sure you've entered correct amount, contact Number & password.", Colors.yellow);
+                    }else{
+                      // something else wrong
+                      showCustomSimpleNotification("Something went wrong. Contact Admin.", Colors.red);
+                    }
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  }
+                },
                 child: Container(
                   height: 50,
                   width: 90.w,
@@ -119,7 +184,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: Text(
+                    child: _isLoading ? CircularProgressIndicator() : Text(
                       "Submit",
                       style: getDefaultTextStyle(size: 14.sp),
                     ),

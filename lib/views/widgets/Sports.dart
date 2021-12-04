@@ -101,7 +101,7 @@ class _SportViewState extends State<SportView> {
             height: 10,
           ),
           Container(
-            height: (betsForMatch.betDetails!.length / 2).ceil() * 20 + 20,
+            height: (betsForMatch.betDetails!.length / 2).ceil() * 30 + 20,
             child: GridView.count(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
@@ -109,7 +109,7 @@ class _SportViewState extends State<SportView> {
               mainAxisSpacing: 2,
               crossAxisSpacing: 2,
               crossAxisCount: 2,
-              childAspectRatio: (MediaQuery.of(context).size.width * 0.40 / 20),
+              childAspectRatio: (MediaQuery.of(context).size.width * 0.40 / 30),
               children: [
                 for (var k = 0; k < betsForMatch.betDetails!.length; k++)
                   _getBetDetails(betsForMatch.betDetails![k], betsForMatch)
@@ -139,7 +139,7 @@ class _SportViewState extends State<SportView> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.40,
-        height: 20,
+        // height: 20,
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(5)),
         child: Center(
@@ -147,6 +147,8 @@ class _SportViewState extends State<SportView> {
             "${betDetail.name} ${betDetail.value} ",
             style: TextStyle(
                 fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+            maxLines: 2,
+            textAlign: TextAlign.center,
           ),
         ),
       ),
