@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:op123/app/extensions/StringExtension.dart';
+import 'package:OnPlay365/app/extensions/StringExtension.dart';
 
 class SignUpController {
   const SignUpController({

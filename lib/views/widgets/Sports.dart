@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:op123/app/controllers/PlaceBetController.dart';
-import 'package:op123/app/models/BetDetail.dart';
-import 'package:op123/app/models/BetsForMatch.dart';
-import 'package:op123/app/models/Match.dart';
-import 'package:op123/views/widgets/PlaceBetWidget.dart';
+import 'package:OnPlay365/app/controllers/PlaceBetController.dart';
+import 'package:OnPlay365/app/models/BetDetail.dart';
+import 'package:OnPlay365/app/models/BetsForMatch.dart';
+import 'package:OnPlay365/app/models/Match.dart';
+import 'package:OnPlay365/views/widgets/PlaceBetWidget.dart';
 
 class SportView extends StatefulWidget {
   final Match match;

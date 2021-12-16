@@ -1,5 +1,5 @@
-import 'package:op123/app/models/BetDetail.dart';
-import 'package:op123/app/models/BetOption.dart';
+import 'package:OnPlay365/app/models/BetDetail.dart';
+import 'package:OnPlay365/app/models/BetOption.dart';
 
 class BetsForMatch {
   BetsForMatch({

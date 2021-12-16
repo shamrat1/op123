@@ -1,4 +1,4 @@
-import 'package:op123/app/models/Credit.dart';
+import 'package:OnPlay365/app/models/Credit.dart';
 
 class User {
   User(

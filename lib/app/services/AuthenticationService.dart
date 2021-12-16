@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:op123/app/constants/globals.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
 
 class AuthenticationService {
   Future<http.Response> signIn(Map<String, dynamic> data) async {

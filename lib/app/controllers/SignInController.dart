@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/models/GeneralResponse.dart';
-import 'package:op123/app/services/AuthenticationService.dart';
-import 'package:op123/app/states/AuthUserState.dart';
-import 'package:op123/app/states/StateManager.dart';
-import 'package:op123/views/MyHomePage.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/models/GeneralResponse.dart';
+import 'package:OnPlay365/app/services/AuthenticationService.dart';
+import 'package:OnPlay365/app/states/AuthUserState.dart';
+import 'package:OnPlay365/app/states/StateManager.dart';
+import 'package:OnPlay365/views/MyHomePage.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class SignInController {

@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/controllers/PlaceBetController.dart';
-import 'package:op123/app/models/Match.dart';
+import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/controllers/PlaceBetController.dart';
+import 'package:OnPlay365/app/models/Match.dart';
 import 'package:sizer/sizer.dart';
 
 class PlaceBetWidget extends StatefulWidget {

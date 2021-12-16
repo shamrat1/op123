@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_context/one_context.dart';
-import 'package:op123/app/models/GeneralResponse.dart';
-import 'package:op123/app/services/RemoteService.dart';
+import 'package:OnPlay365/app/models/GeneralResponse.dart';
+import 'package:OnPlay365/app/services/RemoteService.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 var creditProvider =

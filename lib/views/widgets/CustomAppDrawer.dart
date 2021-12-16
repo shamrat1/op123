@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/models/User.dart';
-import 'package:op123/app/states/CreditState.dart';
-import 'package:op123/app/states/StateManager.dart';
-import 'package:op123/views/MyHomePage.dart';
-import 'package:op123/views/authentication/Signin.dart';
-import 'package:op123/views/authentication/Signup.dart';
-import 'package:op123/views/widgets/BetHistory.dart';
-import 'package:op123/views/widgets/Transaction.dart';
+import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/models/User.dart';
+import 'package:OnPlay365/app/states/CreditState.dart';
+import 'package:OnPlay365/app/states/StateManager.dart';
+import 'package:OnPlay365/views/MyHomePage.dart';
+import 'package:OnPlay365/views/authentication/Signin.dart';
+import 'package:OnPlay365/views/authentication/Signup.dart';
+import 'package:OnPlay365/views/widgets/BetHistory.dart';
+import 'package:OnPlay365/views/widgets/Transaction.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomAppDrawer extends StatefulWidget {

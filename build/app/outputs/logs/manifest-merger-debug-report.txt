@@ -154,7 +154,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ys
 	android:label
 		ADDED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:6:9-30
 	android:icon
-		ADDED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:7:9-43
+		ADDED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:7:9-45
 activity#com.example.op123.MainActivity
 ADDED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:8:9-37:20
 	android:launchMode

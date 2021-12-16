@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/controllers/SignInController.dart';
-import 'package:op123/views/authentication/Signup.dart';
-import 'package:op123/views/widgets/CustomAppDrawer.dart';
-import 'package:op123/views/widgets/StaticAppBar.dart';
+import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
+import 'package:OnPlay365/app/controllers/SignInController.dart';
+import 'package:OnPlay365/views/authentication/Signup.dart';
+import 'package:OnPlay365/views/widgets/CustomAppDrawer.dart';
+import 'package:OnPlay365/views/widgets/StaticAppBar.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);

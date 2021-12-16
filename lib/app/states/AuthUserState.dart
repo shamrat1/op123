@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/models/User.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/models/User.dart';
 
 class AuthUserState extends StateNotifier<User> {
   AuthUserState(User state) : super(state) {

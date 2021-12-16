@@ -1,6 +1,6 @@
-import 'package:op123/app/models/BetDetail.dart';
-import 'package:op123/app/models/BetsForMatch.dart';
-import 'package:op123/app/models/Match.dart';
+import 'package:OnPlay365/app/models/BetDetail.dart';
+import 'package:OnPlay365/app/models/BetsForMatch.dart';
+import 'package:OnPlay365/app/models/Match.dart';
 
 class CoinGameController {
   final double amount;

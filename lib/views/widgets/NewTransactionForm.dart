@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/services/TransactionService.dart';
-import 'package:op123/app/states/SettingState.dart';
-import 'package:op123/views/widgets/StaticAppBar.dart';
+import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/services/TransactionService.dart';
+import 'package:OnPlay365/app/states/SettingState.dart';
+import 'package:OnPlay365/views/widgets/StaticAppBar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

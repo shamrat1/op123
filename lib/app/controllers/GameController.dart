@@ -2,17 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:one_context/one_context.dart';
-import 'package:op123/app/Enums/Games.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/models/CoinGame.dart';
-import 'package:op123/app/models/GameHistoryResponse.dart';
-import 'package:op123/app/models/SettingResponse.dart';
-import 'package:op123/app/services/GameService.dart';
-import 'package:op123/app/services/RemoteService.dart';
-import 'package:op123/views/authentication/Signin.dart';
-import 'package:op123/views/games/BoardGame.dart';
-import 'package:op123/views/games/FlipCoin.dart';
-import 'package:op123/views/games/StartGame.dart';
+import 'package:OnPlay365/app/Enums/Games.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/models/CoinGame.dart';
+import 'package:OnPlay365/app/models/GameHistoryResponse.dart';
+import 'package:OnPlay365/app/models/SettingResponse.dart';
+import 'package:OnPlay365/app/services/GameService.dart';
+import 'package:OnPlay365/app/services/RemoteService.dart';
+import 'package:OnPlay365/views/authentication/Signin.dart';
+import 'package:OnPlay365/views/games/BoardGame.dart';
+import 'package:OnPlay365/views/games/FlipCoin.dart';
+import 'package:OnPlay365/views/games/StartGame.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

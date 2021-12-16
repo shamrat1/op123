@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/controllers/SignUpController.dart';
-import 'package:op123/views/widgets/CustomAppDrawer.dart';
-import 'package:op123/views/widgets/StaticAppBar.dart';
+import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
+import 'package:OnPlay365/app/controllers/SignUpController.dart';
+import 'package:OnPlay365/views/widgets/CustomAppDrawer.dart';
+import 'package:OnPlay365/views/widgets/StaticAppBar.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);

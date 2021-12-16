@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.op.app"
     android:versionCode="1"
-    android:versionName="1.0.0" >
+    android:versionName="1.0.1" >
 
     <uses-sdk
         android:minSdkVersion="20"
@@ -29,7 +29,7 @@
     <application
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:label="op123" >
         <activity
             android:name="com.example.op123.MainActivity"

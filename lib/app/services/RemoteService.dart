@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:one_context/one_context.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/models/Match.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/models/Match.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:riverpod/riverpod.dart';
 

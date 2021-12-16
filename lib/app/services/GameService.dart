@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/models/GameHistoryResponse.dart';
-import 'package:op123/app/models/Match.dart';
-import 'package:op123/app/services/RemoteService.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/models/GameHistoryResponse.dart';
+import 'package:OnPlay365/app/models/Match.dart';
+import 'package:OnPlay365/app/services/RemoteService.dart';
 
 class GameService {
   Future<List<Match>> startCoinGame(Map<String, dynamic> data) async {

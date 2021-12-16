@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:op123/main.dart';
-import 'package:op123/routes/RouteConstant.dart';
-import 'package:op123/views/MyHomePage.dart';
-import 'package:op123/views/authentication/Signin.dart';
-import 'package:op123/views/authentication/Signup.dart';
-import 'package:op123/views/games/FlipCoin.dart';
+import 'package:OnPlay365/main.dart';
+import 'package:OnPlay365/routes/RouteConstant.dart';
+import 'package:OnPlay365/views/MyHomePage.dart';
+import 'package:OnPlay365/views/authentication/Signin.dart';
+import 'package:OnPlay365/views/authentication/Signup.dart';
+import 'package:OnPlay365/views/games/FlipCoin.dart';
 
 class NavRouter {
   static final generateRoute = [

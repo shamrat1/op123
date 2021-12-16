@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
-import 'package:op123/app/constants/globals.dart';
-import 'package:op123/app/models/Match.dart';
-import 'package:op123/app/services/BetService.dart';
-import 'package:op123/app/states/CreditState.dart';
-import 'package:op123/views/widgets/BetHistory.dart';
-import 'package:op123/views/widgets/PlaceBetWidget.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
+import 'package:OnPlay365/app/models/Match.dart';
+import 'package:OnPlay365/app/services/BetService.dart';
+import 'package:OnPlay365/app/states/CreditState.dart';
+import 'package:OnPlay365/views/widgets/BetHistory.dart';
+import 'package:OnPlay365/views/widgets/PlaceBetWidget.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:validators/validators.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

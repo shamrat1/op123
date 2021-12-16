@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:op123/app/models/SettingResponse.dart';
-import 'package:op123/app/services/RemoteService.dart';
+import 'package:OnPlay365/app/models/SettingResponse.dart';
+import 'package:OnPlay365/app/services/RemoteService.dart';
 
 final settingResponseProvider =
     StateNotifierProvider<SettingState, SettingResponse?>((ref) {

@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:op123/app/models/User.dart';
+import 'package:OnPlay365/app/models/User.dart';
 
 GeneralResponse generalResponseFromMap(String str) => GeneralResponse.fromMap(json.decode(str));
 

@@ -3,8 +3,8 @@
 //     final match = matchFromMap(jsonString);
 
 import 'dart:convert';
-import 'package:op123/app/models/BetsForMatch.dart';
-import 'package:op123/app/models/Tournament.dart';
+import 'package:OnPlay365/app/models/BetsForMatch.dart';
+import 'package:OnPlay365/app/models/Tournament.dart';
 
 List<Match> matchFromMap(String str) =>
     List<Match>.from(json.decode(str).map((x) => Match.fromMap(x)));

@@ -4,11 +4,11 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:op123/app/Enums/Games.dart';
-import 'package:op123/app/constants/TextDefaultStyle.dart';
-import 'package:op123/app/models/GameHistoryResponse.dart';
-import 'package:op123/views/MyHomePage.dart';
-import 'package:op123/views/games/StartGame.dart';
+import 'package:OnPlay365/app/Enums/Games.dart';
+import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
+import 'package:OnPlay365/app/models/GameHistoryResponse.dart';
+import 'package:OnPlay365/views/MyHomePage.dart';
+import 'package:OnPlay365/views/games/StartGame.dart';
 import 'package:sizer/sizer.dart';
 
 enum GameResult {

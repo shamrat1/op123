@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-import 'package:op123/app/models/BetDetail.dart';
-import 'package:op123/app/models/Match.dart';
+import 'package:OnPlay365/app/models/BetDetail.dart';
+import 'package:OnPlay365/app/models/Match.dart';
 
 PlacedBetResponse placedBetResponseFromMap(String str) => PlacedBetResponse.fromMap(json.decode(str));
 

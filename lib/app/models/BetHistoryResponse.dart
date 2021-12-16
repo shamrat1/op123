@@ -5,8 +5,8 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-import 'package:op123/app/models/BetDetail.dart';
-import 'package:op123/app/models/Match.dart';
+import 'package:OnPlay365/app/models/BetDetail.dart';
+import 'package:OnPlay365/app/models/Match.dart';
 
 BetHistoryResponse betHistoryResponseFromMap(String str) =>
     BetHistoryResponse.fromMap(json.decode(str));
