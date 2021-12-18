@@ -11,6 +11,7 @@ import 'package:OnPlay365/app/states/AuthUserState.dart';
 import 'package:OnPlay365/app/states/StateManager.dart';
 import 'package:OnPlay365/views/MyHomePage.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class SignInController {
   SignInController({
@@ -25,11 +26,19 @@ class SignInController {
 
   AuthenticationService _authenticationService = AuthenticationService();
 
+  _getDeviceId() async {
+    var info = await DeviceInfoPlugin().androidInfo;
+    return info.androidId;
+  }
+
   void signin() async {
+
     if (_validate()) {
+
       var data = {
         "username": username,
         "password": password,
+        "device_id" : await _getDeviceId(),
       };
       var response = await _authenticationService.signIn(data);
       print(response.statusCode);

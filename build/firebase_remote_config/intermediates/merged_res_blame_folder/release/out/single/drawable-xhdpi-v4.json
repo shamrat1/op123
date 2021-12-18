@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "E:\\Flutter\\op123\\build\\firebase_remote_config\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\23dce2c664a62757c7c9eebc0507a723\\core-1.2.0\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "E:\\Flutter\\op123\\build\\firebase_remote_config\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\23dce2c664a62757c7c9eebc0507a723\\core-1.2.0\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "E:\\Flutter\\op123\\build\\firebase_remote_config\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\23dce2c664a62757c7c9eebc0507a723\\core-1.2.0\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "E:\\Flutter\\op123\\build\\firebase_remote_config\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\23dce2c664a62757c7c9eebc0507a723\\core-1.2.0\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "E:\\Flutter\\op123\\build\\firebase_remote_config\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\23dce2c664a62757c7c9eebc0507a723\\core-1.2.0\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
+    }
+]

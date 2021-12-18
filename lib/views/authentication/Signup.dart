@@ -1,3 +1,5 @@
+import 'package:OnPlay365/app/models/Club.dart';
+import 'package:OnPlay365/app/services/RemoteService.dart';
 import 'package:flutter/material.dart';
 import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
 import 'package:OnPlay365/app/controllers/SignUpController.dart';
@@ -23,15 +25,28 @@ class _SignUpPageState extends State<SignUpPage> {
   EdgeInsets margin = EdgeInsets.symmetric(horizontal: 20);
 
   var selectedClub = "Select Club";
+  int selectedClubId = 0;
+  List<Club> clubs = [];
+
   void _handleClub(String clubId) {
     // some
   }
 
+  void _getClubs() async {
+    RemoteService().getRegisterEssentials().then((response) {
+      if(response.statusCode == 200){
+        setState(() {
+          clubs = clubFromJson(response.body);
+        });
+      }
+    });
+
+  }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _countryController.text = "Bangladesh";
+    _getClubs();
   }
 
   @override
@@ -209,7 +224,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Container(
                       margin: margin,
                       width: MediaQuery.of(context).size.width * 0.77,
-                      child: DropdownButton<String>(
+                      child: DropdownButton<Club>(
                         hint: Text(selectedClub),
                         underline: Container(
                           height: 2,
@@ -217,23 +232,19 @@ class _SignUpPageState extends State<SignUpPage> {
                           color: Colors.black45,
                         ),
                         dropdownColor: Theme.of(context).backgroundColor,
-                        items: <String>[
-                          'Op365',
-                          'Some Club',
-                          'Club House 354',
-                          'DBoyzzz'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
+                        items: clubs.map((Club value) {
+                          return DropdownMenuItem<Club>(
                             value: value,
                             child: new Text(
-                              value,
+                              value.name!,
                               style: getDefaultTextStyle(size: 18),
                             ),
                           );
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
-                            selectedClub = value ?? "Select Club";
+                            selectedClub = value?.name! ?? "Select Club";
+                            selectedClubId = value!.id!;
                           });
                         },
                       ),
@@ -252,6 +263,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     _passwordConfirmation.text,
                                 email: _emailController.text,
                                 name: _nameController.text,
+                                clubId: selectedClubId,
                                 country: _countryController.text)
                             .register();
                       },

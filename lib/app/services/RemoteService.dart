@@ -48,6 +48,12 @@ class RemoteService {
         .get(Uri.parse(url), headers: {"accept": "application/json"});
   }
 
+  Future<http.Response> getRegisterEssentials() async {
+    var url = rootUrl + "registration/essential";
+    return await http
+        .get(Uri.parse(url), headers: {"accept": "application/json"});
+  }
+
   static Future<Map<String, String>> getAuthenticatedHeader() async {
     var token = await FlutterSecureStorage().read(key: tokenKey) ?? null;
     if (token != null) {
