@@ -1,3 +1,4 @@
+import 'package:OnPlay365/views/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -143,6 +144,13 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                 "Hello, ${user.name}",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
+              subtitle: Text(
+                "View / Edit Profile",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (ctx) => ProfilePage()));
+              },
             ),
 
             ListTile(

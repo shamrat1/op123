@@ -6,11 +6,12 @@ import 'package:OnPlay365/app/constants/globals.dart';
 class AuthenticationService {
   Future<http.Response> signIn(Map<String, dynamic> data) async {
     var url = rootUrl + "login";
-    print(json.encode(data));
+    print(url);
     var headers = _getUnAuthenticatedHeader();
     var response =
         await http.post(Uri.parse(url), headers: headers, body: data);
-
+    print(response.statusCode);
+    print(response.body);
     return response;
   }
 
