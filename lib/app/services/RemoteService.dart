@@ -10,9 +10,9 @@ import 'package:riverpod/riverpod.dart';
 
 class RemoteService {
   Future<List<Match>> getMatches(
-      {String sport = "all", String type = "live"}) async {
-    var url = rootUrl + "matches?sport=$sport&type=$type";
-    // print(url);
+      {String params = "status=live&sport=all"}) async {
+    var url = rootUrl + "matches?$params&origin=mobile";
+    print(url);
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return matchFromMap(response.body);
@@ -28,6 +28,14 @@ class RemoteService {
     if (response.statusCode == 200) {}
   }
 
+  Future<http.Response> updareUserInfo(Map<String, dynamic> data) async {
+    var url = rootUrl + "user/info";
+    var headers = await getAuthenticatedHeader();
+    var response = await http.post(Uri.parse(url),
+        headers: headers, body: json.encode(data));
+    return response;
+  }
+
   Future<http.Response> getUserInfo() async {
     var url = rootUrl + "user/info";
     var headers = await getAuthenticatedHeader();
@@ -39,6 +47,7 @@ class RemoteService {
     var url = rootUrl + "bet/history";
     var headers = await getAuthenticatedHeader();
     var response = await http.get(Uri.parse(url), headers: headers);
+
     return response;
   }
 

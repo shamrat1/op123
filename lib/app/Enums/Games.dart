@@ -1,1 +1,1 @@
-enum Games { COIN_FLIP, RUN_2, RUN_3, RUN_4, RUN_6, RUN_6_OVER }
+enum Games { COIN_FLIP, RUN_2, RUN_3, RUN_4, RUN_6, RUN_6_OVER, GAME_T10, GAME_T20 }

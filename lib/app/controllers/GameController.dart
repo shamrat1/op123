@@ -127,8 +127,8 @@ class GameController {
   }
 
   bool _validate() {
-    double minAmount = 50.00;
-    double maxAmount = 200.00;
+    double minAmount = double.parse(settings.firstWhere((element) => element.key == "game-min-amount", orElse: () => Setting(id: 0,key: "some",value: "50")).value!);
+    double maxAmount = double.parse(settings.firstWhere((element) => element.key == "game-max-amount", orElse: () => Setting(id: 0, key: "some",value: "200")).value!);
     var amount = 0.0;
     try {
       amount = double.parse(inputAmount);

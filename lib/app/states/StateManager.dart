@@ -8,7 +8,15 @@ import 'package:OnPlay365/app/states/MatchState.dart';
 // var matchesProvider =
 //     StateNotifierProvider<MatchState, List<Match>>((ref) => MatchState([]));
 var matchesProvider =
-    FutureProvider((ref) async => await RemoteService().getMatches());
+    FutureProvider((ref) async {
+      var params = ref.watch(matchParamProvider);
+      print("-------------------------------------------");
+      print(params);
+      print("-------------------------------------------");
+     return await RemoteService().getMatches(params: params);
+    });
+
+var matchParamProvider = StateNotifierProvider<MatchParamState, String>((ref) => MatchParamState('status=live&sport=all'));
 var authUserProvider =
     StateNotifierProvider<AuthUserState, User>((ref) => AuthUserState(User()));
 

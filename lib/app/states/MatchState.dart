@@ -11,3 +11,9 @@ class MatchState extends StateNotifier<List<Match>> {
     state = await RemoteService().getMatches();
   }
 }
+
+class MatchParamState extends StateNotifier<String> {
+  MatchParamState(String state) : super(state);
+
+  void change(String str) => state = str;
+}

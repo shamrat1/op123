@@ -141,11 +141,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                 color: Theme.of(context).accentColor,
               ),
               title: Text(
-                "Hello, ${user.name}",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              subtitle: Text(
-                "View / Edit Profile",
+                "Profile",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onTap: (){
@@ -205,7 +201,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                 color: Theme.of(context).accentColor,
               ),
               title: Text(
-                "Transaction",
+                "Wallet",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               subtitle: Text(
@@ -242,10 +238,10 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
             Spacer(),
             ListTile(
               onTap: () {
-                context.refresh(authUserProvider);
-                context.refresh(authTokenProvider);
                 FlutterSecureStorage().deleteAll();
-                Navigator.of(context).pop();
+                context.read(authUserProvider.notifier).change(User());
+                context.read(authTokenProvider.notifier).change('');
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx) => SignInPage()), (route) => false);
               },
               leading: Icon(
                 Icons.logout_outlined,

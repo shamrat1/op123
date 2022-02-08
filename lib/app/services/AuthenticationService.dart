@@ -6,21 +6,27 @@ import 'package:OnPlay365/app/constants/globals.dart';
 class AuthenticationService {
   Future<http.Response> signIn(Map<String, dynamic> data) async {
     var url = rootUrl + "login";
-    print(url);
     var headers = _getUnAuthenticatedHeader();
     var response =
         await http.post(Uri.parse(url), headers: headers, body: data);
-    print(response.statusCode);
-    print(response.body);
+
     return response;
   }
 
-  void signUp(Map<String, dynamic> data) async {
-    var url = rootUrl + "register";
-    var headers = _getUnAuthenticatedHeader();
-    var response = await http.post(Uri.parse(url),
-        headers: headers, body: json.encode(data));
-    if (response.statusCode == 200) {}
+  Future<http.Response> signUp(Map<String, dynamic> data) async {
+    var url = rootUrl + "registration";
+    try{
+      var headers = _getUnAuthenticatedHeader();
+
+      var response = await http.post(Uri.parse(url), headers: headers, body: data);
+      print(response.statusCode);
+      print(response.body);
+      return response;
+    } catch (e) {
+      print(e);
+      throw Exception(e);
+    }
+
   }
 
   Map<String, String> _getUnAuthenticatedHeader() {

@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
    <application
-        android:label="op123"
+        android:label="OP365"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

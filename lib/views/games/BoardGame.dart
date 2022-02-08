@@ -92,7 +92,10 @@ class _BoardGameState extends State<BoardGame> {
 
       case Games.RUN_6_OVER:
         return "game-run-6-rate";
-
+      case Games.GAME_T10:
+        return "game-run-an-t10-rate";
+      case Games.GAME_T20:
+        return "game-run-an-t20-rate";
       default:
         Navigator.of(context).pop();
         toast("Something Went wrong");
@@ -138,6 +141,18 @@ class _BoardGameState extends State<BoardGame> {
         _wheelImageURL = 'assets/images/wheel-6.png';
         _dividers = 9;
         gameObjProvider = RunSixGame();
+
+        return;
+      case Games.GAME_T10:
+        _wheelImageURL = 'assets/images/wheel-6.png';
+        _dividers = 9;
+        gameObjProvider = T10Game();
+
+        return;
+      case Games.GAME_T20:
+        _wheelImageURL = 'assets/images/wheel-6.png';
+        _dividers = 9;
+        gameObjProvider = T10Game();
 
         return;
       case Games.COIN_FLIP:
@@ -197,8 +212,10 @@ class _BoardGameState extends State<BoardGame> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.4,
       child: GridView.builder(
+        scrollDirection: Axis.vertical,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
+
             // childAspectRatio: 1,
             mainAxisSpacing: 8,
             mainAxisExtent: 40,
@@ -235,7 +252,7 @@ class _BoardGameState extends State<BoardGame> {
                     SizedBox(
                       width: 5,
                     ),
-                  if (rates[i].value == selectedRateObj?.value)
+                  if (rates[i].value == selectedRateObj?.value && rates[i].key == selectedRateObj?.key)
                     Icon(
                       Icons.check_circle,
                       color: Theme.of(context).backgroundColor,
@@ -766,6 +783,12 @@ class RouletteScore extends StatelessWidget {
         return;
       case Games.RUN_6_OVER:
         gameObjProvider = RunSixGame();
+        return;
+      case Games.GAME_T10:
+        gameObjProvider = T10Game();
+        return;
+      case Games.GAME_T20:
+        gameObjProvider = T20Game();
         return;
       case Games.COIN_FLIP:
         break;

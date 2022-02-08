@@ -291,11 +291,22 @@
 -dontwarn org.checkerframework.**
 
 # End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae41c966322a9416610e62dc0f6fe6c8\jetified-play-services-basement-17.2.1\proguard.txt
-# The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\proguard.txt
-# aapt2 is not (yet) keeping FQCNs defined in the appComponentFactory <application> attribute
--keep class androidx.core.app.CoreComponentFactory
+# The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\proguard.txt
+# Never inline methods, but allow shrinking and obfuscation.
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.ViewCompat$Api* {
+  <methods>;
+}
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.WindowInsetsCompat$*Impl* {
+  <methods>;
+}
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.app.NotificationCompat$*$Api*Impl {
+  <methods>;
+}
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.os.UserHandleCompat$Api*Impl {
+  <methods>;
+}
 
-# End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\proguard.txt
+# End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\proguard.txt
 # The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\e491a17ea3905cf4e8cc01da5acf5904\lifecycle-runtime-2.2.0\proguard.txt
 -keepattributes *Annotation*
 
@@ -354,13 +365,13 @@
 -dontwarn com.google.auto.value.AutoValue$Builder
 
 # End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\5f302aa8aa4cd11e8ccfdfd58f34bb66\jetified-transport-api-3.0.0\proguard.txt
-# The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\454fd5669506c3ed5fdcf7b2ff03abe6\versionedparcelable-1.1.0\proguard.txt
--keep public class * implements androidx.versionedparcelable.VersionedParcelable
+# The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ff60b25419edc5e682541efdbdc701d8\versionedparcelable-1.1.1\proguard.txt
+-keep class * implements androidx.versionedparcelable.VersionedParcelable
 -keep public class android.support.**Parcelizer { *; }
 -keep public class androidx.**Parcelizer { *; }
 -keep public class androidx.versionedparcelable.ParcelImpl
 
-# End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\454fd5669506c3ed5fdcf7b2ff03abe6\versionedparcelable-1.1.0\proguard.txt
+# End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ff60b25419edc5e682541efdbdc701d8\versionedparcelable-1.1.1\proguard.txt
 # The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\1d4efdb868696ea36efd004abeb8239d\lifecycle-viewmodel-2.1.0\proguard.txt
 -keepclassmembers,allowobfuscation class * extends androidx.lifecycle.ViewModel {
     <init>();
@@ -371,7 +382,7 @@
 }
 
 # End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\1d4efdb868696ea36efd004abeb8239d\lifecycle-viewmodel-2.1.0\proguard.txt
-# The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\fc1cd1d4a884016a82137b68862aff72\rules\lib\META-INF\proguard\androidx-annotations.pro
+# The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\58f10a39bd22ae967af090cbbb483550\rules\lib\META-INF\proguard\androidx-annotations.pro
 -keep,allowobfuscation @interface androidx.annotation.Keep
 -keep @androidx.annotation.Keep class * {*;}
 
@@ -387,7 +398,37 @@
     @androidx.annotation.Keep <init>(...);
 }
 
-# End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\fc1cd1d4a884016a82137b68862aff72\rules\lib\META-INF\proguard\androidx-annotations.pro
+-keepclassmembers,allowobfuscation class * {
+  @androidx.annotation.DoNotInline <methods>;
+}
+
+# End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\58f10a39bd22ae967af090cbbb483550\rules\lib\META-INF\proguard\androidx-annotations.pro
+# The proguard configuration file for the following section is C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\2be4a00b738a307c9b0b855eef46b421\jetified-annotation-experimental-1.1.0\proguard.txt
+# Copyright (C) 2020 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Ignore missing Kotlin meta-annotations so that this library can be used
+# without adding a compileOnly dependency on the Kotlin standard library.
+-dontwarn kotlin.Deprecated
+-dontwarn kotlin.Metadata
+-dontwarn kotlin.ReplaceWith
+-dontwarn kotlin.annotation.AnnotationRetention
+-dontwarn kotlin.annotation.AnnotationTarget
+-dontwarn kotlin.annotation.Retention
+-dontwarn kotlin.annotation.Target
+
+# End of content from C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\2be4a00b738a307c9b0b855eef46b421\jetified-annotation-experimental-1.1.0\proguard.txt
 # The proguard configuration file for the following section is <unknown>
 -ignorewarnings
 # End of content from <unknown>

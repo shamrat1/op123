@@ -1,3 +1,5 @@
+import 'package:OnPlay365/app/models/OffersResponse.dart';
+import 'package:OnPlay365/app/models/SettingResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
@@ -28,18 +30,45 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
   TextEditingController _paymentTypeController =
       TextEditingController(text: "Bkash");
   bool _isLoading = false;
-
+  List<Setting>? allSettings = [];
+  List<String> paymentMethods = [];
+  List<DropdownMenuItem<String>> paymentItems = [];
+  List<OffersResponse> offers = [];
+  OffersResponse? selectedOffer;
   @override
   void initState() {
     super.initState();
+    _getOffers();
     var settings = context.read(settingResponseProvider)?.siteSetting;
-    if(settings != null){
+    allSettings = context.read(settingResponseProvider)?.settings;
+    var method =
+        allSettings!.firstWhere((element) => element.key == "payment-method");
+
+    paymentMethods = method.value!.split(",");
+    paymentMethods.forEach((element) {
+      paymentItems.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    });
+    if (settings != null) {
       _backendMobileController.text = settings.backendNumber!;
     }
   }
 
+  void _getOffers() {
+    TransactionService().allOffers().then((value){
+      setState(() {
+        offers = value;
+      });
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    // allSettings?.map((e) => print("Key ${e.key} | value ${e.value}"));
+
     return Scaffold(
       appBar: getStaticAppBar(
         context,
@@ -77,6 +106,21 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
+                if (paymentMethods.length > 0)
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          labelText: 'Payment Method',
+                          border: OutlineInputBorder()),
+                      items: paymentItems,
+                      onChanged: (value) {
+                        var val = allSettings!.firstWhere((element) => element.key == value);
+                        _backendMobileController.text = val.value!;
+                      },
+                    ),
+                  ),
                 if (widget.type == TransactionType.DEPOSIT)
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10),
@@ -105,20 +149,39 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     ),
                   ),
+                if (offers.length > 0)
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10),
-                    child: TextFormField(
-                      obscureText: true,
-                      keyboardType: TextInputType.number,
-                      controller: _passwordController,
-                      enabled: true,
+
+                    child: DropdownButtonFormField<OffersResponse>(
                       decoration: InputDecoration(
-                          labelText: 'Current Password',
+                          labelText: 'Offer',
                           border: OutlineInputBorder()),
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      items: offers.map((e) => DropdownMenuItem(child: Text(e.name!),value: e,)).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOffer = value;
+                        });
+                        // var val = allSettings!.firstWhere((element) => element.key == value);
+                        // _backendMobileController.text = val.value!;
+                      },
                     ),
                   ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: TextFormField(
+                    obscureText: true,
+                    controller: _passwordController,
+                    enabled: true,
+                    decoration: InputDecoration(
+                        labelText: 'Current Password',
+                        border: OutlineInputBorder()),
+                  ),
+                ),
               ],
+            ),
+            Container(
+              height: 150,
             ),
             Positioned(
               bottom: 20,
@@ -127,49 +190,60 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                   setState(() {
                     _isLoading = true;
                   });
-                  if(widget.type == TransactionType.DEPOSIT){
+                  if (widget.type == TransactionType.DEPOSIT) {
                     var depositData = {
-                      "amount" : _amountController.text,
-                      "mobile" : _mobileController.text,
-                      "backend_mobile" : _backendMobileController.text,
-                      "password" : _passwordController.text,
+                      "amount": _amountController.text,
+                      "mobile": _mobileController.text,
+                      "backend_mobile": _backendMobileController.text,
+                      "password": _passwordController.text,
+                      "campaign_id" : selectedOffer?.id.toString()
                     };
                     print(depositData);
-                    var response = await TransactionService().deposit(depositData);
+                    var response =
+                        await TransactionService().deposit(depositData);
 
-                    if(response.statusCode == 200){
+                    if (response.statusCode == 200) {
                       // success
-                      showCustomSimpleNotification("Deposit Request added successfully.", Colors.green);
+                      showCustomSimpleNotification(
+                          "Deposit Request added successfully.", Colors.green);
                       Navigator.pop(context);
-                    }else if(response.statusCode == 401){
+                    } else if (response.statusCode == 401) {
                       // failed validation failed
-                      showCustomSimpleNotification("Make sure you've entered correct amount, contact Number & password.", Colors.yellow);
-                    }else{
+                      showCustomSimpleNotification(
+                          "Make sure you've entered correct amount, contact Number & password.",
+                          Colors.yellow);
+                    } else {
                       // something else wrong
-                      showCustomSimpleNotification("Something went wrong. Contact Admin.", Colors.red);
+                      showCustomSimpleNotification(
+                          "Something went wrong. Contact Admin.", Colors.red);
                     }
                     setState(() {
                       _isLoading = false;
                     });
-                  }else{
+                  } else {
                     var withdrawData = {
-                      "amount" : _amountController.text,
-                      "mobile" : _mobileController.text,
-                      "payment_type" : _paymentTypeController.text,
-                      "password" : _passwordController.text,
+                      "amount": _amountController.text,
+                      "mobile": _mobileController.text,
+                      "payment_type": _paymentTypeController.text,
+                      "password": _passwordController.text,
                     };
-                    var response = await TransactionService().withdraw(withdrawData);
+                    var response =
+                        await TransactionService().withdraw(withdrawData);
 
-                    if(response.statusCode == 200){
+                    if (response.statusCode == 200) {
                       // success
-                      showCustomSimpleNotification("Withdraw Request added successfully.", Colors.green);
+                      showCustomSimpleNotification(
+                          "Withdraw Request added successfully.", Colors.green);
                       Navigator.pop(context);
-                    }else if(response.statusCode == 401){
+                    } else if (response.statusCode == 401) {
                       // failed validation failed
-                      showCustomSimpleNotification("Make sure you've entered correct amount, contact Number & password.", Colors.yellow);
-                    }else{
+                      showCustomSimpleNotification(
+                          "Make sure you've entered correct amount, contact Number & password.",
+                          Colors.yellow);
+                    } else {
                       // something else wrong
-                      showCustomSimpleNotification("Something went wrong. Contact Admin.", Colors.red);
+                      showCustomSimpleNotification(
+                          "Something went wrong. Contact Admin.", Colors.red);
                     }
                     setState(() {
                       _isLoading = false;
@@ -184,10 +258,12 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: _isLoading ? CircularProgressIndicator() : Text(
-                      "Submit",
-                      style: getDefaultTextStyle(size: 14.sp),
-                    ),
+                    child: _isLoading
+                        ? CircularProgressIndicator()
+                        : Text(
+                            "Submit",
+                            style: getDefaultTextStyle(size: 14.sp),
+                          ),
                   ),
                 ),
               ),

@@ -5,10 +5,10 @@ INJECTED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:1:1-50:1
 INJECTED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:1:1-50:12
 INJECTED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:1:1-50:12
 MERGED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:1:1-50:12
+MERGED from [:shared_preferences_android] E:\Flutter\op123\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:firebase_remote_config] E:\Flutter\op123\build\firebase_remote_config\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_messaging] E:\Flutter\op123\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-46:12
 MERGED from [:firebase_core] E:\Flutter\op123\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
-MERGED from [:shared_preferences] E:\Flutter\op123\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:url_launcher_android] E:\Flutter\op123\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:device_info_plus] E:\Flutter\op123\build\device_info_plus\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_secure_storage] E:\Flutter\op123\build\flutter_secure_storage\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
@@ -38,23 +38,25 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.0.0] C:
 MERGED from [com.google.android.gms:play-services-measurement-base:20.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\fd385550d7de69d9b4c13089dd2d51ca\jetified-play-services-measurement-base-20.0.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-basement:17.2.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae41c966322a9416610e62dc0f6fe6c8\jetified-play-services-basement-17.2.1\AndroidManifest.xml:17:1-28:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\4ead4a41cc8b337b790d86429dcc7418\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.activity:activity:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\a530992fa67cbeb397fb094b8a1a22dc\jetified-activity-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\7f810de1d48f35aaf9cad7d49b3dc285\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\40fa03cbf711c9b5abc7c7080df34e94\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\a530992fa67cbeb397fb094b8a1a22dc\jetified-activity-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8fc41d1d021f97e69fbb6d77f999706d\customview-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.core:core:1.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.core:core:1.6.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\e491a17ea3905cf4e8cc01da5acf5904\lifecycle-runtime-2.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\dba0871f5234d26df488af8865310f6f\jetified-savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\af5ac34d8217e841163337c0c136aaf0\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ad25664bdc2a6562f93cfb70f44807df\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\d411f9c3365264c9de8e991a9ee2b384\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-components:17.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\e5f0c7957424a546e9da21a08a739815\jetified-firebase-components-17.0.0\AndroidManifest.xml:15:1-23:12
 MERGED from [com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\c5692f6811ef7c87c9b9d941d59ba249\jetified-transport-runtime-3.0.0\AndroidManifest.xml:15:1-41:12
 MERGED from [com.google.android.datatransport:transport-api:3.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\5f302aa8aa4cd11e8ccfdfd58f34bb66\jetified-transport-api-3.0.0\AndroidManifest.xml:15:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae5cd4776f4503a44a7812883c5a3277\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\454fd5669506c3ed5fdcf7b2ff03abe6\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ff60b25419edc5e682541efdbdc701d8\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\0341135a479a1847e64dc720fa73a9d9\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8b0cce3f36a1c28e7df6e72849a13547\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\1d4efdb868696ea36efd004abeb8239d\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\2be4a00b738a307c9b0b855eef46b421\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
 INJECTED from E:\Flutter\op123\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from E:\Flutter\op123\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from E:\Flutter\op123\android\app\src\debug\AndroidManifest.xml:1:1-7:12
@@ -144,14 +146,14 @@ MERGED from [com.google.android.gms:play-services-measurement-base:20.0.0] C:\Us
 MERGED from [com.google.android.gms:play-services-measurement-base:20.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\fd385550d7de69d9b4c13089dd2d51ca\jetified-play-services-measurement-base-20.0.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-basement:17.2.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae41c966322a9416610e62dc0f6fe6c8\jetified-play-services-basement-17.2.1\AndroidManifest.xml:22:5-26:19
 MERGED from [com.google.android.gms:play-services-basement:17.2.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae41c966322a9416610e62dc0f6fe6c8\jetified-play-services-basement-17.2.1\AndroidManifest.xml:22:5-26:19
-MERGED from [androidx.core:core:1.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\AndroidManifest.xml:24:5-89
-MERGED from [androidx.core:core:1.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.6.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.6.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\AndroidManifest.xml:24:5-89
 MERGED from [com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\c5692f6811ef7c87c9b9d941d59ba249\jetified-transport-runtime-3.0.0\AndroidManifest.xml:25:5-39:19
 MERGED from [com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\c5692f6811ef7c87c9b9d941d59ba249\jetified-transport-runtime-3.0.0\AndroidManifest.xml:25:5-39:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\454fd5669506c3ed5fdcf7b2ff03abe6\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\454fd5669506c3ed5fdcf7b2ff03abe6\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ff60b25419edc5e682541efdbdc701d8\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ff60b25419edc5e682541efdbdc701d8\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\AndroidManifest.xml:24:18-86
+		ADDED from [androidx.core:core:1.6.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\AndroidManifest.xml:24:18-86
 	android:label
 		ADDED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:6:9-30
 	android:icon
@@ -214,14 +216,14 @@ uses-sdk
 INJECTED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml
 INJECTED from E:\Flutter\op123\android\app\src\main\AndroidManifest.xml
+MERGED from [:shared_preferences_android] E:\Flutter\op123\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] E:\Flutter\op123\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_remote_config] E:\Flutter\op123\build\firebase_remote_config\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_remote_config] E:\Flutter\op123\build\firebase_remote_config\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_messaging] E:\Flutter\op123\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_messaging] E:\Flutter\op123\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] E:\Flutter\op123\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] E:\Flutter\op123\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:shared_preferences] E:\Flutter\op123\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:shared_preferences] E:\Flutter\op123\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:url_launcher_android] E:\Flutter\op123\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:url_launcher_android] E:\Flutter\op123\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:device_info_plus] E:\Flutter\op123\build\device_info_plus\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -280,16 +282,16 @@ MERGED from [com.google.android.gms:play-services-basement:17.2.1] C:\Users\ysha
 MERGED from [com.google.android.gms:play-services-basement:17.2.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae41c966322a9416610e62dc0f6fe6c8\jetified-play-services-basement-17.2.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\4ead4a41cc8b337b790d86429dcc7418\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\4ead4a41cc8b337b790d86429dcc7418\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.activity:activity:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\a530992fa67cbeb397fb094b8a1a22dc\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.activity:activity:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\a530992fa67cbeb397fb094b8a1a22dc\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\7f810de1d48f35aaf9cad7d49b3dc285\viewpager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\7f810de1d48f35aaf9cad7d49b3dc285\viewpager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\40fa03cbf711c9b5abc7c7080df34e94\loader-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\40fa03cbf711c9b5abc7c7080df34e94\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\a530992fa67cbeb397fb094b8a1a22dc\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\a530992fa67cbeb397fb094b8a1a22dc\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8fc41d1d021f97e69fbb6d77f999706d\customview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8fc41d1d021f97e69fbb6d77f999706d\customview-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core:1.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.6.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.6.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\e491a17ea3905cf4e8cc01da5acf5904\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\e491a17ea3905cf4e8cc01da5acf5904\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\dba0871f5234d26df488af8865310f6f\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
@@ -298,6 +300,8 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\ysham\.gradle
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\af5ac34d8217e841163337c0c136aaf0\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ad25664bdc2a6562f93cfb70f44807df\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ad25664bdc2a6562f93cfb70f44807df\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\d411f9c3365264c9de8e991a9ee2b384\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\d411f9c3365264c9de8e991a9ee2b384\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-components:17.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\e5f0c7957424a546e9da21a08a739815\jetified-firebase-components-17.0.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.firebase:firebase-components:17.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\e5f0c7957424a546e9da21a08a739815\jetified-firebase-components-17.0.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\c5692f6811ef7c87c9b9d941d59ba249\jetified-transport-runtime-3.0.0\AndroidManifest.xml:18:5-20:41
@@ -306,14 +310,16 @@ MERGED from [com.google.android.datatransport:transport-api:3.0.0] C:\Users\ysha
 MERGED from [com.google.android.datatransport:transport-api:3.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\5f302aa8aa4cd11e8ccfdfd58f34bb66\jetified-transport-api-3.0.0\AndroidManifest.xml:18:5-20:41
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae5cd4776f4503a44a7812883c5a3277\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ae5cd4776f4503a44a7812883c5a3277\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\454fd5669506c3ed5fdcf7b2ff03abe6\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\454fd5669506c3ed5fdcf7b2ff03abe6\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ff60b25419edc5e682541efdbdc701d8\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\ff60b25419edc5e682541efdbdc701d8\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\0341135a479a1847e64dc720fa73a9d9\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\0341135a479a1847e64dc720fa73a9d9\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8b0cce3f36a1c28e7df6e72849a13547\print-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8b0cce3f36a1c28e7df6e72849a13547\print-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\1d4efdb868696ea36efd004abeb8239d\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\1d4efdb868696ea36efd004abeb8239d\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\2be4a00b738a307c9b0b855eef46b421\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\2be4a00b738a307c9b0b855eef46b421\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
 INJECTED from E:\Flutter\op123\android\app\src\debug\AndroidManifest.xml
 INJECTED from E:\Flutter\op123\android\app\src\debug\AndroidManifest.xml
 	android:targetSdkVersion

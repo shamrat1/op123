@@ -1,5 +1,7 @@
 import 'package:OnPlay365/app/constants/TextDefaultStyle.dart';
+import 'package:OnPlay365/app/constants/globals.dart';
 import 'package:OnPlay365/app/models/Club.dart';
+import 'package:OnPlay365/app/models/GeneralResponse.dart';
 import 'package:OnPlay365/app/services/RemoteService.dart';
 import 'package:OnPlay365/app/states/StateManager.dart';
 import 'package:OnPlay365/views/widgets/StaticAppBar.dart';
@@ -18,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
   var selectedClub = "Select Club";
   int selectedClubId = 0;
   List<Club> clubs = [];
+  bool loading = false;
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -44,6 +47,54 @@ class _ProfilePageState extends State<ProfilePage> {
       _sponserController.text = user.sponserEmail!;
       selectedClubId = user.clubId!;
     });
+  }
+
+  void _updateUserInfo() async {
+    if(_currentPasswordController.text.length > 0){
+      if(_passwordController.text.length > 0){
+        if(_passwordController.text.length > 7 && _passwordController.text == _passwordConfirmation.text){
+
+        }else{
+          showCustomSimpleNotification("New Passwords Must be of 8 or more characters & Password Confirmation should be same as new password.", Colors.red);
+          return;
+        }
+      }
+      var data = {
+        "name" : _nameController.text,
+        "email" : _emailController.text,
+        "country" : _countryController.text,
+        "club_id" : selectedClubId,
+        "mobile" : _mobileController.text,
+        "password" : _currentPasswordController.text,
+        "new_password" : _passwordController.text,
+        "new_password_confirmation" : _passwordConfirmation.text,
+      };
+      setState(() {
+        loading = true;
+      });
+      var response = await RemoteService().updareUserInfo(data);
+      if(response.statusCode == 200){
+        showCustomSimpleNotification("User Info Updated", Colors.blue);
+        var generalResponse = generalResponseFromMap(response.body);
+        context.read(authUserProvider.notifier).change(generalResponse.user!);
+        setState(() {
+          loading = false;
+        });
+        Navigator.pop(context);
+      }else if(response.statusCode == 401){
+        showCustomSimpleNotification(response.body, Colors.amber);
+      }else{
+        print(response.body);
+        showCustomSimpleNotification("${response.statusCode} Something went wrong.", Colors.red);
+      }
+      setState(() {
+        loading = false;
+      });
+    }else{
+      showCustomSimpleNotification("Enter The Current Password.", Colors.red);
+      return;
+    }
+
   }
 
   @override
@@ -168,6 +219,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
+              if(isEditingEnabled)
+              ...[
               Divider(
                 color: Colors.black,
               ),
@@ -175,10 +228,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 margin: margin,
                 child: TextFormField(
                   controller: _passwordController,
+                  obscureText: true,
                   decoration: InputDecoration(
                       enabled: isEditingEnabled,
                       labelText: "Password",
                       border: OutlineInputBorder(),
+
                       hintText: "Password"),
                 ),
               ),
@@ -186,6 +241,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 margin: margin,
                 child: TextFormField(
                   controller: _passwordConfirmation,
+                  obscureText: true,
+
                   decoration: InputDecoration(
                       enabled: isEditingEnabled,
                       labelText: "Password Confirmation",
@@ -200,6 +257,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 margin: margin,
                 child: TextFormField(
                   controller: _currentPasswordController,
+                  obscureText: true,
+
                   decoration: InputDecoration(
                     enabled: isEditingEnabled,
                     labelText: "Current Password *",
@@ -211,22 +270,28 @@ class _ProfilePageState extends State<ProfilePage> {
               Divider(
                 color: Colors.black,
               ),
-              Container(
-                  margin: EdgeInsets.all(30),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  height: 50,
-                  width: MediaQuery.of(context).size.width * .50,
-                  child: Center(
-                    child: Text(
-                      "Update",
-                      style: getDefaultTextStyle(
-                        size: 18,
-                      ),
+              InkWell(
+                onTap: (){
+                  _updateUserInfo();
+                },
+                child: Container(
+                    margin: EdgeInsets.all(30),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).backgroundColor,
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  )),
+                    height: 50,
+                    width: MediaQuery.of(context).size.width * .50,
+                    child: Center(
+                      child: loading ? CircularProgressIndicator() : Text(
+                        "Update",
+                        style: getDefaultTextStyle(
+                          size: 18,
+                        ),
+                      ),
+                    )),
+              ),
+                ]
             ],
           ),
         ),

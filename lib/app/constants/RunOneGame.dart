@@ -45,7 +45,32 @@ class RunSixGame {
     9: GameOptionType.dot_ball,
   };
 }
-
+class T10Game {
+  final Map<int, GameOptionType> labels = {
+    1: GameOptionType.run_1,
+    2: GameOptionType.no_ball,
+    3: GameOptionType.run_2,
+    4: GameOptionType.wide_ball,
+    5: GameOptionType.run_3,
+    6: GameOptionType.wicket,
+    7: GameOptionType.run_4,
+    8: GameOptionType.run_6,
+    9: GameOptionType.dot_ball,
+  };
+}
+class T20Game {
+  final Map<int, GameOptionType> labels = {
+    1: GameOptionType.run_1,
+    2: GameOptionType.no_ball,
+    3: GameOptionType.run_2,
+    4: GameOptionType.wide_ball,
+    5: GameOptionType.run_3,
+    6: GameOptionType.wicket,
+    7: GameOptionType.run_4,
+    8: GameOptionType.run_6,
+    9: GameOptionType.dot_ball,
+  };
+}
 class RunFourGame {
   final Map<int, GameOptionType> labels = {
     1: GameOptionType.run_1,

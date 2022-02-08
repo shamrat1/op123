@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
@@ -41,12 +42,13 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   bool _updateAvailable = false;
   String _updateNote = "";
+  String status = "live";
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   late TabController _tabController;
+  late Timer _timer;
   int _selectedTab = 0;
 
-  
   void _initFirebaseMessingConfigs() async {
     NotificationSettings settings = await _firebaseMessaging.requestPermission(
       alert: true,
@@ -101,12 +103,24 @@ class _MyHomePageState extends State<MyHomePage>
       // var string = json.encode(context.read(messageListProvider));
       // await FlutterSecureStorage().write(key: "notifications", value: string);
     });
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(() {
       setState(() {
         _selectedTab = _tabController.index;
+        if(_selectedTab == 1){
+          context.read(matchParamProvider.notifier).change("status=live&sport=all");
+        }
+        if(_selectedTab == 2){
+          context.read(matchParamProvider.notifier).change("status=upcoming&sport=all");
+        }
       });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timer.isActive) _timer.cancel();
   }
 
   void _initialRemoteConfig() async {
@@ -124,6 +138,9 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void _initialSetup() async {
+    // Timer.periodic(Duration(seconds: 25), (timer) {
+    //   context.refresh(matchesProvider);
+    // });
     var storage = FlutterSecureStorage();
     var token = await storage.read(key: tokenKey);
     var user = await storage.read(key: userKey);
@@ -179,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
     return InkWell(
       onTap: () {
-        print(slug);
+        context.read(matchParamProvider.notifier).change("sport=$slug&status=$status");
       },
       child: Container(
         width: 30,
@@ -207,6 +224,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   Widget _getGames() {
+   var settings = context.read(settingResponseProvider);
     return GridView.count(
       crossAxisCount: 2,
       children: [
@@ -232,7 +250,12 @@ class _MyHomePageState extends State<MyHomePage>
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               // padding: EdgeInsets.only(top: 10, left: 15),
-              child: Image.asset("assets/images/head.png"),
+              child: Image.network(settings!.settings!.firstWhere((element) => element.key == "game-coin-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/head.png");
+                },
+              ),
             ),
           ),
         ),
@@ -247,7 +270,12 @@ class _MyHomePageState extends State<MyHomePage>
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               // padding: EdgeInsets.only(top: 10, left: 15),
-              child: Image.asset("assets/images/opg2-01.png"),
+              child: Image.network(settings.settings?.firstWhere((element) => element.key == "game-run-2-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/opg2-01.png");
+                },
+              ),
             ),
           ),
         ),
@@ -262,7 +290,13 @@ class _MyHomePageState extends State<MyHomePage>
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               // padding: EdgeInsets.only(top: 10, left: 15),
-              child: Image.asset("assets/images/opg3-01.png"),
+              // child: Image.asset("assets/images/opg3-01.png"),
+              child: Image.network(settings.settings!.firstWhere((element) => element.key == "game-run-3-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/opg3-01.png");
+                },
+              ),
             ),
           ),
         ),
@@ -277,7 +311,35 @@ class _MyHomePageState extends State<MyHomePage>
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               // padding: EdgeInsets.only(top: 10, left: 15),
-              child: Image.asset("assets/images/opg4-01.png"),
+              // child: Image.asset("assets/images/opg4-01.png"),
+              child: Image.network(settings.settings!.firstWhere((element) => element.key == "game-run-4-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/opg4-01.png");
+                },
+              ),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => _showStartGameDialog("Run 6", Games.RUN_6),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              // child: Image.asset("assets/images/opg6-01.png"),
+              child: Image.network(settings.settings!.firstWhere((element) => element.key == "game-run-6-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/opg6-01.png");
+                },
+              ),
+
             ),
           ),
         ),
@@ -293,12 +355,18 @@ class _MyHomePageState extends State<MyHomePage>
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               // padding: EdgeInsets.only(top: 10, left: 15),
-              child: Image.asset("assets/images/opg6-01.png"),
+              // child: Image.asset("assets/images/opg6-01.png"),
+              child: Image.network(settings.settings!.firstWhere((element) => element.key == "game-run-6-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/opg6-01.png");
+                },
+              ),
             ),
           ),
         ),
         InkWell(
-          onTap: () => _showStartGameDialog("Run 6", Games.RUN_6),
+          onTap: () => _showStartGameDialog("T10", Games.GAME_T10),
           child: Container(
             height: 40,
             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
@@ -308,10 +376,41 @@ class _MyHomePageState extends State<MyHomePage>
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               // padding: EdgeInsets.only(top: 10, left: 15),
-              child: Image.asset("assets/images/opg6-01.png"),
+              // child: Image.asset("assets/images/opg6-01.png"),
+              child: Image.network(settings.settings!.firstWhere((element) => element.key == "game-run-t10-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/opg6-01.png");
+                },
+              ),
+
             ),
           ),
         ),
+
+        InkWell(
+          onTap: () => _showStartGameDialog("T20", Games.GAME_T20),
+          child: Container(
+            height: 40,
+            margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            width: MediaQuery.of(context).size.width - 16,
+            decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              // padding: EdgeInsets.only(top: 10, left: 15),
+              // child: Image.asset("assets/images/opg6-01.png"),
+              child: Image.network(settings.settings!.firstWhere((element) => element.key == "game-run-t20-image").value ?? "value",
+                errorBuilder: (context, object, trace){
+                  print("error block");
+                  return Image.asset("assets/images/opg6-01.png");
+                },
+              ),
+
+            ),
+          ),
+        ),
+
       ],
     );
 
@@ -550,7 +649,7 @@ class _MyHomePageState extends State<MyHomePage>
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => BoardGame(
-              title: "Board Game (2 Run)",
+              title: "2 Run",
               totalSpinsAllowed: 1,
               type: type,
             ),
@@ -572,7 +671,7 @@ class _MyHomePageState extends State<MyHomePage>
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => BoardGame(
-              title: "Board Game (3 Run)",
+              title: "3 Run",
               totalSpinsAllowed: 1,
               type: type,
             ),
@@ -583,7 +682,7 @@ class _MyHomePageState extends State<MyHomePage>
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => BoardGame(
-              title: "Board Game (4 Run)",
+              title: "4 Run",
               totalSpinsAllowed: 1,
               type: type,
             ),
@@ -594,8 +693,30 @@ class _MyHomePageState extends State<MyHomePage>
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => BoardGame(
-              title: "Board Game (6 Run)",
+              title: "6 Run",
               totalSpinsAllowed: 1,
+              type: type,
+            ),
+          ),
+        );
+        return;
+      case Games.GAME_T10:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BoardGame(
+              title: "T10",
+              totalSpinsAllowed: 10,
+              type: type,
+            ),
+          ),
+        );
+        return;
+      case Games.GAME_T20:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BoardGame(
+              title: "T20",
+              totalSpinsAllowed: 20,
               type: type,
             ),
           ),
@@ -700,16 +821,23 @@ class _MyHomePageState extends State<MyHomePage>
                             controller: _tabController,
                             tabs: [
                               Tab(
+                                icon:
+                                _setTabBarTile("Games", _selectedTab == 0),
+                              ),
+                              Tab(
                                 icon: _setTabBarTile(
-                                    "Live", _tabController.index == 0),
+                                    "Live", _tabController.index == 1),
+                              ),
+                              Tab(
+                                icon: _setTabBarTile(
+                                    "Upcoming", _tabController.index == 2),
+
                               ),
                               // Tab(
                               //   icon: _setTabBarTile("Upcoming", _selectedTab == 1),
+                              //
                               // ),
-                              Tab(
-                                icon:
-                                    _setTabBarTile("Games", _selectedTab == 1),
-                              ),
+
                             ],
                           )))
                 ];
@@ -719,8 +847,10 @@ class _MyHomePageState extends State<MyHomePage>
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    _tabOne(),
                     _getGames(),
+                    _tabOne(),
+                    _tabOne(),
+
                   ],
                 ),
               ),

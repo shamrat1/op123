@@ -2,17 +2,27 @@ import 'dart:convert';
 
 import 'package:OnPlay365/app/constants/globals.dart';
 import 'package:OnPlay365/app/models/GeneralResponse.dart';
+import 'package:OnPlay365/app/models/OffersResponse.dart';
 import 'package:OnPlay365/app/models/TransactionResponse.dart';
 import 'package:OnPlay365/app/services/RemoteService.dart';
 import 'package:http/http.dart' as http;
 
 class TransactionService {
+
   Future<TransactionsResponse> allTransactions(String? type) async {
     var url = rootUrl + "transactions?type=$type";
     var headers = await RemoteService.getAuthenticatedHeader();
     var response = await http.get(Uri.parse(url), headers: headers);
 
     return transactionsResponseFromMap(response.body);
+  }
+
+  Future<List<OffersResponse>> allOffers() async {
+    var url = rootUrl + "offers";
+    var headers = await RemoteService.getAuthenticatedHeader();
+    var response = await http.get(Uri.parse(url), headers: headers);
+
+    return offersResponseFromJson(response.body);
   }
 
   Future<http.Response> deposit(Map<String, dynamic> data) async {

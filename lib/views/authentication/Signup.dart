@@ -264,6 +264,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 email: _emailController.text,
                                 name: _nameController.text,
                                 clubId: selectedClubId,
+                                phone: _mobileController.text,
                                 country: _countryController.text)
                             .register();
                       },

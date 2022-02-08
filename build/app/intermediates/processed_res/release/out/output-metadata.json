@@ -16,7 +16,7 @@
         }
       ],
       "versionCode": 4001,
-      "versionName": "1.0.2",
+      "versionName": "1.0.4",
       "outputFile": "resources-x86_64Release.ap_"
     },
     {
@@ -28,7 +28,7 @@
         }
       ],
       "versionCode": 1001,
-      "versionName": "1.0.2",
+      "versionName": "1.0.4",
       "outputFile": "resources-armeabi-v7aRelease.ap_"
     },
     {
@@ -40,7 +40,7 @@
         }
       ],
       "versionCode": 2001,
-      "versionName": "1.0.2",
+      "versionName": "1.0.4",
       "outputFile": "resources-arm64-v8aRelease.ap_"
     }
   ]

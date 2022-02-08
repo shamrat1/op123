@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.op.app"
     android:versionCode="2001"
-    android:versionName="1.0.2" >
+    android:versionName="1.0.4" >
 
     <uses-sdk
         android:minSdkVersion="20"
@@ -26,7 +26,7 @@
     <application
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:icon="@mipmap/launcher_icon"
-        android:label="op123" >
+        android:label="OP365" >
         <activity
             android:name="com.example.op123.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

@@ -2,7 +2,7 @@
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.op.app"
 4    android:versionCode="4001"
-5    android:versionName="1.0.2" >
+5    android:versionName="1.0.4" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="20"
@@ -44,10 +44,10 @@
 26    <application
 26-->E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:5:4-43:19
 27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-27-->[androidx.core:core:1.2.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\23dce2c664a62757c7c9eebc0507a723\core-1.2.0\AndroidManifest.xml:24:18-86
+27-->[androidx.core:core:1.6.0] C:\Users\ysham\.gradle\caches\transforms-2\files-2.1\8ec5a4192b12a309556d408337153575\core-1.6.0\AndroidManifest.xml:24:18-86
 28        android:icon="@mipmap/launcher_icon"
 28-->E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:7:9-45
-29        android:label="op123" >
+29        android:label="OP365" >
 29-->E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:6:9-30
 30        <activity
 30-->E:\Flutter\op123\android\app\src\main\AndroidManifest.xml:8:9-37:20

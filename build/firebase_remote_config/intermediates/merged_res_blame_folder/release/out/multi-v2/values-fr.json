@@ -4,6 +4,23 @@
             "outputFile": "E:\\Flutter\\op123\\build\\firebase_remote_config\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-fr\\values-fr.xml",
             "map": [
                 {
+                    "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\values-fr\\values-fr.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "329",
+                        "endColumns": "100",
+                        "endOffsets": "425"
+                    }
+                },
+                {
                     "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\ae41c966322a9416610e62dc0f6fe6c8\\jetified-play-services-basement-17.2.1\\res\\values-fr\\values.xml",
                     "from": {
                         "startLines": "4",
@@ -18,23 +35,6 @@
                         "startOffsets": "105",
                         "endColumns": "223",
                         "endOffsets": "324"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\23dce2c664a62757c7c9eebc0507a723\\core-1.2.0\\res\\values-fr\\values-fr.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "329",
-                        "endColumns": "100",
-                        "endOffsets": "425"
                     }
                 }
             ]
@@ -43,6 +43,23 @@
             "outputFile": "E:\\Flutter\\op123\\build\\firebase_remote_config\\intermediates\\res\\merged\\release\\values-fr\\values-fr.xml",
             "map": [
                 {
+                    "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\8ec5a4192b12a309556d408337153575\\core-1.6.0\\res\\values-fr\\values-fr.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "329",
+                        "endColumns": "100",
+                        "endOffsets": "425"
+                    }
+                },
+                {
                     "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\ae41c966322a9416610e62dc0f6fe6c8\\jetified-play-services-basement-17.2.1\\res\\values-fr\\values.xml",
                     "from": {
                         "startLines": "4",
@@ -57,23 +74,6 @@
                         "startOffsets": "105",
                         "endColumns": "223",
                         "endOffsets": "324"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ysham\\.gradle\\caches\\transforms-2\\files-2.1\\23dce2c664a62757c7c9eebc0507a723\\core-1.2.0\\res\\values-fr\\values-fr.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "329",
-                        "endColumns": "100",
-                        "endOffsets": "425"
                     }
                 }
             ]

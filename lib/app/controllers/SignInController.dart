@@ -41,7 +41,6 @@ class SignInController {
         "device_id" : await _getDeviceId(),
       };
       var response = await _authenticationService.signIn(data);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         try {
           _handleAuthenticatedUser(response);
