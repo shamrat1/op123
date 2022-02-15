@@ -157,7 +157,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                 color: Theme.of(context).accentColor,
               ),
               title: Text(
-                "Coins ${watch(creditProvider)} $currencylogoText",
+                "Coins ${watch(creditProvider)[0]} $currencylogoText" + (watch(creditProvider)[1] > 0 ? "\nPoint ${watch(creditProvider)[1].toString()}" : ""),
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               subtitle: Text(

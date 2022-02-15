@@ -225,6 +225,10 @@ class _MyHomePageState extends State<MyHomePage>
 
   Widget _getGames() {
    var settings = context.read(settingResponseProvider);
+
+   if(settings == null){
+     return MatchesLoadingScreen();
+   }
     return GridView.count(
       crossAxisCount: 2,
       children: [
@@ -250,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage>
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               // padding: EdgeInsets.only(top: 10, left: 15),
-              child: Image.network(settings!.settings!.firstWhere((element) => element.key == "game-coin-image").value ?? "value",
+              child: Image.network(settings.settings!.firstWhere((element) => element.key == "game-coin-image").value ?? "value",
                 errorBuilder: (context, object, trace){
                   print("error block");
                   return Image.asset("assets/images/head.png");
@@ -389,6 +393,7 @@ class _MyHomePageState extends State<MyHomePage>
         ),
 
         InkWell(
+          // onTap: () => print(settings.settings!.firstWhere((element) => element.key == "game-run-t20-image").value),
           onTap: () => _showStartGameDialog("T20", Games.GAME_T20),
           child: Container(
             height: 40,
@@ -771,7 +776,7 @@ class _MyHomePageState extends State<MyHomePage>
                         onTap: () {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(
-                                  "You've ${context.read(creditProvider)} coins in the wallet currently.")));
+                                  "You've ${context.read(creditProvider)[0]} coins and ${context.read(creditProvider)[1]} points in the wallet currently.")));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

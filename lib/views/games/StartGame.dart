@@ -58,7 +58,10 @@ class _StartGameDialogState extends State<StartGameDialog> {
         return "game-run-6-rate";
       case Games.RUN_6_OVER:
         return "game-run-6-rate";
-
+      case Games.GAME_T10:
+        return "game-run-an-t10-rate";
+      case Games.GAME_T20:
+        return "game-run-an-t20-rate";
       default:
         Navigator.of(context).pop();
         toast("Something Went wrong");
@@ -78,8 +81,11 @@ class _StartGameDialogState extends State<StartGameDialog> {
       child: Consumer(builder: (context, watch, child) {
         var settingProvider = watch(settingResponseProvider)?.settings;
         var setting = settingProvider
-            ?.firstWhere((element) => element.key == _getGameKey());
-
+            ?.firstWhere((element){
+              print("${element.key} | ${element.value}");
+              return  element.key == _getGameKey();
+        });
+        print("game key : $_getGameKey()");
         var splited = setting?.value.toString().split(",");
         var rates = <GameRates>[];
         // print(splited);

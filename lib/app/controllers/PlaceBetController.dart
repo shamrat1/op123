@@ -38,7 +38,7 @@ class PlacedBetController {
       if (response.statusCode == 200) {
         print(response.body);
 
-        var creditProviderState = context.read(creditProvider);
+        var creditProviderState = context.read(creditProvider)[0];
         context
             .read(creditProvider.notifier)
             .change(creditProviderState - double.parse(amount!));
