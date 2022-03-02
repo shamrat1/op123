@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1714184961/android.device_info_plus.iml" filepath="$PROJECT_DIR$/.idea/modules/1714184961/android.device_info_plus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/979912621/android.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/979912621/android.firebase_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1657387976/android.firebase_messaging.iml" filepath="$PROJECT_DIR$/.idea/modules/-1657387976/android.firebase_messaging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/970818398/android.firebase_remote_config.iml" filepath="$PROJECT_DIR$/.idea/modules/970818398/android.firebase_remote_config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/986230679/android.flutter_secure_storage.iml" filepath="$PROJECT_DIR$/.idea/modules/986230679/android.flutter_secure_storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1394619725/android.shared_preferences_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-1394619725/android.shared_preferences_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1927636050/android.url_launcher_android.iml" filepath="$PROJECT_DIR$/.idea/modules/1927636050/android.url_launcher_android.iml" />
+    </modules>
+  </component>
+</project>
